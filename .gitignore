@@ -58,4 +58,7 @@ nbdist/
 # Ignore all local history of files
 .history
 
-# End of https://www.gitignore.io/api/java,netbeans,java-web,code-java,visualstudiocode
+### 
+
+config/
+config/**
