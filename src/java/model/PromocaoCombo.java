@@ -20,5 +20,5 @@ public class PromocaoCombo implements Promocao {
     public String obterPromocao() {
         return "Promoção Combo";
     }
-    
+
 }

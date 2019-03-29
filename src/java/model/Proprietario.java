@@ -11,8 +11,8 @@ package model;
  */
 public class Proprietario extends Pessoa {
 
-    public Proprietario(String cpf, int id, String nome, String email, String senha, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        super(cpf, id, nome, email, senha, cidade, estado, bairro, rua, numero, cep, telefone);
+    public Proprietario(String cpf, String senha, int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
+        super(cpf, senha, id, nome, email, cidade, estado, bairro, rua, numero, cep, telefone);
     }
-    
+
 }

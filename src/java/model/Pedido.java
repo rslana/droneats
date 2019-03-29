@@ -10,22 +10,60 @@ package model;
  * @author ariel
  */
 public class Pedido {
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     private Restaurante restaurante;
     private Cliente cliente;
     private String dataPedido;
     private String horarioPedido;
+    private String dataPagamento;
+    private double valor;
+    private boolean pago;
     
     private int pedidoEstado_id;
     private PedidoEstado estado;
 
-    public Pedido(Restaurante restaurante, Cliente cliente, String dataPedido, String horarioPedido, int pedidoEstado_id, PedidoEstado estado) {
-        this.restaurante = restaurante;
-        this.cliente = cliente;
+    public Pedido(String dataPedido, String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstado_id) {
         this.dataPedido = dataPedido;
         this.horarioPedido = horarioPedido;
+        this.dataPagamento = dataPagamento;
+        this.valor = valor;
+        this.pago = pago;
         this.pedidoEstado_id = pedidoEstado_id;
-        this.estado = estado;
     }
+
+    public String getDataPagamento() {
+        return dataPagamento;
+    }
+
+    public void setDataPagamento(String dataPagamento) {
+        this.dataPagamento = dataPagamento;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
+    public boolean isPago() {
+        return pago;
+    }
+
+    public void setPago(boolean pago) {
+        this.pago = pago;
+    }
+
+    
 
     public int getPedidoEstado_id() {
         return pedidoEstado_id;

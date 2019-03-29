@@ -10,25 +10,23 @@ package model;
  * @author ariel
  */
 public class Produto {
+
     private int id;
     private String descricao;
     private Double preco;
     private String imagem;
-    
+
     private int restaurante_id;
     private Restaurante restaurante;
     private int promocao_id;
     private Promocao promocao;
 
-    public Produto(int id, String descricao, Double preco, String imagem, int restaurante_id, Restaurante restaurante, int promocao_id, Promocao promocao) {
-        this.id = id;
+    public Produto(String descricao, Double preco, String imagem, int restaurante_id, int promocao_id) {
         this.descricao = descricao;
         this.preco = preco;
         this.imagem = imagem;
         this.restaurante_id = restaurante_id;
-        this.restaurante = restaurante;
         this.promocao_id = promocao_id;
-        this.promocao = promocao;
     }
 
     public int getId() {
@@ -78,7 +76,5 @@ public class Produto {
     public void setImagem(String imagem) {
         this.imagem = imagem;
     }
-    
-    
-    
+
 }

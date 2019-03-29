@@ -12,23 +12,20 @@ import java.util.ArrayList;
  * @author ariel
  */
 public class Categoria {
- 
+
     private int id;
     private String nome;
     private ArrayList<Produto> ofertas;
-    
+
     private int restaurante_id;
     private Restaurante restaurante;
 
     public Categoria() {
     }
 
-    public Categoria(int id, String nome, ArrayList<Produto> ofertas, int restaurante_id, Restaurante restaurante) {
-        this.id = id;
+    public Categoria(String nome, int restaurante_id) {
         this.nome = nome;
-        this.ofertas = ofertas;
         this.restaurante_id = restaurante_id;
-        this.restaurante = restaurante;
     }
 
     public int getRestaurante_id() {
@@ -38,7 +35,7 @@ public class Categoria {
     public void setRestaurante_id(int restaurante_id) {
         this.restaurante_id = restaurante_id;
     }
-    
+
     public Restaurante getRestaurante() {
         return restaurante;
     }
@@ -47,8 +44,6 @@ public class Categoria {
         this.restaurante = restaurante;
     }
 
-    
-
     public String getNome() {
         return nome;
     }
@@ -56,7 +51,7 @@ public class Categoria {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -72,6 +67,5 @@ public class Categoria {
     public void setOfertas(ArrayList<Produto> ofertas) {
         this.ofertas = ofertas;
     }
-    
-    
+
 }

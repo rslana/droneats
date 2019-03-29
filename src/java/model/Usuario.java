@@ -10,10 +10,10 @@ package model;
  * @author ariel
  */
 public abstract class Usuario {
+
     private int id;
     private String nome;
     private String email;
-    private String senha;
     private String cidade;
     private String estado;
     private String bairro;
@@ -22,11 +22,10 @@ public abstract class Usuario {
     private String cep;
     private String telefone;
 
-    public Usuario(int id, String nome, String email, String senha, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
+    public Usuario(int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
         this.cidade = cidade;
         this.estado = estado;
         this.bairro = bairro;
@@ -35,8 +34,6 @@ public abstract class Usuario {
         this.cep = cep;
         this.telefone = telefone;
     }
-
-    
 
     public String getNome() {
         return nome;
@@ -52,14 +49,6 @@ public abstract class Usuario {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
     }
 
     public String getCidade() {
@@ -117,7 +106,5 @@ public abstract class Usuario {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-    
-    
-    
+
 }
