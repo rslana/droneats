@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Chettan');
+
+.corpo-login {
+  background-image: url('../images/home_droneats2.png');
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'PT Sans',
+    sans-serif !important;
+}
+
+.div-centro-login {
+  padding: 115px 200px 0px 200px;
+  word-spacing: 5px;
+}
+
+.titulo-login {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.titulo-login h1 {
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 32pt;
+  color: rgb(30, 30, 30) !important;
+}
+
+.form-login {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  /* margin-top: 15px; */
+  margin-bottom: 20px;
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing: .5px;
+  box-shadow: 0px 0px 10px rgb(0, 111, 163, .4);
+  padding: 10px 40px 25px 40px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #FFF;
+}
+
+.form-login h2 {
+  margin-bottom: 25px;
+}
+
+.form-login .form-input {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.form-login .form-input input {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.form-login .form-input textarea {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.form-login .form-input select {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  background-color: #FFF;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.rodape-form-login {
+  text-align: center;
+}
+
+.rodape-form-login a {
+  color: rgb(0, 111, 163);
+  font-weight: 900;
+}

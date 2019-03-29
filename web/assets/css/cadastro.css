@@ -1,0 +1,78 @@
+.div-centro-cadastro {
+  padding: 50px 200px 0px 200px;
+  word-spacing: 5px;
+}
+
+.corpo-login {
+  height: 100%;
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.form-login {
+  width: 90%;
+  max-width: 550px;
+  margin: auto;
+  text-align: center;
+  /* margin-top: 15px; */
+  margin-bottom: 20px;
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing: .5px;
+  box-shadow: 0px 0px 10px rgb(0, 111, 163, .4);
+  padding: 10px 40px 25px 40px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #FFF;
+}
+
+.form-input-left {
+  width: 48%;
+  box-sizing: border-box;
+  float: left;
+}
+
+.form-input-right {
+  width: 48%;
+  box-sizing: border-box;
+  float: right;
+}
+
+.cards-cadastro {
+  width: 80%;
+  padding: 20px;
+  margin: auto;
+  text-align: center;
+}
+
+.card-cadastro {
+  display: inline-block;
+  margin: 10px 20px;
+  padding: 60px 20px 50px 20px;
+  background-color: #FFF;
+  min-width: 200px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px rgba(0, 111, 163, .2);
+  border: solid 4px rgb(255, 255, 255);
+  color: rgb(20, 20, 20);
+}
+
+.card-cadastro:hover {
+  transition: .3s;
+  border: solid 4px rgb(0, 111, 163);
+  color: rgb(0, 111, 163);
+}
+
+.btn-voltar {
+  padding: 10px 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-voltar:hover {
+  transition: .3s;
+  color: rgb(0, 111, 163);
+}
+
+#passo2 {
+  display: none;
+}

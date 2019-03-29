@@ -1,0 +1,70 @@
+.menu {
+  font-family: 'PT Sans',
+    sans-serif !important;
+}
+
+.menu {
+  text-align: left;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  background-color: #FFF;
+  /* display: flex; */
+}
+
+.corpo-menu {
+  display: flex;
+  width: 90% !important;
+  margin: auto;
+  box-sizing: border-box;
+  /* border: solid 1px red; */
+}
+
+.corpo-menu .logo {
+  max-width: 200px;
+}
+
+.corpo-menu div {
+  display: inline-block;
+  /* border: solid 1px red; */
+}
+
+.itens-right {
+  text-align: right !important;
+}
+
+.menu-item {
+  color: rgb(0, 111, 163) !important;
+  padding: 6px 15px;
+  border-radius: 4px;
+  box-shadow: 0px 0px 5px rgb(0, 111, 163, .3);
+  margin-right: 3px;
+  margin-left: 3px;
+}
+
+.menu-item:hover {
+  transition: .3s;
+  background-color: rgba(0, 111, 163, 1);
+  color: #FFF !important;
+  box-shadow: 0px 0px 5px rgb(0, 111, 163, .6);
+}
+
+.menu-item i {
+  margin-right: 10px;
+}
+
+.menu-normalize {
+  margin-bottom: 55px;
+}
+
+.menu h3 {
+  padding: 5px;
+}
+
+.menu h3 a {
+  padding: 18px 10px;
+}
