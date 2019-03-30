@@ -1,0 +1,597 @@
+@import url('https://fonts.googleapis.com/css?family=Lato|PT+Sans');
+@import url('https://fonts.googleapis.com/css?family=Lato|Monoton');
+
+@primary-color: rgb(211, 46, 40);
+@opacity-color-1: rgba(211, 46, 40, 0.6);
+@opacity-color-2: rgba(211, 46, 40, 0.3);
+@opacity-color-3: rgba(211, 46, 40, 0.1);
+
+// ##### GLOBAL
+
+.droneats span {
+  color: @primary-color;
+  text-shadow: 1px 1px 2px @opacity-color-1;
+}
+
+.droneats {
+  text-decoration: none;
+  color: rgb(30, 30, 30) !important;
+}
+
+.droneats:hover {
+  transition: .3s;
+  color: @primary-color  !important;
+  text-shadow: 1px 1px 2px @primary-color;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: rgb(255, 255, 255);
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn-1 {
+  margin-top: 12px;
+  margin-bottom: 18px;
+  background-color: @primary-color;
+  color: #FFF;
+  padding: 10px 30px;
+  width: 100%;
+  border-radius: 4px;
+  border: none;
+  font-family: 'PT Sans',
+    sans-serif;
+  font-size: 11pt;
+  font-weight: 700;
+  letter-spacing: .6px;
+  cursor: pointer;
+  box-shadow: 0 0 10px @opacity-color-1;
+}
+
+.btn-1:hover {
+  transition: .3s;
+  box-shadow: 0 0 10px @primary-color;
+  opacity: .9;
+}
+
+.menu {
+  width: 100%;
+  margin-top: 0px;
+  margin-bottom: 40px;
+  box-shadow: 0 0 2px #366;
+  text-align: center;
+  padding: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.menu div {
+  width: 70%;
+  margin: auto;
+}
+
+.menu h3 {
+  font-family: 'PT Sans',
+    sans-serif;
+  padding: 15px;
+  display: inline-block;
+  margin: 0;
+}
+
+// ##### HOME
+
+.corpo-home * {
+  font-family: 'PT Sans',
+    sans-serif !important;
+}
+
+.titulo-home {
+  background-image: url('../images/food-home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  padding: 60px 100px 50px 180px;
+  margin-bottom: 20px;
+}
+
+.titulo-home h1 {
+  font-size: 34pt;
+  color: #222;
+  text-shadow: 0px 0px 4px #CCC;
+}
+
+.lista-produtos {
+  margin-bottom: 100px;
+}
+
+.item-lista-produtos {
+  padding: 0px 30px 0px 15px;
+  box-shadow: 0 0 2px #366;
+  border-radius: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  text-decoration: none;
+  flex: 1 0 21%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.lista-restaurantes {
+  margin-bottom: 100px;
+}
+
+.item-lista-restaurantes {
+  padding: 0px 30px 0px 15px;
+  box-shadow: 0 0 2px #366;
+  border-radius: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  text-decoration: none;
+  flex: 1 0 21%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  box-shadow: 0 0 2px #366;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.item-lista-restaurantes:hover {
+  transition: .3s;
+  background-color: @opacity-color-3;
+}
+
+.item-lista-restaurantes .p-msg {
+  display: inline-block;
+  width: 80%;
+  vertical-align: middle;
+  font-size: 11pt;
+  color: #000 !important;
+}
+
+.item-lista-restaurantes .p-icon {
+  display: inline-block;
+  width: 18%;
+  min-width: 50px;
+  vertical-align: middle;
+}
+
+.item-lista-restaurantes .p-icon i {
+  padding: 10px;
+  border-radius: 100px;
+  color: #FFF;
+}
+
+@media (max-width: 768px) {
+  .titulo-home {
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .titulo-home h1 {
+    font-size: 26pt;
+    text-shadow: 1px 1px 4px #BBB;
+  }
+}
+
+@media (max-width: 468px) {
+  .titulo-home {
+    padding: 20px 10px;
+  }
+
+  .titulo-home h1 {
+    font-size: 23pt;
+  }
+}
+
+// ##### LOGIN
+
+.corpo-login {
+  position: fixed;
+  width: 100%;
+  background-image: url('../images/home_droneats2.png');
+  background-size: cover;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 'PT Sans',
+    sans-serif !important;
+  overflow: auto;
+}
+
+.div-centro-login {
+  padding: 80px 200px 0px 200px;
+  word-spacing: 5px;
+}
+
+.titulo-login {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 2%;
+}
+
+.titulo-login h1 {
+  vertical-align: middle;
+  display: inline-block;
+  font-size: 32pt;
+  color: rgb(30, 30, 30) !important;
+}
+
+.form-login {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'PT Sans', sans-serif;
+  letter-spacing: .5px;
+  box-shadow: 0px 0px 10px @opacity-color-2;
+  padding: 10px 40px 25px 40px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: #FFF;
+}
+
+.form-login h2 {
+  margin-bottom: 25px;
+}
+
+.form-login .form-input {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.form-login .form-input input {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.form-login .form-input textarea {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.form-login .form-input select {
+  width: 100%;
+  margin: auto;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 2px;
+  border: none;
+  box-shadow: 0px 0px 2px black;
+  box-sizing: border-box;
+  background-color: #FFF;
+  font-family: 'PT Sans',
+    sans-serif;
+}
+
+.rodape-form-login {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.rodape-form-login a {
+  color: @primary-color;
+  font-weight: 900;
+}
+
+// ##### CADASTRO
+
+.div-centro-cadastro {
+  padding: 40px 200px 0px 200px;
+  word-spacing: 5px;
+}
+
+.corpo-login {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.form-cadastro {
+  max-width: 500px;
+}
+
+.form-input-left {
+  width: 48%;
+  box-sizing: border-box;
+  float: left;
+}
+
+.form-input-right {
+  width: 48%;
+  box-sizing: border-box;
+  float: right;
+}
+
+.cards-cadastro {
+  width: 80%;
+  padding: 0px 20px 20px 20px;
+  margin: auto;
+  text-align: center;
+}
+
+.card-cadastro {
+  display: inline-block;
+  margin: 10px 20px;
+  padding: 60px 20px 50px 20px;
+  background-color: #FFF;
+  min-width: 200px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px @opacity-color-2;
+  border: solid 4px rgb(255, 255, 255);
+  color: rgb(20, 20, 20);
+}
+
+.card-cadastro:hover {
+  transition: .3s;
+  border: solid 4px @primary-color;
+  color: @primary-color;
+}
+
+.btn-voltar {
+  padding: 10px 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-voltar:hover {
+  transition: .3s;
+  color: @primary-color;
+}
+
+#passo2 {
+  display: none;
+}
+
+// ##### MENSAGENS
+
+.msg {
+  font-family: 'PT Sans',
+    sans-serif;
+  padding: 15px 22px;
+  width: 96%;
+  max-width: 400px;
+  margin: auto;
+  box-shadow: 0 0 2px #366;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.msg .p-msg {
+  display: inline-block;
+  width: 85%;
+  vertical-align: middle;
+}
+
+.msg .p-icon {
+  display: inline-block;
+  width: 13%;
+  min-width: 50px;
+  vertical-align: middle;
+}
+
+.msg .p-icon i {
+  padding: 10px;
+  border-radius: 100px;
+  color: #FFF;
+}
+
+/* Sucesso */
+.msg-sucesso {
+  border-left: solid 5px rgb(0, 163, 81);
+}
+
+.msg-sucesso .p-icon i {
+  background-color: rgb(5, 190, 98);
+}
+
+/* Erro */
+.msg-erro {
+  border-left: solid 5px rgb(214, 12, 12);
+}
+
+.msg-erro .p-icon i {
+  background-color: rgb(214, 12, 12);
+}
+
+/* Alert Negative */
+.msg-alert-negative {
+  text-decoration: none;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgb(214, 12, 12);
+  background-color: rgba(214, 12, 12, 0.185);
+  color: rgb(214, 12, 12);
+  padding: 10px;
+}
+
+// ##### MENU
+
+.menu {
+  font-family: 'PT Sans',
+    sans-serif !important;
+}
+
+.menu {
+  text-align: left;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
+  background-color: #FFF;
+  /* display: flex; */
+}
+
+.corpo-menu {
+  display: flex;
+  width: 90% !important;
+  margin: auto;
+  box-sizing: border-box;
+  /* border: solid 1px red; */
+}
+
+.corpo-menu .logo {
+  max-width: 200px;
+}
+
+.corpo-menu div {
+  display: inline-block;
+  /* border: solid 1px red; */
+}
+
+.itens-right {
+  text-align: right !important;
+}
+
+.menu-item {
+  color: @primary-color;
+  padding: 8px 15px;
+  border-radius: 4px;
+  // box-shadow: 0px 0px 5px @opacity-color-1;
+  margin-right: 3px;
+  margin-left: 3px;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  transition: .3s;
+  background-color: @primary-color;
+  color: #FFF !important;
+}
+
+.menu-item i {
+  margin-right: 8px;
+}
+
+.menu-normalize {
+  margin-bottom: 55px;
+}
+
+.menu h3 {
+  padding: 5px;
+}
+
+.menu h3 a {
+  padding: 18px 10px;
+}
+
+// ##### RESTAURANTE
+
+.titulo-restaurante {
+  padding: 60px 100px 50px 180px;
+  margin-bottom: 20px;
+}
+
+.lista-produtos {
+  margin-bottom: 100px;
+}
+
+.item-lista-produtos {
+  padding: 0px 30px 0px 15px;
+  box-shadow: 0 0 2px #366;
+  border-radius: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  text-decoration: none;
+  flex: 1 0 21%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.normalize-grid {
+  padding: 8px;
+}
+
+.item-lista-produtos .p-msg {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 9pt;
+  color: #111 !important;
+  margin-left: 15px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+.item-lista-produtos .p-icon {
+  min-width: 85px;
+  text-align: center;
+  vertical-align: middle;
+  align-content: center;
+}
+
+.item-lista-produtos .p-icon i {
+  padding: 10px;
+  border-radius: 100px;
+  color: #FFF;
+}
+
+.nome-produto {
+  font-weight: 900;
+  margin-bottom: 5px;
+  display: inline-block;
+  font-size: 11pt;
+}
+
+.preco-produto {
+  /* font-size: 10pt; */
+  /* font-weight: 900 !important; */
+  margin-left: 15px;
+}
+
+.btn-adicionar-produto {
+  margin-top: 12px;
+  background-color: @primary-color;
+  color: #FFF;
+  padding: 8px 15px;
+  border-radius: 4px;
+  border: none;
+  font-family: 'PT Sans',
+    sans-serif;
+  font-size: 10pt;
+  font-weight: 700;
+  letter-spacing: .6px;
+  cursor: pointer;
+  box-shadow: 0px 0px 3px @primary-color;
+}
+
+.btn-adicionar-produto:hover {
+  transition: .3s;
+  box-shadow: 0 0 8px @primary-color;
+  opacity: .9;
+}

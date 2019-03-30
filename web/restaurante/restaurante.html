@@ -1,0 +1,179 @@
+<!-- <%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel='stylesheet' href='../assets/bootstrap/css/bootstrap.css'>
+    <link rel="stylesheet/less" type="text/css" href="../assets/css/estilo.less">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
+    <!-- Less -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <title>Restaurante</title>
+</head>
+
+<body>
+    <nav class='menu'>
+        <div class='corpo-menu'>
+            <div class="logo">
+                <h3><a href='/index.html' class="droneats">Dron<span>eats</span></a></h3>
+            </div>
+            <div class='itens-right'>
+                <a href='/auth/login.html' class="menu-item"><i class="fas fa-sign-in-alt"></i>Login</a>
+                <a href='/auth/cadastro.html' class="menu-item"> <i class="far fa-user"></i>Cadastre-se</a>
+                <span class="menu-item"><i class="fas fa-shopping-basket"></i> Cesta</span>
+            </div>
+        </div>
+    </nav>
+    <div class='menu-normalize'></div>
+    <div class='corpo-home'>
+        <div class='titulo-restaurante'>
+            <h2>Nome do Restaurante</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, doloribus. Lorem ipsum dolor sit
+                amet.</p>
+        </div>
+
+        <div class='container'>
+            <div class='row lista-produtos'>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <div class='item-lista-produtos'>
+                        <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto'
+                                width="85px" style="border-radius: 85px" />
+                        </p>
+                        <p class="p-msg">
+                            <span class="nome-produto">Nome do Produto</span><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                                dolor sit amet consectetur.</span><br>
+                            <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                                    25,90</span></button>
+                        </p>
+                    </div>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <div class='item-lista-produtos'>
+                        <p class="p-icon"><img src='../assets/images/produtos/hamburger.png' alt='Imagem do produto'
+                                width="85px" style="border-radius: 85px" />
+                        </p>
+                        <p class="p-msg">
+                            <span class="nome-produto">Nome do Produto</span><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                                dolor sit amet consectetur.</span><br>
+                            <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                                    8,90</span></button>
+                        </p>
+                    </div>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <div class='item-lista-produtos'>
+                        <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto'
+                                width="85px" style="border-radius: 85px" />
+                        </p>
+                        <p class="p-msg">
+                            <span class="nome-produto">Nome do Produto</span><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                                dolor sit amet consectetur.</span><br>
+                            <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                                    22,90</span></button>
+                        </p>
+                    </div>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <div class='item-lista-produtos'>
+                        <p class="p-icon"><img src='../assets/images/produtos/hamburger.png' alt='Imagem do produto'
+                                width="85px" style="border-radius: 85px" />
+                        </p>
+                        <p class="p-msg">
+                            <span class="nome-produto">Nome do Produto</span><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                                dolor sit amet consectetur.</span><br>
+                            <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                                    7,25</span></button>
+                        </p>
+                    </div>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <div class='item-lista-produtos'>
+                        <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto'
+                                width="85px" style="border-radius: 85px" />
+                        </p>
+                        <p class="p-msg">
+                            <span class="nome-produto">Nome do Produto</span><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                                dolor sit amet consectetur.</span><br>
+                            <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                                    21,79</span></button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class='lista-produtos'>
+            <div class='item-lista-produtos'>
+                <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto' width="85px"
+                        style="border-radius: 85px" />
+                </p>
+                <p class="p-msg">
+                    <span class="nome-produto">Nome do Produto</span><br>
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
+                        dolor sit amet consectetur.</span><br>
+                    <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                            29,90</span></button>
+                </p>
+            </div>
+            <div class='item-lista-produtos'>
+                <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto' width="85px"
+                        style="border-radius: 85px" />
+                    <br>
+                </p>
+                <p class="p-msg">
+                    <span class="nome-produto">Nome do Produto</span><br>
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span><br>
+                    <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                            29,90</span></button>
+
+                </p>
+            </div>
+            <div class='item-lista-produtos'>
+                <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto' width="85px"
+                        style="border-radius: 85px" />
+                </p>
+                <p class="p-msg">
+                    <span class="nome-produto">Nome do Produto</span><br>
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span><br>
+                    <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                            29,90</span></button>
+                </p>
+            </div>
+            <div class='item-lista-produtos'>
+                <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto' width="85px"
+                        style="border-radius: 85px" />
+                </p>
+                <p class="p-msg">
+                    <span class="nome-produto">Nome do Produto</span><br>
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span><br>
+                    <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                            9,90</span></button>
+                </p>
+            </div>
+            <div class='item-lista-produtos'>
+                <p class="p-icon"><img src='../assets/images/produtos/pizza.jpg' alt='Imagem do produto' width="85px"
+                        style="border-radius: 85px" />
+                </p>
+                <p class="p-msg">
+                    <span class="nome-produto">Nome do Produto</span><br>
+                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span><br>
+                    <button type="submit" class="btn-adicionar-produto">Adicionar <span class="preco-produto">R$
+                            29,90</span></button>
+                </p>
+            </div>
+        </div> -->
+    </div>
+</body>
+
+</html>

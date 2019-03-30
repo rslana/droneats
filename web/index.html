@@ -8,12 +8,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" href="assets/css/estilo.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/dashboard.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/menu.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/home.css">
+    <link rel='stylesheet' href='../assets/bootstrap/css/bootstrap.css'>
+    <link rel="stylesheet/less" type="text/css" href="assets/css/estilo.less">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="assets/fontawesome-free-5.7.2-web/css/all.css">
+    <!-- Less -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <title>Home</title>
 </head>
 
@@ -21,11 +21,11 @@
     <nav class='menu'>
         <div class='corpo-menu'>
             <div class="logo">
-                <h3><a href='index.html' class="droneats">Dron<span>eats</span></a></h3>
+                <h3><a href='/index.html' class="droneats">Dron<span>eats</span></a></h3>
             </div>
             <div class='itens-right'>
-                <a href='login.html' class="menu-item"><i class="fas fa-sign-in-alt"></i>Login</a>
-                <a href='cadastro.html' class="menu-item"> <i class="far fa-user"></i>Cadastre-se</a>
+                <a href='/auth/login.html' class="menu-item"><i class="fas fa-sign-in-alt"></i>Login</a>
+                <a href='/auth/cadastro.html' class="menu-item"> <i class="far fa-user"></i>Cadastre-se</a>
 
             </div>
         </div>
@@ -35,43 +35,50 @@
         <div class='titulo-home'>
             <h1>Restaurantes</h1>
         </div>
-        <div class='lista-restaurantes'>
-            <a class='item-lista-restaurantes' href="index.html">
-                <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
-                <p class="p-msg">
-                    <b>Nome do Restaurante</b><br>
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                </p>
-            </a>
-            <a class='item-lista-restaurantes' href="index.html">
-                <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
-                <p class="p-msg">
-                    <b>Nome do Restaurante</b><br>
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                </p>
-            </a>
-            <a class='item-lista-restaurantes' href="index.html">
-                <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
-                <p class="p-msg">
-                    <b>Nome do Restaurante</b><br>
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                </p>
-            </a>
-            <a class='item-lista-restaurantes' href="index.html">
-                <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
-                <p class="p-msg">
-                    <b>Nome do Restaurante</b><br>
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                </p>
-            </a>
-            <a class='item-lista-restaurantes' href="index.html">
-                <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
-                <p class="p-msg">
-                    <b>Nome do Restaurante</b><br>
-                    <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                </p>
-            </a>
 
+        <div class='container'>
+            <div class='row lista-restaurantes'>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <a class='item-lista-restaurantes' href="/restaurante/restaurante.html">
+                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" />
+                        </p>
+                        <p class="p-msg">
+                            <b>Nome do Restaurante</b><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
+                        </p>
+                    </a>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <a class='item-lista-restaurantes' href="/restaurante/restaurante.html">
+                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" />
+                        </p>
+                        <p class="p-msg">
+                            <b>Nome do Restaurante</b><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
+                        </p>
+                    </a>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <a class='item-lista-restaurantes' href="/restaurante/restaurante.html">
+                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" />
+                        </p>
+                        <p class="p-msg">
+                            <b>Nome do Restaurante</b><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
+                        </p>
+                    </a>
+                </div>
+                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
+                    <a class='item-lista-restaurantes' href="/restaurante/restaurante.html">
+                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" />
+                        </p>
+                        <p class="p-msg">
+                            <b>Nome do Restaurante</b><br>
+                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
+                        </p>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </body>
