@@ -10,7 +10,7 @@ package model;
  * @author ariel
  */
 public class Restaurante extends Usuario {
-
+    private int id;
     private String cnpj;
     private String descricao;
 
@@ -24,6 +24,14 @@ public class Restaurante extends Usuario {
         this.proprietario_id = proprietario_id;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getDescricao() {
         return descricao;
     }

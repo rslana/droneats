@@ -4,9 +4,17 @@
         <servlet-name>ProdutoController</servlet-name>
         <servlet-class>controller.ProdutoController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>controller.FrontController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProdutoController</servlet-name>
         <url-pattern>/ProdutoController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/FrontController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

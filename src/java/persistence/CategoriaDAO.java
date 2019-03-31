@@ -6,6 +6,7 @@
 package persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Categoria;
@@ -23,25 +24,21 @@ public class CategoriaDAO {
     }
     public void save (Categoria categoria) throws SQLException, ClassNotFoundException{
         
-    Connection conn = DatabaseLocator.getInstance().getConnection();  
+        Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
-    
-           
-        try{
-            conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-                st.execute("insert into categoria (nome, email, senha, telefone, cpf)" +
-                        " values ('" + categoria.getNome() + 
-                        "', '" + categoria.getEmail()+
-                        "','"+categoria.getSenha()+
-                        "','"+categoria.getTelefone()+
-                        "','"+categoria.getCpf()+"')");
-            } catch(SQLException e) {
-                throw e;
-            } finally {
-               closeResources(conn,st);
-                    
-                }
+
+        try {
+            String sql = "INSERT INTO categoria (nome, restaurante_id) VALUES (?,?)";
+            PreparedStatement comando = conn.prepareStatement(sql);
+            comando.setString(1, categoria.getNome());
+            comando.setInt(2, categoria.getRestaurante().getId());
+            comando.execute();
+
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, st);
+        }
     }
 
     public void apagarCategoria (String email) throws SQLException, ClassNotFoundException{
