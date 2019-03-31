@@ -109,11 +109,11 @@
             </span>
         </div>
     </div>
+    <script>
+        document.getElementById("btnContinuar").addEventListener("click", function (event) {
+            event.preventDefault()
+        });
+    </script>
 </body>
-<script>
-    document.getElementById("btnContinuar").addEventListener("click", function (event) {
-        event.preventDefault()
-    });
-</script>
 
 </html>

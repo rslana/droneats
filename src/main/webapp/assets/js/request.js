@@ -4,7 +4,6 @@
 * @param {object} params the paramiters to add to the url
 * @param {string} [method=post] the method to use on the form
 */
-
 const post = (path, params, method = "post") => {
   // The rest of this code assumes you are not using a library.
   // It can be made less wordy if you use one.
@@ -33,4 +32,20 @@ const post = (path, params, method = "post") => {
 
 const finalizarPedido = () => {
   post('ProdutoController');
+}
+
+
+/**
+* sets the button to a loading state of a form.
+* @param {string} btn the button object to disabled
+* @param {object} formId the form id that will be submitted
+*/
+
+const submitWithLoading = (btn, formId) => {
+  const form = document.getElementById(formId);
+
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> &nbsp;Cadastrando Produto`;
+
+  form.submit();
 }
