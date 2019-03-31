@@ -62,3 +62,4 @@ nbdist/
 
 config/
 config/**
+nbproject/project.properties

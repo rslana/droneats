@@ -9,7 +9,7 @@ package model;
  *
  * @author ariel
  */
-public class Pessoa extends Usuario {
+public abstract class Pessoa extends Usuario {
 
     private String cpf;
     private String senha;
@@ -20,6 +20,18 @@ public class Pessoa extends Usuario {
         this.senha = senha;
     }
 
+    public Pessoa(String cpf, String senha, String nome, String email, String telefone) {
+        super(nome, email, telefone);
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public Pessoa(String cpf, String senha, int id, String nome, String email, String telefone) {
+        super(id, nome, email, telefone);
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+    
     public String getCpf() {
         return cpf;
     }

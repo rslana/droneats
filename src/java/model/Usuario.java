@@ -35,6 +35,21 @@ public abstract class Usuario {
         this.telefone = telefone;
     }
 
+    public Usuario(String nome, String email, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
+
+    public Usuario(int id, String nome, String email, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
+    
+    
+
     public String getNome() {
         return nome;
     }
