@@ -21,11 +21,11 @@
     <nav class='menu'>
         <div class='corpo-menu'>
             <div class="logo">
-                <h3><a href='/index.html' class="droneats">Dron<span>eats</span></a></h3>
+                <h3><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h3>
             </div>
             <div class='itens-right'>
-                <a href='/auth/login.html' class="menu-item"><i class="fas fa-sign-in-alt"></i>Login</a>
-                <a href='/auth/cadastro.html' class="menu-item"> <i class="far fa-user"></i>Cadastre-se</a>
+                <a href='auth/login.jsp' class="menu-item"><i class="fas fa-sign-in-alt"></i>Login</a>
+                <a href='auth/cadastro.jsp' class="menu-item"> <i class="far fa-user"></i>Cadastre-se</a>
 
             </div>
         </div>
@@ -36,35 +36,35 @@
             <h1>Restaurantes</h1>
         </div>
         <div class='lista-restaurantes'>
-            <a class='item-lista-restaurantes' href="/index.html">
+            <a class='item-lista-restaurantes' href="index.jsp">
                 <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
                 <p class="p-msg">
                     <b>Nome do Restaurante</b><br>
                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
                 </p>
             </a>
-            <a class='item-lista-restaurantes' href="/index.html">
+            <a class='item-lista-restaurantes' href="index.jsp">
                 <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
                 <p class="p-msg">
                     <b>Nome do Restaurante</b><br>
                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
                 </p>
             </a>
-            <a class='item-lista-restaurantes' href="/index.html">
+            <a class='item-lista-restaurantes' href="index.jsp">
                 <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
                 <p class="p-msg">
                     <b>Nome do Restaurante</b><br>
                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
                 </p>
             </a>
-            <a class='item-lista-restaurantes' href="/index.html">
+            <a class='item-lista-restaurantes' href="index.jsp">
                 <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
                 <p class="p-msg">
                     <b>Nome do Restaurante</b><br>
                     <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
                 </p>
             </a>
-            <a class='item-lista-restaurantes' href="/index.html">
+            <a class='item-lista-restaurantes' href="index.jsp">
                 <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48px" /></p>
                 <p class="p-msg">
                     <b>Nome do Restaurante</b><br>

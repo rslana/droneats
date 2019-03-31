@@ -34,7 +34,8 @@ a {
   text-decoration: none;
 }
 
-.btn-1 {
+.btn-1,
+.btn-1-secondary {
   margin-top: 12px;
   margin-bottom: 18px;
   background-color: @primary-color;
@@ -56,6 +57,17 @@ a {
   transition: .3s;
   box-shadow: 0 0 10px @primary-color;
   opacity: .9;
+}
+
+.btn-1-secondary {
+  margin-top: 0px;
+  background-color: #FFF;
+  color: @primary-color;
+  box-shadow: none;
+}
+
+.btn-1-secondary:hover {
+  opacity: .8;
 }
 
 .menu {
@@ -84,7 +96,7 @@ a {
 
 // ##### HOME
 
-.corpo-home * {
+.corpo-home {
   font-family: 'PT Sans',
     sans-serif !important;
 }
@@ -120,6 +132,22 @@ a {
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.item-lista-cesta-compra {
+  padding: 0px 5px 0px 5px;
+  box-shadow: 0 0 2px #366;
+  border-radius: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  text-decoration: none;
+  flex: 1 0 21%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  // justify-content: space-between;
 }
 
 .lista-restaurantes {
@@ -461,7 +489,6 @@ a {
   width: 90% !important;
   margin: auto;
   box-sizing: border-box;
-  /* border: solid 1px red; */
 }
 
 .corpo-menu .logo {
@@ -470,7 +497,6 @@ a {
 
 .corpo-menu div {
   display: inline-block;
-  /* border: solid 1px red; */
 }
 
 .itens-right {
@@ -481,10 +507,10 @@ a {
   color: @primary-color;
   padding: 8px 15px;
   border-radius: 4px;
-  // box-shadow: 0px 0px 5px @opacity-color-1;
   margin-right: 3px;
   margin-left: 3px;
   cursor: pointer;
+  position: relative;
 }
 
 .menu-item:hover {
@@ -509,11 +535,37 @@ a {
   padding: 18px 10px;
 }
 
+.qtd-item-cesta {
+  font-size: 9pt;
+  color: #FFF;
+  padding: 3.5px 8px;
+  background: @primary-color;
+  border-radius: 30px;
+  margin-left: 3px;
+  font-weight: 100;
+}
+
 // ##### RESTAURANTE
 
+.corpo-restaurante {
+  width: 75%;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.corpo-restaurante .container {
+  font-family: 'PT Sans',
+    sans-serif !important;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
 .titulo-restaurante {
-  padding: 60px 100px 50px 180px;
+  padding: 60px 100px 50px 100px;
   margin-bottom: 20px;
+  font-family: 'PT Sans',
+    sans-serif !important;
 }
 
 .lista-produtos {
@@ -532,13 +584,15 @@ a {
   display: flex;
   align-items: center;
   width: 100%;
+  position: relative;
 }
 
 .normalize-grid {
   padding: 8px;
 }
 
-.item-lista-produtos .p-msg {
+.item-lista-produtos .p-msg,
+.item-lista-cesta-compra .p-msg {
   display: inline-block;
   vertical-align: middle;
   font-size: 9pt;
@@ -548,14 +602,34 @@ a {
   padding-bottom: 6px;
 }
 
-.item-lista-produtos .p-icon {
-  min-width: 85px;
+.p-right {
+  text-align: right;
+  margin-right: 10px;
+  min-width: 80px;
+}
+
+.p-right * {
+  margin: 0px !important;
+}
+
+.item-lista-cesta-compra .p-msg:last-child {
+  margin-left: auto;
+}
+
+.item-lista-produtos .p-icon,
+.item-lista-cesta-compra .p-icon {
+  min-width: 100px;
+  height: 100px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   text-align: center;
   vertical-align: middle;
   align-content: center;
 }
 
-.item-lista-produtos .p-icon i {
+.item-lista-produtos .p-icon i,
+.item-lista-cesta-compra .p-icon i {
   padding: 10px;
   border-radius: 100px;
   color: #FFF;
@@ -568,9 +642,7 @@ a {
   font-size: 11pt;
 }
 
-.preco-produto {
-  /* font-size: 10pt; */
-  /* font-weight: 900 !important; */
+.item-preco-produto {
   margin-left: 15px;
 }
 
@@ -588,10 +660,120 @@ a {
   letter-spacing: .6px;
   cursor: pointer;
   box-shadow: 0px 0px 3px @primary-color;
+  outline: none;
 }
 
 .btn-adicionar-produto:hover {
   transition: .3s;
   box-shadow: 0 0 8px @primary-color;
   opacity: .9;
+}
+
+.cesta-compra {
+  font-family: 'PT Sans',
+    sans-serif;
+  position: fixed;
+  top: 50px;
+  right: 0px;
+  width: 25%;
+  padding: 10px 20px;
+  height: 100%;
+  box-shadow: 0px 1px 4px @opacity-color-2;
+  background-color: #FFF;
+}
+
+.cesta-compra h3 {
+  font-size: 13pt;
+  color: #444;
+  font-weight: 100;
+  margin: 0 0 -5px 0;
+}
+
+.cesta-compra h4 {
+  font-size: 10pt;
+  color: #999;
+  font-weight: 100;
+  margin-top: 15px;
+  margin-bottom: 5px;
+
+}
+
+.remover-produto-cesta {
+  color: @primary-color;
+  cursor: pointer;
+  padding: 10px 0px 10px 8px;
+  margin-right: 50px;
+}
+
+.remover-produto-cesta:hover {
+  transition: .3s;
+  opacity: .8;
+  text-shadow: 0px 0px 4px @opacity-color-1;
+}
+
+.cesta-vazia {
+  text-align: center;
+  padding: 70px 10px;
+  opacity: .3;
+  color: #444;
+}
+
+.btn-filanizar-pedido:disabled {
+  opacity: .3;
+}
+
+// ##### MENSAGENS_RESTAURANTE
+
+.mensagem-troca-restaurante {
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-mensagem-troca-restaurante {
+  background: rgba(0, 0, 0, .8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: 100%;
+  height: 100%;
+}
+
+.item-mensagem {
+  font-family: 'PT Sans',
+    sans-serif;
+  position: fixed;
+  z-index: 9999;
+  height: 300px;
+  width: 100%;
+  max-width: 400px;
+  top: calc(50% - 150px);
+  left: calc(50% - 200px);
+  background-color: #FFF;
+  padding: 20px 40px 10px 40px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.item-mensagem h2 {
+  font-size: 14pt;
+}
+
+.item-mensagem p {
+  font-size: 11pt;
+}
+
+@media (max-width: 768px) {
+  .item-mensagem {
+    height: 380px;
+    width: 90%;
+    left: 5%;
+    right: 5%;
+    padding: 20px 30px;
+  }
 }

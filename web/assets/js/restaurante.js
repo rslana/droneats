@@ -7,3 +7,4 @@ const mudarPassoCadastroRestaurante = (passo) => {
     document.getElementById("passo2").style.display = "block";
   }
 }
+

@@ -12,6 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <base href="http://localhost:8080/Droneats/">
     <title>Cadastro Cliente</title>
 </head>
 
@@ -19,7 +20,7 @@
     <div class='corpo-login'>
         <div class='div-centro-cadastro'>
             <div class='titulo-login'>
-                <h1><a href='/index.html' class="droneats">Dron<span>eats</span></a></h1>
+                <h1><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h1>
             </div>
         </div>
         <div class='form-login form-cadastro'>
@@ -50,7 +51,7 @@
         </div>
         <div class='rodape-form-login'>
             <span>
-                Já tem uma conta? <a href='/auth/login.html'>Entrar</a>
+                Já tem uma conta? <a href='auth/login.jsp'>Entrar</a>
             </span>
         </div>
     </div>
