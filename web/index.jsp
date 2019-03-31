@@ -15,7 +15,7 @@
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <script src="assets/js/global.js"></script>
-    <base href="http://localhost:8080/Droneats/">
+    <%@ include file = "utils/config.jsp" %>
     <title>Home</title>
 </head>
 

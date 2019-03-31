@@ -213,7 +213,7 @@ a {
 
 @media (max-width: 468px) {
   .titulo-home {
-    padding: 20px 10px;
+    padding: 70px 10px 20px 10px;
   }
 
   .titulo-home h1 {
@@ -255,7 +255,7 @@ a {
   color: rgb(30, 30, 30) !important;
 }
 
-.form-login {
+.corpo-form {
   width: 90%;
   max-width: 400px;
   margin: auto;
@@ -270,21 +270,21 @@ a {
   background-color: #FFF;
 }
 
-.form-login h2 {
+.corpo-form h2 {
   margin-bottom: 25px;
 }
 
-.form-login .form-input {
+.corpo-form .form-input {
   text-align: left;
   margin-top: 10px;
 }
 
-.form-login .form-input input {
+.corpo-form .form-input input {
   width: 100%;
   margin: auto;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 2px;
   border: none;
   box-shadow: 0px 0px 2px black;
@@ -293,12 +293,16 @@ a {
     sans-serif;
 }
 
-.form-login .form-input textarea {
+.corpo-form .form-input textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 200px;
+  min-height: 40px;
   margin: auto;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 2px;
   border: none;
   box-shadow: 0px 0px 2px black;
@@ -307,12 +311,12 @@ a {
     sans-serif;
 }
 
-.form-login .form-input select {
+.corpo-form .form-input select {
   width: 100%;
   margin: auto;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding: 10px;
+  padding: 8px 10px;
   border-radius: 2px;
   border: none;
   box-shadow: 0px 0px 2px black;
@@ -322,12 +326,12 @@ a {
     sans-serif;
 }
 
-.rodape-form-login {
+.rodape-corpo-form {
   text-align: center;
   margin-bottom: 100px;
 }
 
-.rodape-form-login a {
+.rodape-corpo-form a {
   color: @primary-color;
   font-weight: 900;
 }
@@ -768,6 +772,16 @@ a {
   font-size: 11pt;
 }
 
+// ##### FORMS
+
+.form-crud .corpo-form {
+  margin-top: 30px;
+  box-shadow: 0 0 2px #366;
+  max-width: 100% !important;
+}
+
+// ##### RESPONSIVE
+
 @media (max-width: 768px) {
   .item-mensagem {
     height: 380px;
@@ -775,5 +789,61 @@ a {
     left: 5%;
     right: 5%;
     padding: 20px 30px;
+  }
+
+  .cesta-compra {
+    display: none;
+  }
+
+  .titulo-restaurante {
+    padding: 60px 35px 10px 35px;
+    width: 100%;
+  }
+
+  .corpo-restaurante {
+    width: 100%;
+  }
+
+  .corpo-restaurante .container {
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+  .item-lista-produtos {
+    padding: 0px 15px 0px 15px;
+    display: inline-block;
+    display: inline-block;
+  }
+
+  .btn-adicionar-produto {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .item-lista-produtos .p-msg {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 0px;
+  }
+
+  .item-lista-produtos .p-icon {
+    height: 120px;
+  }
+
+  .menu {
+    width: 100%;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 2px #366;
+    text-align: center;
+    padding: 0px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .menu div {
+    width: 100%;
+    margin: auto;
+    text-align: left;
   }
 }

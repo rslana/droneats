@@ -33,11 +33,14 @@ public class ProdutoController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String[] produtos;
+        String restaurante = request.getParameter("restaurante");
 
         produtos = request.getParameterValues("produtos");
         for (int i = 0; i < produtos.length; i++) {
             System.out.println(produtos[i]);
         }
+        
+        System.out.println("RESTAURANTE: " + restaurante);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

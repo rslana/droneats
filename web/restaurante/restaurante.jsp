@@ -16,7 +16,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <script src="../assets/js/global.js"></script>
     <script src="../assets/js/request.js"></script>
-    <base href="http://localhost:8080/Droneats/">
+    <%@ include file = "../utils/config.jsp" %>
     <title>Restaurante</title>
 </head>
 
@@ -235,7 +235,7 @@
                 </div>
             </div>
             <button class="btn-1 btn-filanizar-pedido" id="btn-finalizar-pedido" onclick="finalizarPedido()">
-                FinalizarPedido
+                Finalizar Pedido
             </button>
         </form>
     </div>

@@ -140,10 +140,11 @@ const setRestaurante = (id, nome) => {
 
 const atualizarStateLinkCesta = () => {
   const restaurante = (localStorage.getItem("restaurante")) ? JSON.parse(localStorage.getItem("restaurante")) : null;
-  if (restaurante)
+  if (restaurante && document.getElementById("link-cesta"))
     document.getElementById("link-cesta").href = `restaurante/restaurante.jsp?restaurante=${restaurante.id}`;
 
-  if (cesta.produtos.length === 0) document.getElementById("link-cesta").removeAttribute("href");
+  if (cesta.produtos.length === 0 && document.getElementById("link-cesta"))
+    document.getElementById("link-cesta").removeAttribute("href");
 }
 
 // MODAL

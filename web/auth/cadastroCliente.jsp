@@ -1,7 +1,7 @@
-<!-- <%@page contentType="text/html"%>
+<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -12,7 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <base href="http://localhost:8080/Droneats/">
+    <%@ include file = "../utils/config.jsp" %>
     <title>Cadastro Cliente</title>
 </head>
 
@@ -23,7 +23,7 @@
                 <h1><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h1>
             </div>
         </div>
-        <div class='form-login form-cadastro'>
+        <div class='corpo-form form-cadastro'>
             <form action="FrontController?action=Cadastrar" method="post">
                 <h2>Cadastro de Cliente</h2>
                 <div class='form-input'>
@@ -49,7 +49,7 @@
                 <button type="submit" class="btn-1">Cadastrar</button>
             </form>
         </div>
-        <div class='rodape-form-login'>
+        <div class='rodape-corpo-form'>
             <span>
                 Já tem uma conta? <a href='auth/login.jsp'>Entrar</a>
             </span>

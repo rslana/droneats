@@ -1,7 +1,7 @@
-<!-- <%@page contentType="text/html"%>
+<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <base href="http://localhost:8080/Droneats/">
+    <%@ include file = "../utils/config.jsp" %>
     <title>Login</title>
 </head>
 
@@ -24,9 +24,18 @@
                 <h1><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h1>
             </div>
         </div>
-        <div class='form-login'>
+        <div class='corpo-form'>
             <form action="FrontController?action=Logar" method="post">
                 <h2>Login</h2>
+                <c:choose>
+                    <c:when test="${mensagem != null}">
+                        <div class='msg-alert-negative'>
+                            <span>
+                                <c:out value="${mensagem}" />
+                            </span>
+                        </div>
+                    </c:when>
+                </c:choose>
                 <div class='form-input'>
                     <label for='email'>E-mail</label><br />
                     <input type="email" name="email" /><br />
@@ -38,7 +47,7 @@
                 <button type="submit" class="btn-1">Entrar</button>
             </form>
         </div>
-        <div class='rodape-form-login'>
+        <div class='rodape-corpo-form'>
             <span>
                 Não tem uma conta ainda? <a href='auth/cadastro.jsp'>Cadastre-se</a>
             </span>

@@ -1,7 +1,7 @@
-<!-- <%@page contentType="text/html"%>
+<%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%> -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 
@@ -14,7 +14,7 @@
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <script src="../assets/js/restaurante.js"></script>
-    <base href="http://localhost:8080/Droneats/">
+    <%@ include file = "../utils/config.jsp" %>
     <title>Cadastro Restaurante</title>
 </head>
 
@@ -25,7 +25,7 @@
                 <h1><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h1>
             </div>
         </div>
-        <div class='form-login form-cadastro form-restaurante'>
+        <div class='corpo-form form-cadastro form-restaurante'>
             <form action="FrontController?action=Cadastrar" method="post">
                 <h2>Cadastro de Restaurante</h2>
                 <div id="passo1">
@@ -103,7 +103,7 @@
                 </div>
             </form>
         </div>
-        <div class='rodape-form-login'>
+        <div class='rodape-corpo-form'>
             <span>
                 Já tem uma conta? <a href='auth/login.jsp'>Entrar</a>
             </span>
