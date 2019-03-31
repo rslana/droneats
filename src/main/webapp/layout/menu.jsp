@@ -5,7 +5,7 @@
     </div>
     <!-- Falta adicionar lógica para tratar sessão -->
     <c:choose>
-      <c:when test="${usuario != null}">
+      <c:when test="${usuario == null}">
         <div class='itens-right'>
           <a href='cliente/perfil.jsp' class="menu-item"><i class="far fa-user"></i>Perfil</a>
           <a href='cliente/pedidos.jsp' class="menu-item"><i class="fas fa-parachute-box"></i>Pedidos</a>
