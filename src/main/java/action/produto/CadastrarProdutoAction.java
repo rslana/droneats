@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package action.restaurante;
+package action.produto;
 
 import controller.Action;
 import java.io.File;
@@ -21,6 +21,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import model.Produto;
+import model.Promocao;
+import model.PromocaoCombo;
+import model.PromocaoUnitario;
+import model.Restaurante;
 import org.apache.commons.io.FilenameUtils;
 import persistence.ProdutoDAO;
 import s3.UploadFileAwsS3;
@@ -39,8 +43,10 @@ public class CadastrarProdutoAction implements Action {
             String descricao = request.getParameter("descricao");
             String categoriaId = request.getParameter("categoriaId");
             Part filePart = request.getPart("imagem");
-            System.out.println("Precço " + preco);
+            String promocaoTipo = null; // unitario / combo / null
+
             if (nome.equals("") || preco < 0 || descricao.equals("") || categoriaId.equals("")) {
+//                Redirecionar para página de erro
                 response.sendRedirect("index.jsp");
             } else {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -60,27 +66,42 @@ public class CadastrarProdutoAction implements Action {
                 UploadFileAwsS3 uploadAws = new UploadFileAwsS3("droneats/produtos", filePath, fileNameUpload);
                 uploadAws.doUpload();
 
-                String databaseURL_S3 = "https://s3.us-east-2.amazonaws.com/droneats/produtos/" + fileNameUpload;
-                String databaseURL_LOCAL = path + File.separator + fileNameUpload;
+                String imagemS3 = "https://s3.us-east-2.amazonaws.com/droneats/produtos/" + fileNameUpload;
+                String imagemLocal = path + File.separator + fileNameUpload;
                 
-                //Cria o produto e insere no banco
-                Produto produto = null;
+                Promocao promocao = null;
+                if (promocaoTipo.equals("unitario")) {
+                    promocao = new PromocaoUnitario();
+                } else if (promocaoTipo.equals("combo")) {
+                    promocao = new PromocaoCombo();
+                }
 
+                //Pegar restaurante na sessão
+                Restaurante restaurante = new Restaurante();
+                restaurante.setId(1);
+                
+                Produto produto = new Produto(nome, descricao, preco, imagemLocal, restaurante, promocao);
+                
+                ProdutoDAO.getInstance().save(produto);
+                
+                request.setAttribute("mensagemSucesso", "Produto criado com sucesso!");
+                RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarProduto.jsp");
+                view.forward(request, response);
+                
             }
-        } catch (ServletException ex) {
+        } catch (ServletException | SQLException | ClassNotFoundException ex) {
             Logger.getLogger(CadastrarProdutoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public String createFileNameUpload(String fileName) {
-        Calendar hoje = Calendar.getInstance();
-        String fileNameUpload = "PRODUTO-" + hoje.get(Calendar.YEAR)
-                + "-" + (hoje.get(Calendar.MONTH) + 1)
-                + "-" + hoje.get(Calendar.DAY_OF_MONTH)
-                + "_" + hoje.get(Calendar.HOUR_OF_DAY)
-                + "-" + hoje.get(Calendar.MINUTE)
-                + "-" + hoje.get(Calendar.SECOND)
-                + "_" + hoje.get(Calendar.MILLISECOND);
+        String fileNameUpload = "PRODUTO-" + Calendar.YEAR
+                + "-" + ((Calendar.MONTH < 9) ? "0" + (Calendar.MONTH + 1) : Calendar.MONTH + 1)
+                + "-" + Calendar.DAY_OF_MONTH
+                + "_" + Calendar.HOUR_OF_DAY
+                + "-" + Calendar.MINUTE
+                + "-" + Calendar.SECOND
+                + "_" + Calendar.MILLISECOND;
 
         fileNameUpload += "." + FilenameUtils.getExtension(fileName);
 

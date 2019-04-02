@@ -17,13 +17,15 @@
               </script>
             </span>
           </a>
+          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
-      <c:when test="${usuario == null}">
+      <c:when test="${usuario != null}">
         <div class='itens-right'>
           <a href='restaurante/perfil.jsp' class="menu-item"><i class="fas fa-store-alt"></i>Perfil</a>
           <a href='restaurante/produtos.jsp' class="menu-item"><i class="fas fa-utensils"></i>Produtos</a>
           <a href='restaurante/categorias.jsp' class="menu-item"><i class="fas fa-tags"></i></i>Categorias</a>
+          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
       <c:otherwise>

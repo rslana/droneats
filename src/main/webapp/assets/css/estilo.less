@@ -2,15 +2,15 @@
 @import url('https://fonts.googleapis.com/css?family=Lato|Monoton');
 
 @primary-color: rgb(211, 46, 40);
-@opacity-color-1: rgba(211, 46, 40, 0.6);
-@opacity-color-2: rgba(211, 46, 40, 0.3);
-@opacity-color-3: rgba(211, 46, 40, 0.1);
+@opacity-primary-1: rgba(211, 46, 40, 0.6);
+@opacity-primary-2: rgba(211, 46, 40, 0.3);
+@opacity-primary-3: rgba(211, 46, 40, 0.1);
 
 // ##### GLOBAL
 
 .droneats span {
   color: @primary-color;
-  text-shadow: 1px 1px 2px @opacity-color-1;
+  text-shadow: 1px 1px 2px @opacity-primary-1;
 }
 
 .droneats {
@@ -50,7 +50,7 @@ a {
   font-weight: 700;
   letter-spacing: .6px;
   cursor: pointer;
-  box-shadow: 0 0 10px @opacity-color-1;
+  box-shadow: 0 0 10px @opacity-primary-1;
 }
 
 .btn-1:hover {
@@ -174,7 +174,7 @@ a {
 
 .item-lista-restaurantes:hover {
   transition: .3s;
-  background-color: @opacity-color-3;
+  background-color: @opacity-primary-3;
 }
 
 .item-lista-restaurantes .p-msg {
@@ -263,7 +263,7 @@ a {
   margin-bottom: 20px;
   font-family: 'PT Sans', sans-serif;
   letter-spacing: .5px;
-  box-shadow: 0px 0px 10px @opacity-color-2;
+  box-shadow: 0px 0px 10px @opacity-primary-2;
   padding: 10px 40px 25px 40px;
   border-radius: 5px;
   box-sizing: border-box;
@@ -378,7 +378,7 @@ a {
   background-color: #FFF;
   min-width: 200px;
   border-radius: 6px;
-  box-shadow: 0px 0px 10px @opacity-color-2;
+  box-shadow: 0px 0px 10px @opacity-primary-2;
   border: solid 4px rgb(255, 255, 255);
   color: rgb(20, 20, 20);
 }
@@ -409,15 +409,23 @@ a {
 .msg {
   font-family: 'PT Sans',
     sans-serif;
-  padding: 15px 22px;
-  width: 96%;
+  width: 90%;
   max-width: 400px;
   margin: auto;
   box-shadow: 0 0 2px #366;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin-top: 30px;
+  margin-bottom: -5px;
   border-radius: 4px;
   vertical-align: middle;
+  padding: 4px 20px;
+  box-shadow: 0 0 2px #366;
+  display: inline-block;
+  flex: 1 0 21%;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
 }
 
 .msg .p-msg {
@@ -540,13 +548,14 @@ a {
 }
 
 .qtd-item-cesta {
-  font-size: 9pt;
+  font-size: 8.5pt;
   color: #FFF;
-  padding: 3.5px 8px;
+  padding: 4px 8px;
   background: @primary-color;
   border-radius: 30px;
   margin-left: 3px;
   font-weight: 100;
+  display: inline-block;
 }
 
 // ##### RESTAURANTE
@@ -682,7 +691,7 @@ a {
   width: 25%;
   padding: 10px 20px;
   height: 100%;
-  box-shadow: 0px 1px 4px @opacity-color-2;
+  box-shadow: 0px 1px 4px @opacity-primary-2;
   background-color: #FFF;
 }
 
@@ -712,7 +721,7 @@ a {
 .remover-produto-cesta:hover {
   transition: .3s;
   opacity: .8;
-  text-shadow: 0px 0px 4px @opacity-color-1;
+  text-shadow: 0px 0px 4px @opacity-primary-1;
 }
 
 .cesta-vazia {

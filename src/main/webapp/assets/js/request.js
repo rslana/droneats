@@ -17,21 +17,47 @@ const post = (path, params, method = "post") => {
   hiddenProdutos.setAttribute("value", JSON.parse(localStorage.getItem('cesta')));
 
   const restaurante = JSON.parse(localStorage.getItem('restaurante'));
-  console.log(restaurante);
+
+  const json = JSON.stringify(restaurante);
+  const blob = new Blob([json], {
+    type: 'application/json'
+  });
+
   const hiddenRestaurante = document.createElement("input");
   hiddenRestaurante.setAttribute("type", "hidden");
   hiddenRestaurante.setAttribute("name", "restaurante");
-  hiddenRestaurante.setAttribute("value", restaurante.id);
+  hiddenRestaurante.setAttribute("value", `{restaurante: "1", produtos: [{1:3,2:5,4:2}]}`);
 
+
+  const novoArray = removerDuplicados(JSON.parse(localStorage.getItem('cesta')));
+
+  const produtos = novoArray.map(produto => {
+    return { id: produto, quantidade: cesta.getQuantidadeProdutos(produto) }
+  })
+
+  const pedido = {
+    restaurante: restaurante.id,
+    produtos
+  }
+
+  console.log(pedido)
+
+  const hiddenPedido = document.createElement("input");
+  hiddenPedido.setAttribute("type", "hidden");
+  hiddenPedido.setAttribute("name", "pedido");
+  hiddenPedido.setAttribute("value", JSON.stringify(pedido));
+
+  form.append("document", blob);
   form.appendChild(hiddenProdutos);
   form.appendChild(hiddenRestaurante);
+  form.appendChild(hiddenPedido);
 
   document.body.appendChild(form);
   form.submit();
 }
 
 const finalizarPedido = () => {
-  post('ProdutoController');
+  post('FrontController?route=pedido&action=CadastrarPedido');
 }
 
 

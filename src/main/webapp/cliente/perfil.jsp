@@ -8,14 +8,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel='stylesheet' href='../assets/bootstrap/css/bootstrap.css'>
-    <link rel="stylesheet/less" type="text/css" href="../assets/css/estilo.less">
-    <link rel="stylesheet/less" type="text/css" href="../assets/css/usuario.less">
+    <link rel='stylesheet' href='http://localhost:8080/droneats/assets/bootstrap/css/bootstrap.css'>
+    <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/droneats/assets/css/estilo.less">
+    <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/droneats/assets/css/usuario.less">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <script src="../assets/js/global.js"></script>
+    <script src="http://localhost:8080/droneats/assets/js/global.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Perfil</title>
 </head>

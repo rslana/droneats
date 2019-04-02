@@ -12,21 +12,33 @@ package model;
 public class Produto {
 
     private int id;
+    private String nome;
     private String descricao;
     private Double preco;
     private String imagem;
 
-    private int restaurante_id;
+    private int restauranteId;
     private Restaurante restaurante;
-    private int promocao_id;
+//    private int promocaoId;
     private Promocao promocao;
 
-    public Produto(String descricao, Double preco, String imagem, int restaurante_id, int promocao_id) {
+    public Produto(String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao) {
+        this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imagem = imagem;
-        this.restaurante_id = restaurante_id;
-        this.promocao_id = promocao_id;
+        this.restaurante = restaurante;
+        this.promocao = promocao;
+    }
+    
+    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.imagem = imagem;
+        this.restaurante = restaurante;
+        this.promocao = promocao;
     }
 
     public int getId() {
@@ -35,6 +47,14 @@ public class Produto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -52,6 +72,22 @@ public class Produto {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
+    
+    public String getImagem() {
+        return imagem;
+    }
+
+    public void setImagem(String imagem) {
+        this.imagem = imagem;
+    }
+
+    public int getRestauranteId() {
+        return restauranteId;
+    }
+
+    public void setRestauranteId(int restauranteId) {
+        this.restauranteId = restauranteId;
+    }
 
     public Restaurante getRestaurante() {
         return restaurante;
@@ -68,13 +104,4 @@ public class Produto {
     public void setPromocao(Promocao promocao) {
         this.promocao = promocao;
     }
-
-    public String getImagem() {
-        return imagem;
-    }
-
-    public void setImagem(String imagem) {
-        this.imagem = imagem;
-    }
-
 }

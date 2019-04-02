@@ -15,25 +15,47 @@ public class Categoria {
 
     private int id;
     private String nome;
-    private ArrayList<Produto> ofertas;
+    private ArrayList<Produto> produtos;
 
-    private int restaurante_id;
+    private int restauranteId;
     private Restaurante restaurante;
 
     public Categoria() {
     }
 
-    public Categoria(String nome, int restaurante_id) {
+    public Categoria(int id, String nome, Restaurante restaurante) {
+        this.id = id;
         this.nome = nome;
-        this.restaurante_id = restaurante_id;
+        this.restaurante = restaurante;
+    }
+    
+    public Categoria(String nome, Restaurante restaurante) {
+        this.nome = nome;
+        this.restaurante = restaurante;
+    }
+    
+    public int getId() {
+        return id;
     }
 
-    public int getRestaurante_id() {
-        return restaurante_id;
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+    public String getNome() {
+        return nome;
     }
 
-    public void setRestaurante_id(int restaurante_id) {
-        this.restaurante_id = restaurante_id;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getRestauranteId() {
+        return restauranteId;
+    }
+
+    public void setRestauranteId(int restauranteId) {
+        this.restauranteId = restauranteId;
     }
 
     public Restaurante getRestaurante() {
@@ -44,28 +66,12 @@ public class Categoria {
         this.restaurante = restaurante;
     }
 
-    public String getNome() {
-        return nome;
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public ArrayList<Produto> getOfertas() {
-        return ofertas;
-    }
-
-    public void setOfertas(ArrayList<Produto> ofertas) {
-        this.ofertas = ofertas;
+    public void setProdutos(ArrayList<Produto> produtos) {
+        this.produtos = produtos;
     }
 
 }
