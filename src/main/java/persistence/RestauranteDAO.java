@@ -36,7 +36,7 @@ public class RestauranteDAO {
         try {
             
              String sql = "INSERT INTO restaurante (nome, cnpj, estado, cidade, "
-                     + "cep, bairro, rua, numero, descricao, telefone) VALUES (?,?,?,?,?,?,?,?,?,?)";
+                     + "cep, bairro, rua, numero, descricao, telefone, proprietario_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement comando = conn.prepareStatement(sql);
             comando.setString(1, restaurante.getNome());
             comando.setString(2, restaurante.getCnpj());
@@ -48,6 +48,7 @@ public class RestauranteDAO {
             comando.setString(8, restaurante.getNumero());
             comando.setString(9, restaurante.getDescricao());
             comando.setString(10, restaurante.getTelefone());
+            comando.setInt(11, restaurante.getProprietario().getId());
 
             comando.execute();
 

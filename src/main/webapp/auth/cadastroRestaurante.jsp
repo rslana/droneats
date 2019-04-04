@@ -27,29 +27,29 @@
             </div>
         </div>
         <div class='corpo-form form-cadastro form-restaurante'>
-            <form action="FrontController?action=Cadastrar" method="post">
+            <form action="FrontController?route=restaurante&action=CadastrarRestaurante" method="post">
                 <h2>Cadastro de Restaurante</h2>
                 <div id="passo1">
                     <h3><i class="fas fa-user"></i><br><br> Sobre o dono do restaurante</h3>
                     <div class='form-input'>
-                        <label for='nome'>Nome</label><br />
-                        <input type="text" name="nome" /><br />
+                        <label for='nomeProprietario'>Nome</label><br />
+                        <input type="text" name="nomeProprietario" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='cpf'>CPF</label><br />
-                        <input type="text" name="cpf" /><br />
+                        <label for='cpfProprietario'>CPF</label><br />
+                        <input type="text" name="cpfProprietario" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='telefone'>Telefone</label><br />
-                        <input type="text" name="telefone" /><br />
+                        <label for='telefoneProprietario'>Telefone</label><br />
+                        <input type="text" name="telefoneProprietario" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='email'>E-mail</label><br />
-                        <input type="email" name="email" /><br />
+                        <label for='emailProprietario'>E-mail</label><br />
+                        <input type="email" name="emailProprietario" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='senha'>Senha</label>
-                        <input type="password" name="senha" /><br />
+                        <label for='senhaProprietario'>Senha</label>
+                        <input type="password" name="senhaProprietario" /><br />
                     </div>
                     <button type="div" class="btn-1" id="btnContinuar"
                         onclick="mudarPassoCadastroRestaurante(2)">Continuar</button>
@@ -58,44 +58,44 @@
                 <div id="passo2">
                     <h3><i class="fas fa-utensils"></i><br><br>Agora sobre o restaurante</h3>
                     <div class='form-input'>
-                        <label for='nome'>Nome</label><br />
-                        <input type="text" name="nome" /><br />
+                        <label for='nomeRestaurante'>Nome</label><br />
+                        <input type="text" name="nomeRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='cpf'>CNPJ</label><br />
-                        <input type="text" name="cpf" /><br />
+                        <label for='cnpjRestaurante'>CNPJ</label><br />
+                        <input type="text" name="cnpjRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='telefone'>Telefone</label><br />
-                        <input type="text" name="telefone" /><br />
+                        <label for='telefoneRestaurante'>Telefone</label><br />
+                        <input type="text" name="telefoneRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='estado'>Estado</label><br />
-                        <input type="text" name="estado" /><br />
+                        <label for='estadoRestaurante'>Estado</label><br />
+                        <input type="text" name="estadoRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='cidade'>Cidade</label><br />
-                        <input type="text" name="cidade" /><br />
+                        <label for='cidadeRestaurante'>Cidade</label><br />
+                        <input type="text" name="cidadeRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='cep'>CEP</label><br />
-                        <input type="text" name="cep" /><br />
+                        <label for='cepRestaurante'>CEP</label><br />
+                        <input type="text" name="cepRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='bairro'>Bairro</label><br />
-                        <input type="text" name="bairro" /><br />
+                        <label for='bairroRestaurante'>Bairro</label><br />
+                        <input type="text" name="bairroRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-left'>
-                        <label for='rua'>Rua</label><br />
-                        <input type="text" name="rua" /><br />
+                        <label for='ruaRestaurante'>Rua</label><br />
+                        <input type="text" name="ruaRestaurante" /><br />
                     </div>
                     <div class='form-input form-input-right'>
-                        <label for='numero'>Número</label><br />
-                        <input type="text" name="numero" /><br />
+                        <label for='numeroRestaurante'>Número</label><br />
+                        <input type="text" name="numeroRestaurante" /><br />
                     </div>
                     <div class='form-input'>
-                        <label for='descricao'>Descrição</label><br />
-                        <textarea name='descricao' id='' cols='30' rows='5'></textarea><br />
+                        <label for='descricaoRestaurante'>Descrição</label><br />
+                        <textarea name='descricaoRestaurante' id='' cols='30' rows='5'></textarea><br />
                     </div>
                     <button type="div" class="btn-1" id="btnCadastrar">Finalizar Cadastro</button>
                     <div onclick="mudarPassoCadastroRestaurante(1)" class="btn-voltar">
