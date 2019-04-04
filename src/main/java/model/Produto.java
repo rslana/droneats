@@ -5,9 +5,14 @@
  */
 package model;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import persistence.ProdutoDAO;
+
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class Produto {
 
@@ -30,7 +35,7 @@ public class Produto {
         this.restaurante = restaurante;
         this.promocao = promocao;
     }
-    
+
     public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao) {
         this.id = id;
         this.nome = nome;
@@ -39,6 +44,15 @@ public class Produto {
         this.imagem = imagem;
         this.restaurante = restaurante;
         this.promocao = promocao;
+    }
+
+    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.imagem = imagem;
+        this.restaurante = restaurante;
     }
 
     public int getId() {
@@ -72,7 +86,7 @@ public class Produto {
     public void setPreco(Double preco) {
         this.preco = preco;
     }
-    
+
     public String getImagem() {
         return imagem;
     }
@@ -103,5 +117,14 @@ public class Produto {
 
     public void setPromocao(Promocao promocao) {
         this.promocao = promocao;
+    }
+
+    public static Produto getProduto(int id) throws ClassNotFoundException {
+        try {
+            return ProdutoDAO.getProduto(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

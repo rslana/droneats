@@ -7,13 +7,15 @@ package persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Categoria;
+import model.Restaurante;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class CategoriaDAO {
 
@@ -61,8 +63,31 @@ public class CategoriaDAO {
 
         }
     }
+    
+     public static Categoria getCategoria(int id) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        Categoria categoria = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM categoria WHERE id = " + id);
+            rs.first();
+            categoria = new Categoria(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    null
+            );
+             categoria.setRestauranteId(rs.getInt("restaurante_id"));
+            categoria.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return categoria;
+    }
 
-    public void closeResources(Connection conn, Statement st) {
+    public static void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();

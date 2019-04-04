@@ -5,11 +5,15 @@
  */
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import persistence.CategoriaDAO;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class Categoria {
 
@@ -28,12 +32,12 @@ public class Categoria {
         this.nome = nome;
         this.restaurante = restaurante;
     }
-    
+
     public Categoria(String nome, Restaurante restaurante) {
         this.nome = nome;
         this.restaurante = restaurante;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -41,7 +45,7 @@ public class Categoria {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -72,6 +76,15 @@ public class Categoria {
 
     public void setProdutos(ArrayList<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public static Categoria getCategoria(int id) throws ClassNotFoundException {
+        try {
+            return CategoriaDAO.getCategoria(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
 }

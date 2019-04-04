@@ -5,8 +5,12 @@
  */
 package model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import persistence.PedidoDAO;
 
 /**
  *
@@ -16,7 +20,10 @@ public class Pedido {
 
     private int id;
     private Restaurante restaurante;
+    private int restauranteId;
     private Cliente cliente;
+    private int clienteId;
+
     private String dataPedido;
     private String horarioPedido;
     private String dataPagamento;
@@ -28,9 +35,8 @@ public class Pedido {
     private PedidoEstado estado;
 
     public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstadoId) {
-        Calendar hoje = Calendar.getInstance();
-        this.dataPedido = hoje.get(Calendar.DAY_OF_MONTH) + "/" + (hoje.get(Calendar.MONTH) + 1) + "/" + hoje.get(Calendar.YEAR);
-        this.horarioPedido = horarioPedido;
+        this.dataPedido = Calendar.DAY_OF_MONTH + "/" + (Calendar.MONTH + 1) + "/" + Calendar.YEAR;
+        this.horarioPedido = Calendar.HOUR_OF_DAY + ":" + ((Calendar.MINUTE < 10) ? "0" + Calendar.MINUTE : Calendar.MINUTE);
         this.dataPagamento = dataPagamento;
         this.valor = valor;
         this.pago = pago;
@@ -44,6 +50,18 @@ public class Pedido {
         this.pago = true;
         this.produtos = produtos;
         this.cliente = cliente;
+    }
+
+    public Pedido(int id, String dataPedido, String horarioPedido, String dataPagamento,
+            double valor, boolean pago, Restaurante restaurante, Cliente cliente) {
+        this.id = id;
+        this.restaurante = restaurante;
+        this.cliente = cliente;
+        this.dataPedido = dataPedido;
+        this.horarioPedido = horarioPedido;
+        this.dataPagamento = dataPagamento;
+        this.valor = valor;
+        this.pago = pago;
     }
 
     public int getId() {
@@ -126,4 +144,28 @@ public class Pedido {
         this.estado = estado;
     }
 
+    public int getRestauranteId() {
+        return restauranteId;
+    }
+
+    public void setRestauranteId(int restauranteId) {
+        this.restauranteId = restauranteId;
+    }
+
+    public int getClienteId() {
+        return clienteId;
+    }
+
+    public void setClienteId(int clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public static Pedido getPedido(int id) throws ClassNotFoundException {
+        try {
+            return PedidoDAO.getPedido(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public abstract class Usuario {
 

@@ -14,7 +14,7 @@ import model.Restaurante;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class ProdutoDAO {
 
@@ -116,7 +116,7 @@ public class ProdutoDAO {
         return produtos;
     }
 
-    public static Produto obterProduto(int id) throws ClassNotFoundException, SQLException {
+    public static Produto getProduto(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Produto produto = null;
@@ -129,9 +129,10 @@ public class ProdutoDAO {
                     rs.getString("descricao"),
                     rs.getDouble("preco"),
                     rs.getString("imagem"),
-                    null,
                     null
             );
+            produto.setRestauranteId(rs.getInt("restaurante_id"));
+            produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

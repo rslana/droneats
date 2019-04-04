@@ -12,7 +12,7 @@ import persistence.RestauranteDAO;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class Restaurante {
 

@@ -6,6 +6,7 @@
 package persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +14,7 @@ import model.Cliente;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class ClienteDAO {
 
@@ -32,10 +33,17 @@ public class ClienteDAO {
         Statement st = conn.createStatement();
 
         try {
-            conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("insert into cliente (nome, email, senha, telefone, cpf)"
-                    + " values ('" + cliente.getNome() + "', '" + cliente.getEmail() + "','" + cliente.getSenha() + "','" + cliente.getTelefone() + "','" + cliente.getCpf() + "')");
+            String sql = "INSERT INTO cliente (nome, email, senha, telefone, cpf)"
+                    + " VALUES (?,?,?,?,?)";
+            PreparedStatement comando = conn.prepareStatement(sql);
+            comando.setString(1, cliente.getNome());
+            comando.setString(2, cliente.getEmail());
+            comando.setString(3, cliente.getSenha());
+            comando.setString(4, cliente.getTelefone());
+            comando.setString(5, cliente.getCpf());
+
+            comando.execute();
+
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -43,7 +51,7 @@ public class ClienteDAO {
         }
     }
 
-    public void apagarCliente(String email) throws SQLException, ClassNotFoundException {
+    public void deleteCliente(String email) throws SQLException, ClassNotFoundException {
 
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -51,7 +59,7 @@ public class ClienteDAO {
         try {
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            st.execute("Delete from cliente where email= '" + email + "'");
+            st.execute("DELETE FROM cliente WHERE email= '" + email + "'");
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -60,7 +68,38 @@ public class ClienteDAO {
         }
     }
 
-    public void closeResources(Connection conn, Statement st) {
+    public static Cliente getCliente(int id) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT * FROM cliente WHERE id = '" + id + "'";
+        PreparedStatement comando = conn.prepareStatement(sql);
+        Cliente cliente = null;
+        try {
+            ResultSet rs = comando.executeQuery();
+
+            rs.first();
+            cliente = new Cliente(
+                    rs.getInt("id"),
+                    rs.getString("cpf"),
+                    rs.getString("senha"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("bairro"),
+                    rs.getString("rua"),
+                    rs.getString("numero"),
+                    rs.getString("cep"),
+                    rs.getString("telefone")
+            );
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
+        return cliente;
+    }
+
+    public static void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
