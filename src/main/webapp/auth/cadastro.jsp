@@ -8,10 +8,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/droneats/assets/css/estilo.less">
+    <link rel="stylesheet/less" type="text/css" href="../assets/css/estilo.less">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css"
-        href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Cadastro</title>

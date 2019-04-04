@@ -15,47 +15,25 @@ public class Categoria {
 
     private int id;
     private String nome;
-    private ArrayList<Produto> produtos;
+    private ArrayList<Produto> ofertas;
 
-    private int restauranteId;
+    private int restaurante_id;
     private Restaurante restaurante;
 
     public Categoria() {
     }
 
-    public Categoria(int id, String nome, Restaurante restaurante) {
-        this.id = id;
+    public Categoria(String nome, int restaurante_id) {
         this.nome = nome;
-        this.restaurante = restaurante;
-    }
-    
-    public Categoria(String nome, Restaurante restaurante) {
-        this.nome = nome;
-        this.restaurante = restaurante;
-    }
-    
-    public int getId() {
-        return id;
+        this.restaurante_id = restaurante_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-    
-    public String getNome() {
-        return nome;
+    public int getRestaurante_id() {
+        return restaurante_id;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getRestauranteId() {
-        return restauranteId;
-    }
-
-    public void setRestauranteId(int restauranteId) {
-        this.restauranteId = restauranteId;
+    public void setRestaurante_id(int restaurante_id) {
+        this.restaurante_id = restaurante_id;
     }
 
     public Restaurante getRestaurante() {
@@ -66,12 +44,28 @@ public class Categoria {
         this.restaurante = restaurante;
     }
 
-    public ArrayList<Produto> getProdutos() {
-        return produtos;
+    public String getNome() {
+        return nome;
     }
 
-    public void setProdutos(ArrayList<Produto> produtos) {
-        this.produtos = produtos;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public ArrayList<Produto> getOfertas() {
+        return ofertas;
+    }
+
+    public void setOfertas(ArrayList<Produto> ofertas) {
+        this.ofertas = ofertas;
     }
 
 }

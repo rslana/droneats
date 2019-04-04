@@ -74,6 +74,4 @@ buildNumber.properties
 
 config/
 config/**
-utils/config.jsp
-src/main/webapp/utils/config.jsp
 nbproject/project.properties

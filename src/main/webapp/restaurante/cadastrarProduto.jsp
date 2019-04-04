@@ -8,15 +8,13 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel='stylesheet' href='http://localhost:8080/droneats/assets/bootstrap/css/bootstrap.css'>
-    <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/droneats/assets/css/estilo.less">
+    <link rel='stylesheet' href='../assets/bootstrap/css/bootstrap.css'>
+    <link rel="stylesheet/less" type="text/css" href="../assets/css/estilo.less">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css"
-        href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
+    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <script src="http://localhost:8080/droneats/assets/js/global.js"></script>
-    <script src="http://localhost:8080/droneats/assets/js/request.js"></script>
+    <script src="../assets/js/global.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Cadastrar Produto</title>
 </head>
@@ -28,8 +26,7 @@
             <div class='row'>
                 <div class='col-12 col-md-8 col-md-offset-2 form-crud'>
                     <div class='corpo-form'>
-                        <form action='FrontController?route=produto&action=CadastrarProduto' method="POST"
-                            enctype="multipart/form-data" id="formCadastroProduto">
+                        <form action='FrontController?route=restaurante&action=CadastrarProduto' method="POST">
                             <h2><i class="fas fa-utensils"></i> &nbsp;Cadastro de Produto</h2>
                             <c:choose>
                                 <c:when test="${mensagem != null}">
@@ -45,8 +42,8 @@
                                 <input type="text" name="nome" /><br />
                             </div>
                             <div class='form-input form-input-right'>
-                                <label for='preco'>Preço</label><br />
-                                <input type="number" name="preco" min="0" max="999" step="0.01" /><br />
+                                <label for='nome'>Preço</label><br />
+                                <input type="number" name="preco" /><br />
                             </div>
                             <div class='form-input'>
                                 <label for='descricao'>Descrição</label><br />
@@ -65,30 +62,24 @@
                                             <c:out value="${categoria.nome}" />
                                         </option>
                                     </c:forEach>
-                                    <option value="1${categoria.id}">
+                                    <option value="${categoria.id}">
                                         Combo Grande
                                     </option>
-                                    <option value="2${categoria.id}">
+                                    <option value="${categoria.id}">
                                         Combo Médio
                                     </option>
-                                    <option value="3${categoria.id}">
+                                    <option value="${categoria.id}">
                                         Sanduíches com bife de hamburguer
                                     </option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn-1" id="btnCadastrar"
-                                onclick="submitWithLoading(this,'formCadastroProduto')">Cadastrar Produto</button>
+                            <button type="submit" class="btn-1">Cadastrar Produto</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById("btnCadastrar").addEventListener("click", function (event) {
-            event.preventDefault()
-        });
-    </script>
 </body>
 
 </html>
