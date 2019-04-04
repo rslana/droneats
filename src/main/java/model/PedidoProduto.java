@@ -10,11 +10,22 @@ public class PedidoProduto {
     private int produtoId;
     private Produto produto;
     private int quantidade;
+    private double preco;
 
-    public PedidoProduto(int pedidoId, Pedido pedido, Produto produto) {
-        this.pedidoId = pedidoId;
+    public PedidoProduto(Pedido pedido, Produto produto, int quantidade, double preco) {
         this.pedido = pedido;
         this.produto = produto;
+        this.quantidade = quantidade;
+        this.preco = preco;
+    }
+
+    public PedidoProduto(int pedidoId, int produtoId, Pedido pedido, Produto produto, int quantidade, double preco) {
+        this.pedidoId = pedidoId;
+        this.produtoId = produtoId;
+        this.pedido = pedido;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.preco = preco;
     }
 
     public int getPedidoId() {
@@ -55,5 +66,13 @@ public class PedidoProduto {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 }

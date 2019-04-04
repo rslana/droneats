@@ -5,9 +5,9 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Cliente`
+-- Table `droneats`.`cliente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Cliente` (
+CREATE TABLE IF NOT EXISTS `droneats`.`cliente` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
@@ -25,9 +25,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Proprietario`
+-- Table `droneats`.`proprietario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Proprietario` (
+CREATE TABLE IF NOT EXISTS `droneats`.`proprietario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
@@ -45,9 +45,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Restaurante`
+-- Table `droneats`.`restaurante`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Restaurante` (
+CREATE TABLE IF NOT EXISTS `droneats`.`restaurante` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
@@ -60,121 +60,121 @@ CREATE TABLE IF NOT EXISTS `droneats`.`Restaurante` (
   `cep` VARCHAR(45) NULL,
   `telefone` VARCHAR(45) NULL,
   `descricao` VARCHAR(500) NULL,
-  `Proprietario_id` INT NOT NULL,
+  `proprietario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Restaurante_Proprietario1_idx` (`Proprietario_id` ASC),
-  CONSTRAINT `fk_Restaurante_Proprietario1`
-    FOREIGN KEY (`Proprietario_id`)
-    REFERENCES `droneats`.`Proprietario` (`id`)
+  INDEX `fk_restaurante_proprietario1_idx` (`proprietario_id` ASC),
+  CONSTRAINT `fk_restaurante_proprietario1`
+    FOREIGN KEY (`proprietario_id`)
+    REFERENCES `droneats`.`proprietario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Categoria`
+-- Table `droneats`.`categoria`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Categoria` (
+CREATE TABLE IF NOT EXISTS `droneats`.`categoria` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(70) NULL,
-  `Restaurante_id` INT NOT NULL,
+  `restaurante_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Categoria_Restaurante_idx` (`Restaurante_id` ASC),
-  CONSTRAINT `fk_Categoria_Restaurante`
-    FOREIGN KEY (`Restaurante_id`)
-    REFERENCES `droneats`.`Restaurante` (`id`)
+  INDEX `fk_categoria_restaurante_idx` (`restaurante_id` ASC),
+  CONSTRAINT `fk_categoria_restaurante`
+    FOREIGN KEY (`restaurante_id`)
+    REFERENCES `droneats`.`restaurante` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Produto`
+-- Table `droneats`.`produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Produto` (
+CREATE TABLE IF NOT EXISTS `droneats`.`produto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL,
   `descricao` VARCHAR(300) NULL,
   `preco` DOUBLE NULL,
   `imagem` VARCHAR(100) NULL,
-  `Restaurante_id` INT NOT NULL,
+  `restaurante_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Produto_Restaurante1_idx` (`Restaurante_id` ASC),
-  CONSTRAINT `fk_Produto_Restaurante1`
-    FOREIGN KEY (`Restaurante_id`)
-    REFERENCES `droneats`.`Restaurante` (`id`)
+  INDEX `fk_produto_restaurante1_idx` (`restaurante_id` ASC),
+  CONSTRAINT `fk_produto_restaurante1`
+    FOREIGN KEY (`restaurante_id`)
+    REFERENCES `droneats`.`restaurante` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Pedido`
+-- Table `droneats`.`pedido`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Pedido` (
+CREATE TABLE IF NOT EXISTS `droneats`.`pedido` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `data_pedido` VARCHAR(45) NULL,
   `hora_pedido` VARCHAR(45) NULL,
   `valor` DOUBLE NULL,
   `pago` TINYINT NULL,
   `data_pagamento` VARCHAR(45) NULL,
-  `Restaurante_id` INT NOT NULL,
-  `Cliente_id` INT NOT NULL,
+  `restaurante_id` INT NOT NULL,
+  `cliente_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_Pedido_Restaurante1_idx` (`Restaurante_id` ASC),
-  INDEX `fk_Pedido_Cliente1_idx` (`Cliente_id` ASC),
-  CONSTRAINT `fk_Pedido_Restaurante1`
-    FOREIGN KEY (`Restaurante_id`)
-    REFERENCES `droneats`.`Restaurante` (`id`)
+  INDEX `fk_pedido_restaurante1_idx` (`restaurante_id` ASC),
+  INDEX `fk_pedido_cliente1_idx` (`cliente_id` ASC),
+  CONSTRAINT `fk_pedido_restaurante1`
+    FOREIGN KEY (`restaurante_id`)
+    REFERENCES `droneats`.`restaurante` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pedido_Cliente1`
-    FOREIGN KEY (`Cliente_id`)
-    REFERENCES `droneats`.`Cliente` (`id`)
+  CONSTRAINT `fk_pedido_cliente1`
+    FOREIGN KEY (`cliente_id`)
+    REFERENCES `droneats`.`cliente` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Categoria_Produto`
+-- Table `droneats`.`categoria_produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Categoria_Produto` (
-  `Categoria_id` INT NOT NULL,
-  `Produto_id` INT NOT NULL,
-  PRIMARY KEY (`Categoria_id`, `Produto_id`),
-  INDEX `fk_Categoria_has_Produto_Produto1_idx` (`Produto_id` ASC),
-  INDEX `fk_Categoria_has_Produto_Categoria1_idx` (`Categoria_id` ASC),
-  CONSTRAINT `fk_Categoria_has_Produto_Categoria1`
-    FOREIGN KEY (`Categoria_id`)
-    REFERENCES `droneats`.`Categoria` (`id`)
+CREATE TABLE IF NOT EXISTS `droneats`.`categoria_produto` (
+  `categoria_id` INT NOT NULL,
+  `produto_id` INT NOT NULL,
+  PRIMARY KEY (`categoria_id`, `produto_id`),
+  INDEX `fk_categoria_has_produto_produto1_idx` (`produto_id` ASC),
+  INDEX `fk_categoria_has_produto_categoria1_idx` (`categoria_id` ASC),
+  CONSTRAINT `fk_categoria_has_produto_categoria1`
+    FOREIGN KEY (`categoria_id`)
+    REFERENCES `droneats`.`categoria` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Categoria_has_Produto_Produto1`
-    FOREIGN KEY (`Produto_id`)
-    REFERENCES `droneats`.`Produto` (`id`)
+  CONSTRAINT `fk_categoria_has_produto_produto1`
+    FOREIGN KEY (`produto_id`)
+    REFERENCES `droneats`.`produto` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `droneats`.`Pedido_Produto`
+-- Table `droneats`.`pedido_produto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`Pedido_Produto` (
-  `Pedido_id` INT NOT NULL,
-  `Produto_id` INT NOT NULL,
-  PRIMARY KEY (`Pedido_id`, `Produto_id`),
-  INDEX `fk_Pedido_has_Produto_Produto1_idx` (`Produto_id` ASC),
-  INDEX `fk_Pedido_has_Produto_Pedido1_idx` (`Pedido_id` ASC),
-  CONSTRAINT `fk_Pedido_has_Produto_Pedido1`
-    FOREIGN KEY (`Pedido_id`)
-    REFERENCES `droneats`.`Pedido` (`id`)
+CREATE TABLE IF NOT EXISTS `droneats`.`pedido_produto` (
+  `pedido_id` INT NOT NULL,
+  `produto_id` INT NOT NULL,
+  PRIMARY KEY (`pedido_id`, `produto_id`),
+  INDEX `fk_pedido_has_produto_produto1_idx` (`produto_id` ASC),
+  INDEX `fk_pedido_has_produto_pedido1_idx` (`pedido_id` ASC),
+  CONSTRAINT `fk_pedido_has_produto_pedido1`
+    FOREIGN KEY (`pedido_id`)
+    REFERENCES `droneats`.`pedido` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Pedido_has_Produto_Produto1`
-    FOREIGN KEY (`Produto_id`)
-    REFERENCES `droneats`.`Produto` (`id`)
+  CONSTRAINT `fk_pedido_has_produto_produto1`
+    FOREIGN KEY (`produto_id`)
+    REFERENCES `droneats`.`produto` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

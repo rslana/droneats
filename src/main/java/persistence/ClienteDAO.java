@@ -34,7 +34,7 @@ public class ClienteDAO {
         try {
             conn = DatabaseLocator.getInstance().getConnection();
             st = conn.createStatement();
-            st.execute("insert into Cliente (nome, email, senha, telefone, cpf)"
+            st.execute("insert into cliente (nome, email, senha, telefone, cpf)"
                     + " values ('" + cliente.getNome() + "', '" + cliente.getEmail() + "','" + cliente.getSenha() + "','" + cliente.getTelefone() + "','" + cliente.getCpf() + "')");
         } catch (SQLException e) {
             throw e;

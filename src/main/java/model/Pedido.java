@@ -5,8 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 /**
  *
@@ -22,22 +22,22 @@ public class Pedido {
     private String dataPagamento;
     private double valor;
     private boolean pago;
-    HashMap<Produto, Integer> produtos;
+    ArrayList<PedidoProduto> produtos;
 
-    private int pedidoEstado_id;
+    private int pedidoEstadoId;
     private PedidoEstado estado;
 
-    public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstado_id) {
+    public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstadoId) {
         Calendar hoje = Calendar.getInstance();
         this.dataPedido = hoje.get(Calendar.DAY_OF_MONTH) + "/" + (hoje.get(Calendar.MONTH) + 1) + "/" + hoje.get(Calendar.YEAR);
         this.horarioPedido = horarioPedido;
         this.dataPagamento = dataPagamento;
         this.valor = valor;
         this.pago = pago;
-        this.pedidoEstado_id = pedidoEstado_id;
+        this.pedidoEstadoId = pedidoEstadoId;
     }
 
-    public Pedido(double valor,Cliente cliente, HashMap<Produto,Integer> produtos) {
+    public Pedido(double valor, Cliente cliente, ArrayList<PedidoProduto> produtos) {
         this.dataPedido = Calendar.DAY_OF_MONTH + "/" + (Calendar.MONTH + 1) + "/" + Calendar.YEAR;
         this.horarioPedido = Calendar.HOUR_OF_DAY + ":" + ((Calendar.MINUTE < 10) ? "0" + Calendar.MINUTE : Calendar.MINUTE);
         this.valor = valor;
@@ -78,12 +78,12 @@ public class Pedido {
         this.pago = pago;
     }
 
-    public int getPedidoEstado_id() {
-        return pedidoEstado_id;
+    public int getPedidoEstadoId() {
+        return pedidoEstadoId;
     }
 
-    public void setPedidoEstado_id(int pedidoEstado_id) {
-        this.pedidoEstado_id = pedidoEstado_id;
+    public void setPedidoEstadoId(int pedidoEstadoId) {
+        this.pedidoEstadoId = pedidoEstadoId;
     }
 
     public Restaurante getRestaurante() {

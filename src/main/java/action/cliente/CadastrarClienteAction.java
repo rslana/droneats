@@ -47,8 +47,8 @@ public class CadastrarClienteAction implements Action {
                 Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Cliente cliente = new Cliente(nome,email,senha,cpf,telefone);
-       
+            Cliente cliente = new Cliente(nome, email, senha, cpf, telefone);
+
             try {
                 ClienteDAO.getInstance().save(cliente);
                 request.setAttribute("mensagemSucesso", "Cadastro efetuado com sucesso!");
@@ -56,19 +56,17 @@ public class CadastrarClienteAction implements Action {
                 view.forward(request, response);
             } catch (SQLException ex) {
                 try {
+                    Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
                     request.setAttribute("mensagemErro", "Erro ao tentar efetuar cadastro como cliente");
                     RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
                     view.forward(request, response);
-                    ex.printStackTrace();
                 } catch (ServletException ex1) {
                     Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
+            } catch (ClassNotFoundException | ServletException ex) {
                 Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
 }

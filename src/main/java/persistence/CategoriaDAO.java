@@ -32,7 +32,7 @@ public class CategoriaDAO {
         Statement st = conn.createStatement();
 
         try {
-            String sql = "INSERT INTO Categoria (nome, restaurante_id) VALUES (?,?)";
+            String sql = "INSERT INTO categoria (nome, restaurante_id) VALUES (?,?)";
             PreparedStatement comando = conn.prepareStatement(sql);
             comando.setString(1, categoria.getNome());
             comando.setInt(2, categoria.getRestaurante().getId());
