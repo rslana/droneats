@@ -6,8 +6,8 @@ class Cesta {
   atualizarState() {
     localStorage.setItem("cesta", JSON.stringify(this.produtos));
     inserirConteudo("qtd-produtos-cesta", cesta.quantidadeProdutos());
-    if (this.produtos.length === 0)
-      localStorage.removeItem("restaurante");
+    // if (this.produtos.length === 0)
+    // localStorage.removeItem("restaurante");
     atualizarCesta();
   }
 
@@ -177,4 +177,42 @@ const esvaziarCestaAdicionarProduto = () => {
   NOVO_RESTAURANTE = {};
   cesta.adicionarProduto(NOVO_PRODUTO);
   fecharModal("mensagem-troca-restaurante");
+}
+
+// DATA
+
+/*
+* String date (dd/mm/aaaa)
+*/
+const getNumberMonth = (date) => {
+  const date_array = date.split("/");
+  return parseInt(date_array[1]) - 1;
+}
+
+const getNumberDay = (date) => {
+  const date_array = date.split("/");
+  return parseInt(date_array[0]);
+}
+
+const calendar = [
+  { short_month: "JAN", month: "Janeiro" },
+  { short_month: "FEV", month: "Fevereiro" },
+  { short_month: "MAR", month: "Março" },
+  { short_month: "ABR", month: "Abril" },
+  { short_month: "MAI", month: "Maio" },
+  { short_month: "JUN", month: "Junho" },
+  { short_month: "JUL", month: "Julho" },
+  { short_month: "AGO", month: "Agosto" },
+  { short_month: "SET", month: "Setembro" },
+  { short_month: "OUT", month: "Outubro" },
+  { short_month: "NOV", month: "Novembro" },
+  { short_month: "DEZ", month: "Dezembro" },
+]
+
+const getShortMonth = (date) => {
+  return calendar[getNumberMonth(date)].short_month;
+}
+
+const getMonth = (date) => {
+  return calendar[getNumberMonth(date)].short_month;
 }

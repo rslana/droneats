@@ -8,13 +8,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;" charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel='stylesheet' href='../assets/bootstrap/css/bootstrap.css'>
-    <link rel="stylesheet/less" type="text/css" href="../assets/css/estilo.less">
+    <link rel='stylesheet' href='http://localhost:8080/droneats/assets/bootstrap/css/bootstrap.css'>
+    <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/droneats/assets/css/estilo.less">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="../assets/fontawesome-free-5.7.2-web/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <script src="../assets/js/global.js"></script>
+    <script src="http://localhost:8080/droneats/assets/js/global.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Cadastrar Categoria</title>
 </head>
@@ -25,8 +26,9 @@
         <div class='container'>
             <div class='row'>
                 <div class='col-12 col-md-6 col-md-offset-3 form-crud'>
+                    <%@ include file = "../layout/mensagem.jsp" %>
                     <div class='corpo-form'>
-                        <form action='FrontController?route=restaurante&action=CadastrarCategoria' method="POST">
+                        <form action='FrontController?route=categoria&action=CadastrarCategoria' method="POST">
                             <h2><i class="fas fa-tags"></i></i> &nbsp;Cadastro de Categoria</h2>
                             <c:choose>
                                 <c:when test="${mensagem != null}">
@@ -37,6 +39,7 @@
                                     </div>
                                 </c:when>
                             </c:choose>
+
                             <div class='form-input'>
                                 <label for='nome'>Nome</label><br />
                                 <input type="text" name="nome" /><br />

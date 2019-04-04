@@ -4,7 +4,6 @@
 * @param {object} params the paramiters to add to the url
 * @param {string} [method=post] the method to use on the form
 */
-
 const post = (path, params, method = "post") => {
   // The rest of this code assumes you are not using a library.
   // It can be made less wordy if you use one.
@@ -13,7 +12,6 @@ const post = (path, params, method = "post") => {
   form.setAttribute("action", path);
 
   const restaurante = JSON.parse(localStorage.getItem('restaurante'));
-<<<<<<< HEAD
 
   const json = JSON.stringify(restaurante);
   const blob = new Blob([json], {
@@ -39,25 +37,14 @@ const post = (path, params, method = "post") => {
 
   form.append("document", blob);
   form.appendChild(hiddenPedido);
-=======
-  console.log(restaurante);
-  const hiddenRestaurante = document.createElement("input");
-  hiddenRestaurante.setAttribute("type", "hidden");
-  hiddenRestaurante.setAttribute("name", "restaurante");
-  hiddenRestaurante.setAttribute("value", restaurante.id);
-
-  form.appendChild(hiddenProdutos);
-  form.appendChild(hiddenRestaurante);
->>>>>>> 6b1614d3d651d1289fe1083d509ed96fbd598964
 
   document.body.appendChild(form);
   form.submit();
 }
 
 const finalizarPedido = () => {
-  post('ProdutoController');
+  post('FrontController?route=pedido&action=CadastrarPedido');
 }
-<<<<<<< HEAD
 
 /**
 * sets the button to a loading state of a form.
@@ -73,5 +60,3 @@ const submitWithLoading = (btn, formId) => {
 
   form.submit();
 }
-=======
->>>>>>> 6b1614d3d651d1289fe1083d509ed96fbd598964

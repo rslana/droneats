@@ -17,6 +17,7 @@
               </script>
             </span>
           </a>
+          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
       <c:when test="${usuario == null}">
@@ -25,6 +26,7 @@
           <a href='restaurante/pedidos.jsp' class="menu-item"><i class="fas fa-parachute-box"></i>Pedidos</a>
           <a href='restaurante/produtos.jsp' class="menu-item"><i class="fas fa-utensils"></i>Produtos</a>
           <a href='restaurante/categorias.jsp' class="menu-item"><i class="fas fa-tags"></i></i>Categorias</a>
+          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
       <c:otherwise>
