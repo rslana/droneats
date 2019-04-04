@@ -81,7 +81,7 @@ public class ProdutoDAO {
             );
             
             produto.setRestauranteId(rs.getInt("restaurante_id"));
-            produto.setRestaurante(Restaurante.obterRestaurante(rs.getInt("restaurante_id")));
+            produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

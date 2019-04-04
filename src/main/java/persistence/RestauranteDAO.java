@@ -6,6 +6,7 @@
 package persistence;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,17 +34,23 @@ public class RestauranteDAO {
         Statement st = conn.createStatement();
 
         try {
-            conn = DatabaseLocator.getInstance().getConnection();
-            st = conn.createStatement();
-            st.execute("insert into restaurante (nome, cnpj, estado, "
-                    + "cidade, cep, bairro, rua, numero, descricao, "
-                    + "telefone)"
-                    + " values ('" + restaurante.getNome()
-                    + "', '" + restaurante.getCnpj() + "', '" + restaurante.getEstado()
-                    + "','" + restaurante.getCidade() + "', '" + restaurante.getCep()
-                    + "', '" + restaurante.getBairro() + "','" + restaurante.getRua()
-                    + "','" + restaurante.getNumero() + "', '" + restaurante.getDescricao()
-                    + "', '" + restaurante.getTelefone() + "')");
+            
+             String sql = "INSERT INTO restaurante (nome, cnpj, estado, cidade, "
+                     + "cep, bairro, rua, numero, descricao, telefone) VALUES (?,?,?,?,?,?,?,?,?,?)";
+            PreparedStatement comando = conn.prepareStatement(sql);
+            comando.setString(1, restaurante.getNome());
+            comando.setString(2, restaurante.getCnpj());
+            comando.setString(3, restaurante.getEstado());
+            comando.setString(4, restaurante.getCidade());
+            comando.setString(5, restaurante.getCep());
+            comando.setString(6, restaurante.getBairro());
+            comando.setString(7, restaurante.getRua());
+            comando.setString(8, restaurante.getNumero());
+            comando.setString(9, restaurante.getDescricao());
+            comando.setString(10, restaurante.getTelefone());
+
+            comando.execute();
+
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -52,7 +59,7 @@ public class RestauranteDAO {
         }
     }
 
-    public void apagarRestaurante(String email) throws SQLException, ClassNotFoundException {
+    public void deleteRestaurante(String email) throws SQLException, ClassNotFoundException {
 
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -69,7 +76,7 @@ public class RestauranteDAO {
         }
     }
     
-    public static Restaurante obterRestaurante(int id) throws ClassNotFoundException, SQLException {
+    public static Restaurante getRestaurante(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Restaurante restaurante = null;

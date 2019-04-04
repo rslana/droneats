@@ -167,9 +167,9 @@ public class Restaurante {
         this.proprietario = proprietario;
     }
 
-    public static Restaurante obterRestaurante(int id) throws ClassNotFoundException {
+    public static Restaurante getRestaurante(int id) throws ClassNotFoundException {
         try {
-            return RestauranteDAO.obterRestaurante(id);
+            return RestauranteDAO.getRestaurante(id);
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }

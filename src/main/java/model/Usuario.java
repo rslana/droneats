@@ -21,6 +21,8 @@ public abstract class Usuario {
     private String numero;
     private String cep;
     private String telefone;
+    private String senha;
+    private String cpf;
 
     public Usuario(int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
         this.id = id;
@@ -33,6 +35,7 @@ public abstract class Usuario {
         this.numero = numero;
         this.cep = cep;
         this.telefone = telefone;
+
     }
 
     public Usuario(String nome, String email, String telefone) {
@@ -47,8 +50,46 @@ public abstract class Usuario {
         this.email = email;
         this.telefone = telefone;
     }
-    
-    
+
+    public Usuario(String cpf, String senha, int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.cidade = cidade;
+        this.estado = estado;
+        this.bairro = bairro;
+        this.rua = rua;
+        this.numero = numero;
+        this.cep = cep;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public Usuario(String cpf, String senha, String nome, String email, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public Usuario( int id, String cpf, String senha, String nome, String email, String telefone) {
+        this.id = id;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
+        this.senha = senha;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -120,6 +161,22 @@ public abstract class Usuario {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
 }
