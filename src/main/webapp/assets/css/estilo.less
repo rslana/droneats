@@ -5,6 +5,7 @@
 @opacity-primary-1: rgba(211, 46, 40, 0.6);
 @opacity-primary-2: rgba(211, 46, 40, 0.3);
 @opacity-primary-3: rgba(211, 46, 40, 0.1);
+@opacity-primary-4: rgba(211, 46, 40, 0.8);
 
 // ##### GLOBAL
 
@@ -70,6 +71,31 @@ a {
   opacity: .8;
 }
 
+.btn-right {
+  width: initial !important;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  padding: 8px 20px;
+  font-size: 10pt;
+}
+
+.div-titulo-lista {
+  vertical-align: middle;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.div-titulo-lista .div-btn-right {
+  text-align: right;
+}
+
+.div-titulo-lista h2 {
+  margin-top: 0px;
+}
+
 .menu {
   width: 100%;
   margin-top: 0px;
@@ -116,6 +142,13 @@ a {
   text-shadow: 0px 0px 4px #CCC;
 }
 
+
+.row.equal {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center;
+}
+
 .lista-produtos {
   margin-bottom: 100px;
 }
@@ -132,6 +165,7 @@ a {
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
 }
 
 .item-lista-cesta-compra {
@@ -655,6 +689,20 @@ a {
   font-size: 11pt;
 }
 
+.desconto-produto {
+  color: #FFF;
+  font-size: 7pt;
+  letter-spacing: 1px;
+  text-decoration: line-through;
+  font-weight: 100;
+  padding: 3px 10px;
+  background-color: @opacity-primary-1;
+  border-radius: 4px;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+}
+
 .item-preco-produto {
   margin-left: 15px;
 }
@@ -691,7 +739,7 @@ a {
   width: 25%;
   padding: 10px 20px;
   height: 100%;
-  box-shadow: 0px 1px 4px @opacity-primary-2;
+  box-shadow: 0px 1px 2px #799;
   background-color: #FFF;
 }
 
@@ -734,6 +782,38 @@ a {
 .btn-1:disabled,
 .btn-filanizar-pedido:disabled {
   opacity: .3;
+}
+
+.div-troca-estado-pedido {
+  // border: solid 1px red;
+  text-align: center;
+}
+
+.div-troca-estado-pedido .item-troca-estado-pedido {
+  // border: solid 1px red;
+  padding: 12px 20px;
+  margin: 5px 1px;
+  width: 100%;
+  box-shadow: 0px 0px 2px #366;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  text-align: left;
+}
+
+.div-troca-estado-pedido .item-troca-estado-pedido:hover {
+  transition: .3s;
+  opacity: .7;
+}
+
+.div-troca-estado-pedido .item-troca-estado-pedido:focus {
+  transition: .3s;
+  border-left: solid 5px rgb(0, 163, 81);
+}
+
+.estado-pedido-ativo {
+  background-color: rgb(0, 163, 81);
+  color: #FFF;
 }
 
 // ##### MENSAGENS_RESTAURANTE
@@ -855,5 +935,9 @@ a {
     width: 100%;
     margin: auto;
     text-align: left;
+  }
+
+  .desconto-produto {
+    background-color: @opacity-primary-4;
   }
 }

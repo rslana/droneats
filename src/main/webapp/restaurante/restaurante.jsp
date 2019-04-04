@@ -35,22 +35,31 @@
         </div>
 
         <div class='container'>
-            <div class='row lista-produtos'>
+            <div class='row lista-produtos equal'>
                 <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
                     <div class='item-lista-produtos' id="div-produto1">
                         <p class="p-icon" style="background-image: url(assets/images/produtos/pizza.jpg)"></p>
                         <p class="p-msg">
                             <span class="nome-produto">Pizza Calabresa</span><br>
                             <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
+                                dolor sit amet consectetur. asdasd as asd</span><br>
                             <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(1)">
                                 Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto1">
                                         <script>
-                                            getPrecoFormatado("25.90", "produto1")
+                                            getPrecoDesconto("32.00", "produto1", "10")
                                         </script>
-                                    </span></span>
+                                    </span>
+                                </span>
                             </button>
                         </p>
+                        <span class="desconto-produto">
+                            R$
+                            <span id='desconto-produto1'>
+                                <script>
+                                    getPrecoFormatado("32.00", "desconto-produto1")
+                                </script>
+                            </span>
+                        </span>
                     </div>
                 </div>
                 <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
@@ -63,11 +72,19 @@
                             <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(2)">
                                 Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto2">
                                         <script>
-                                            getPrecoFormatado("8.90", "produto2")
+                                            getPrecoDesconto("15.00", "produto2", "20")
                                         </script>
                                     </span></span>
                             </button>
                         </p>
+                        <span class="desconto-produto">
+                            R$
+                            <span id='desconto-produto2'>
+                                <script>
+                                    getPrecoFormatado("15.00", "desconto-produto2")
+                                </script>
+                            </span>
+                        </span>
                     </div>
                 </div>
                 <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>

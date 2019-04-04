@@ -10,7 +10,7 @@
   </c:when>
   <c:when test="${mensagemErro != null}">
     <div class='msg msg-erro'>
-      <p class="p-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></p>
+      <!-- <p class="p-icon"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></p> -->
       <p class="p-msg">
         <b>Erro</b><br>
         <c:out value="${mensagemErro}" />

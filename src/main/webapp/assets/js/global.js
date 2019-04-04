@@ -120,6 +120,18 @@ const converterPreco = (preco, divisor = [".", ","]) => {
     const precoFormatado = preco.replace(...divisor);
     return precoFormatado;
   }
+  return "00,00";
+}
+
+/*
+* String preco
+* String desconto (ex: 10 representa 10% de desconto)
+*/
+const getPrecoDesconto = (preco, id, desconto) => {
+  preco = parseFloat(converterPreco(preco, [",", "."]));
+  desconto = parseFloat(converterPreco(desconto, [",", "."]));
+
+  document.getElementById(id).innerHTML = converterPreco((preco - preco * desconto / 100).toFixed(2));
 }
 
 const getPrecoFormatado = (preco, id, divisor = [".", ","]) => {
@@ -153,13 +165,14 @@ const fecharModal = (id) => {
   document.getElementById(id).style.display = "none";
 }
 
-const abrirModal = (id, produto) => {
+const abrirModal = (id) => {
   document.getElementById(id).style.display = "block";
 }
 
 let NOVO_PRODUTO = "";
 const esvaziarCestaAdicionarProduto = () => {
   cesta.esvaziarCesta();
+  localStorage.removeItem("restaurante");
   setRestaurante(NOVO_RESTAURANTE.id, NOVO_RESTAURANTE.nome);
   NOVO_RESTAURANTE = {};
   cesta.adicionarProduto(NOVO_PRODUTO);

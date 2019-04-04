@@ -27,32 +27,36 @@ public class CadastrarCategoriaAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String nome = request.getParameter("nome");
+        Categoria categoria;
 
-        Categoria categoria = null;
         if (nome.equals("")) {
-            response.sendRedirect("restaurante/cadastrarCategoria.jsp");
+            try {
+                request.setAttribute("mensagemErro", "Você deve preencher todos os campos");
+                RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
+                view.forward(request, response);
+            } catch (ServletException ex) {
+                Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } else {
             //Pegar ID do restaurante na sessão
             Restaurante restaurante = new Restaurante();
             restaurante.setId(1);
             categoria = new Categoria(nome, restaurante);
-            
+
             try {
                 CategoriaDAO.getInstance().save(categoria);
                 request.setAttribute("mensagemSucesso", "Categoria criada com sucesso!");
                 RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
                 view.forward(request, response);
             } catch (SQLException ex) {
-
                 try {
-                    request.setAttribute("mensagem", "Erro ao tentar criar categoria");
-                    RequestDispatcher view = request.getRequestDispatcher("/mensagemErro.jsp");
+                    request.setAttribute("mensagemErro", "Erro ao tentar criar categoria");
+                    RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
                     view.forward(request, response);
                     ex.printStackTrace();
                 } catch (ServletException ex1) {
                     Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ServletException ex) {

@@ -24,8 +24,9 @@
                 <h1><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h1>
             </div>
         </div>
+        <%@ include file = "../layout/mensagem.jsp" %> <br>
         <div class='corpo-form form-cadastro'>
-            <form action="FrontController?action=Cadastrar" method="post">
+            <form action="FrontController?route=cliente&action=CadastrarCliente" method="post">
                 <h2>Cadastro de Cliente</h2>
                 <div class='form-input'>
                     <label for='nome'>Nome</label><br />
