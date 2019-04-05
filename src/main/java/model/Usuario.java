@@ -82,6 +82,10 @@ public abstract class Usuario {
         this.cpf = cpf;
         this.senha = senha;
     }
+    
+    public Usuario() {
+        
+    }
 
     public int getId() {
         return id;

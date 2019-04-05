@@ -18,11 +18,7 @@ const post = (path, params, method = "post") => {
     type: 'application/json'
   });
 
-  const novoArray = removerDuplicados(JSON.parse(localStorage.getItem('cesta')));
-
-  const produtos = novoArray.map(produto => {
-    return { id: produto, quantidade: cesta.getQuantidadeProdutos(produto) }
-  })
+  const produtos = JSON.parse(localStorage.getItem('cesta'));
 
   const pedido = {
     restaurante: restaurante.id,

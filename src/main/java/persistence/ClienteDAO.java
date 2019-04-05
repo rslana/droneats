@@ -98,6 +98,40 @@ public class ClienteDAO {
         }
         return cliente;
     }
+    
+    public static Cliente login(String email, String senha) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Cliente cliente = null;
+        PreparedStatement comando = null;
+        try {
+            String sql = "SELECT * FROM cliente WHERE email = ? AND senha = ?";
+            comando = conn.prepareStatement(sql);
+            comando.setString(1, email);
+            comando.setString(2, senha);
+            ResultSet rs = comando.executeQuery();
+            if (rs.first()) {
+                cliente = new Cliente(
+                    rs.getInt("id"),
+                    rs.getString("cpf"),
+                    rs.getString("senha"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("bairro"),
+                    rs.getString("rua"),
+                    rs.getString("numero"),
+                    rs.getString("cep"),
+                    rs.getString("telefone")
+                );
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
+        return cliente;
+    }
 
     public static void closeResources(Connection conn, Statement st) {
         try {

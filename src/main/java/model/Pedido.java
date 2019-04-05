@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.pedidoestado.PedidoEstado;
+import model.pedidoestado.PedidoEstadoProcessando;
 import persistence.PedidoDAO;
 
 /**
@@ -35,33 +37,49 @@ public class Pedido {
     private PedidoEstado estado;
 
     public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstadoId) {
-        this.dataPedido = Calendar.DAY_OF_MONTH + "/" + (Calendar.MONTH + 1) + "/" + Calendar.YEAR;
-        this.horarioPedido = Calendar.HOUR_OF_DAY + ":" + ((Calendar.MINUTE < 10) ? "0" + Calendar.MINUTE : Calendar.MINUTE);
+        this.dataPedido = getDataAtualFormatada();
+        this.horarioPedido = getHoraAtualFormatada();
         this.dataPagamento = dataPagamento;
         this.valor = valor;
         this.pago = pago;
         this.pedidoEstadoId = pedidoEstadoId;
     }
 
-    public Pedido(double valor, Cliente cliente, ArrayList<PedidoProduto> produtos) {
-        this.dataPedido = Calendar.DAY_OF_MONTH + "/" + (Calendar.MONTH + 1) + "/" + Calendar.YEAR;
-        this.horarioPedido = Calendar.HOUR_OF_DAY + ":" + ((Calendar.MINUTE < 10) ? "0" + Calendar.MINUTE : Calendar.MINUTE);
+    public Pedido(double valor, Cliente cliente, Restaurante restaurante, ArrayList<PedidoProduto> produtos) {
+        this.dataPedido = getDataAtualFormatada();
+        this.horarioPedido = getHoraAtualFormatada();
         this.valor = valor;
         this.pago = true;
         this.produtos = produtos;
         this.cliente = cliente;
+        this.restaurante = restaurante;
+    }
+
+    public Pedido(double valor, Cliente cliente, Restaurante restaurante) {
+        this.dataPedido = getDataAtualFormatada();
+        this.horarioPedido = getHoraAtualFormatada();
+        this.valor = valor;
+        this.pago = true;
+        this.estado = new PedidoEstadoProcessando();
+        System.out.println("### ESTADO: " + this.estado.getEstado());
+        this.cliente = cliente;
+        this.restaurante = restaurante;
     }
 
     public Pedido(int id, String dataPedido, String horarioPedido, String dataPagamento,
-            double valor, boolean pago, Restaurante restaurante, Cliente cliente) {
+            double valor, boolean pago, PedidoEstado estado, Restaurante restaurante, Cliente cliente) {
         this.id = id;
-        this.restaurante = restaurante;
-        this.cliente = cliente;
         this.dataPedido = dataPedido;
         this.horarioPedido = horarioPedido;
         this.dataPagamento = dataPagamento;
         this.valor = valor;
         this.pago = pago;
+        this.estado = estado;
+        this.restaurante = restaurante;
+        this.cliente = cliente;
+    }
+
+    public Pedido() {
     }
 
     public int getId() {
@@ -158,6 +176,27 @@ public class Pedido {
 
     public void setClienteId(int clienteId) {
         this.clienteId = clienteId;
+    }
+
+    public String getEstadoMensagem() {
+        return estado.getEstadoMensagem();
+    }
+
+    public static String getDataAtualFormatada() {
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        return ((day < 10) ? "0" + day : day) + "/" + ((month < 9) ? "0" + (month + 1) : month + 1) + "/" + year;
+    }
+    
+    public static String getHoraAtualFormatada() {
+        Calendar cal = Calendar.getInstance();
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+
+        return hour + ":" + minute;
     }
 
     public static Pedido getPedido(int id) throws ClassNotFoundException {

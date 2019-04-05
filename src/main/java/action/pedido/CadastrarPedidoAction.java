@@ -3,19 +3,21 @@ package action.pedido;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
 import model.Pedido;
+import model.PedidoProduto;
 import model.Produto;
+import model.Restaurante;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.PedidoDAO;
+import persistence.PedidoProdutoDAO;
+import persistence.RestauranteDAO;
 
 /**
  *
@@ -25,57 +27,45 @@ public class CadastrarPedidoAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String pedido = request.getParameter("pedido");
+        try {
+            String pedidoJS = request.getParameter("pedido");
+//            System.out.println("Pedido: " + pedidoJS);
 
-        System.out.println("Pedido: " + pedido);
+            JSONObject pedidoJSON = new JSONObject(pedidoJS);
 
-        JSONObject pedidoJSON = new JSONObject(pedido);
+            Cliente cliente = new Cliente();
+            cliente.setId(999);
 
-        HashMap<Integer, Integer> produtos = new HashMap<>();
-        JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
-        for (int i = 0; i < produtosJSON.length(); i++) {
-            produtos.put(produtosJSON.getJSONObject(i).getInt("id"), produtosJSON.getJSONObject(i).getInt("quantidade"));
-        }
-        
-        System.out.println("Produtos: " + produtos);
-        System.out.println("Restaurante ID: " + pedidoJSON.getInt("restaurante"));
+            int restauranteId = Integer.parseInt(pedidoJSON.getString("restaurante"));
 
-//        try {
-//            int clienteId = Integer.parseInt(request.getParameter("clienteId"));
-//            Cliente cliente = Cliente.obterCliente(clienteId);
+            Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
 
-            Cliente cliente = new Cliente("123", "Senha", "Joaquim", "joaquim@gmail.com", "32999998888");
+            Pedido pedido = new Pedido(0.00, cliente, restaurante);
+            PedidoDAO.getInstance().save(pedido);
 
-            for (Integer produtoId : produtos.keySet()) {
-                int quantidade = produtos.get(produtoId);
-                System.out.println("Produto " + produtoId + " quantidade: " + quantidade);
+            pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
 
-//                Produto produto = Produto.obterProduto(produtoId);
+            JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
+
+            PedidoProduto pedidoProduto = null;
+
+            Produto produto = new Produto();
+
+            for (int i = 0; i < produtosJSON.length(); i++) {
+                int id = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
+                int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
+                double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
+
+                produto.setId(id);
+                pedidoProduto = new PedidoProduto(pedido, produto, quantidade, preco);
+
+                PedidoProdutoDAO.getInstance().save(pedidoProduto);
             }
-
-//            Pedido pedido = new Pedido(44.55, cliente, produtos);
-//            try {
-//                PedidoDAO.getInstance().save(pedido);
-//                request.setAttribute("mensagem", "Pedido realizado com sucesso!");
-//                RequestDispatcher view = request.getRequestDispatcher("/mensagemSucesso.jsp");
-//                view.forward(request, response);
-//            } catch (SQLException ex) {
-//                try {
-//                    request.setAttribute("mensagem", "Erro ao tentar criar pedido");
-//                    RequestDispatcher view = request.getRequestDispatcher("/mensagemErro.jsp");
-//                    view.forward(request, response);
-//                    ex.printStackTrace();
-//                } catch (ServletException ex1) {
-//                    Logger.getLogger(LerPedidoAction.class.getName()).log(Level.SEVERE, null, ex1);
-//                }
-//            } catch (ClassNotFoundException ex) {
-//                Logger.getLogger(GravarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (ServletException ex) {
-//                Logger.getLogger(GravarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            Logger.getLogger(GravarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(CadastrarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

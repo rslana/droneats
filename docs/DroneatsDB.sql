@@ -2,7 +2,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-
+DROP DATABASE IF EXISTS droneats;
+CREATE DATABASE droneats;
 
 -- -----------------------------------------------------
 -- Table `droneats`.`cliente`
@@ -59,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `droneats`.`restaurante` (
   `numero` VARCHAR(45) NULL,
   `cep` VARCHAR(45) NULL,
   `telefone` VARCHAR(45) NULL,
-  `descricao` VARCHAR(500) NULL,
+  `descricao` VARCHAR(1000) NULL,
   `proprietario_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_restaurante_proprietario1_idx` (`proprietario_id` ASC),
@@ -95,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `droneats`.`produto` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NULL,
   `descricao` VARCHAR(300) NULL,
-  `preco` DOUBLE NULL,
+  `preco`  DOUBLE(6,2) NULL,
   `imagem` VARCHAR(100) NULL,
   `restaurante_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -115,9 +116,10 @@ CREATE TABLE IF NOT EXISTS `droneats`.`pedido` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `data_pedido` VARCHAR(45) NULL,
   `hora_pedido` VARCHAR(45) NULL,
-  `valor` DOUBLE NULL,
+  `valor`  DOUBLE(7,2) NULL,
   `pago` TINYINT NULL,
   `data_pagamento` VARCHAR(45) NULL,
+  `estado` VARCHAR(45) NULL,
   `restaurante_id` INT NOT NULL,
   `cliente_id` INT NOT NULL,
   PRIMARY KEY (`id`),
@@ -164,6 +166,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `droneats`.`pedido_produto` (
   `pedido_id` INT NOT NULL,
   `produto_id` INT NOT NULL,
+  `quantidade` INT,
+  `preco` DOUBLE(6,2),
   PRIMARY KEY (`pedido_id`, `produto_id`),
   INDEX `fk_pedido_has_produto_produto1_idx` (`produto_id` ASC),
   INDEX `fk_pedido_has_produto_pedido1_idx` (`pedido_id` ASC),

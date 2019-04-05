@@ -55,6 +55,10 @@ public class Produto {
         this.restaurante = restaurante;
     }
 
+    public Produto() {
+
+    }
+
     public int getId() {
         return id;
     }

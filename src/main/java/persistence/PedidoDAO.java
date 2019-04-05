@@ -13,6 +13,8 @@ import java.sql.Statement;
 import model.Cliente;
 import model.Pedido;
 import model.Restaurante;
+import model.pedidoestado.PedidoEstado;
+import model.pedidoestado.PedidoEstadoFactory;
 
 /**
  *
@@ -35,15 +37,16 @@ public class PedidoDAO {
 
         try {
             String sql = "INSERT INTO pedido (data_pedido, hora_pedido, valor, pago,"
-                    + "data_pagamento, restaurante_id, cliente_id) VALUES (?,?,?,?,?,?,?)";
+                    + "data_pagamento, estado, restaurante_id, cliente_id) VALUES (?,?,?,?,?,?,?,?)";
             PreparedStatement comando = conn.prepareStatement(sql);
             comando.setString(1, pedido.getDataPedido());
             comando.setString(2, pedido.getHorarioPedido());
             comando.setDouble(3, pedido.getValor());
             comando.setBoolean(4, pedido.isPago());
             comando.setString(5, pedido.getDataPagamento());
-            comando.setInt(6, pedido.getRestaurante().getId());
-            comando.setInt(7, pedido.getCliente().getId());
+            comando.setString(6, pedido.getEstado().getEstado());
+            comando.setInt(7, pedido.getRestaurante().getId());
+            comando.setInt(8, pedido.getCliente().getId());
 
             comando.execute();
 
@@ -78,6 +81,9 @@ public class PedidoDAO {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id);
             rs.first();
+            
+            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            
             pedido = new Pedido(
                     rs.getInt("id"),
                     rs.getString("data_pedido"),
@@ -85,6 +91,7 @@ public class PedidoDAO {
                     rs.getString("data_pagamento"),
                     rs.getDouble("valor"),
                     rs.getBoolean("pago"),
+                    pedidoEstado,
                     null,
                     null
             );
@@ -98,6 +105,41 @@ public class PedidoDAO {
             e.printStackTrace();
         } finally {
             closeResources(conn, st);
+        }
+        return pedido;
+    }
+
+    public Pedido getLastPedido() throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT * FROM pedido ORDER BY id DESC LIMIT 1";
+        PreparedStatement comando = conn.prepareStatement(sql);
+        Pedido pedido = null;
+        try {
+            ResultSet rs = comando.executeQuery();
+            rs.first();
+            
+            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            
+            pedido = new Pedido(
+                    rs.getInt("id"),
+                    rs.getString("data_pedido"),
+                    rs.getString("hora_pedido"),
+                    rs.getString("data_pagamento"),
+                    rs.getDouble("valor"),
+                    rs.getBoolean("pago"),
+                    pedidoEstado,
+                    null,
+                    null
+            );
+            pedido.setRestauranteId(rs.getInt("restaurante_id"));
+            pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+
+            pedido.setClienteId(rs.getInt("cliente_id"));
+            pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
         }
         return pedido;
     }

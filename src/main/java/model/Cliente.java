@@ -27,14 +27,18 @@ public class Cliente extends Usuario {
     public Cliente(int id, String cpf, String senha, String nome, String email, String telefone) {
         super(id, cpf, senha, nome, email, telefone);
     }
-    
-      public static Cliente getCliente(int id) throws ClassNotFoundException {
+
+    public static Cliente getCliente(int id) throws ClassNotFoundException {
         try {
             return ClienteDAO.getCliente(id);
         } catch (SQLException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public Cliente() {
+
     }
 
 }

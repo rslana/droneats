@@ -142,11 +142,15 @@ a {
   text-shadow: 0px 0px 4px #CCC;
 }
 
+.text-center {
+  text-align: center !important;
+  margin: auto;
+}
 
 .row.equal {
   display: flex !important;
   flex-wrap: wrap !important;
-  justify-content: center;
+  // justify-content: center;
 }
 
 .lista-produtos {
@@ -193,17 +197,17 @@ a {
   box-shadow: 0 0 2px #366;
   border-radius: 4px;
   vertical-align: middle;
-  display: inline-block;
   text-decoration: none;
-  flex: 1 0 21%;
   background-color: #FFF;
+  flex: 1 0 21%;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 100%;
   padding: 10px 20px;
   box-shadow: 0 0 2px #366;
-  display: inline-block;
   text-decoration: none;
+  align-content: center;
 }
 
 .item-lista-restaurantes:hover {
@@ -224,6 +228,7 @@ a {
   width: 18%;
   min-width: 50px;
   vertical-align: middle;
+  margin-right: 4px;
 }
 
 .item-lista-restaurantes .p-icon i {
@@ -234,7 +239,7 @@ a {
 
 @media (max-width: 768px) {
   .titulo-home {
-    padding: 10px;
+    padding: 30px;
     margin-bottom: 20px;
     text-align: center;
   }
@@ -247,7 +252,7 @@ a {
 
 @media (max-width: 468px) {
   .titulo-home {
-    padding: 70px 10px 20px 10px;
+    padding: 50px 10px 30px 10px;
   }
 
   .titulo-home h1 {
@@ -928,9 +933,8 @@ a {
     margin-bottom: 40px;
     box-shadow: 0 0 2px #366;
     text-align: center;
-    padding: 0px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    padding-left: 0px;
+    padding-right: 0px;
   }
 
   .menu div {
@@ -941,5 +945,9 @@ a {
 
   .desconto-produto {
     background-color: @opacity-primary-4;
+  }
+
+  .normalize-grid {
+    width: 100%;
   }
 }

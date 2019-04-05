@@ -23,207 +23,61 @@
 
 <!-- Pegar ID e NOME do restaurante -->
 
-<body onload="setRestaurante(2,'Restaurante da Esquina')">
+<body onload="setRestaurante('${restaurante.id}','${restaurante.nome}')">
     <%@ include file = "../layout/menu.jsp" %>
     <div class='corpo-restaurante'>
         <div class='titulo-restaurante'>
-            <h2>Nome do Restaurante</h2>
+            <h2>${restaurante.nome}</h2>
             <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, doloribus. Lorem ipsum dolor
-                sitamet.
+                ${restaurante.descricao}
             </p>
         </div>
 
         <div class='container'>
             <div class='row lista-produtos equal'>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto1">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/pizza.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Pizza Calabresa</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur. asdasd as asd</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(1)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto1">
-                                        <script>
-                                            getPrecoDesconto("32.00", "produto1", "10")
-                                        </script>
-                                    </span>
-                                </span>
-                            </button>
-                        </p>
-                        <span class="desconto-produto">
-                            R$
-                            <span id='desconto-produto1'>
-                                <script>
-                                    getPrecoFormatado("32.00", "desconto-produto1")
-                                </script>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto2">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/hamburger.png)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">X-Burger</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(2)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto2">
-                                        <script>
-                                            getPrecoDesconto("15.00", "produto2", "20")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                        <span class="desconto-produto">
-                            R$
-                            <span id='desconto-produto2'>
-                                <script>
-                                    getPrecoFormatado("15.00", "desconto-produto2")
-                                </script>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto3">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/feijoada.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Prato de Feijoada</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(3)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto3">
-                                        <script>
-                                            getPrecoFormatado("22.90", "produto3")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto4">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/hamburger.png)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(4)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto4">
-                                        <script>
-                                            getPrecoFormatado("7.25", "produto4")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto5">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/feijoada.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(5)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto5">
-                                        <script>
-                                            getPrecoFormatado("30.00", "produto5")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto6">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/pizza.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(6)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto6">
-                                        <script>
-                                            getPrecoFormatado("18.50", "produto6")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto7">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/pizza.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(7)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto7">
-                                        <script>
-                                            getPrecoFormatado("8.00", "produto7")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto8">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/hamburger.png)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(8)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto8">
-                                        <script>
-                                            getPrecoFormatado("6.50", "produto8")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto9">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/pizza.jpg)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(9)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto" id="produto9">
-                                        <script>
-                                            getPrecoFormatado("28.90", "produto9")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
-                <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                    <div class='item-lista-produtos' id="div-produto10">
-                        <p class="p-icon" style="background-image: url(assets/images/produtos/hamburger.png)"></p>
-                        <p class="p-msg">
-                            <span class="nome-produto">Nome do Produto dasdasd asd asdas asdas</span><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. Lorem ipsum
-                                dolor sit amet consectetur.</span><br>
-                            <button type="submit" class="btn-adicionar-produto" onclick="cesta.adicionarProduto(10)">
-                                Adicionar <span class="item-preco-produto">R$ <span class="preco-produto"
-                                        id="produto10">
-                                        <script>
-                                            getPrecoFormatado("7.50", "produto10")
-                                        </script>
-                                    </span></span>
-                            </button>
-                        </p>
-                    </div>
-                </div>
+                <c:choose>
+                    <c:when test="${produtos[0] == null}">
+                        <div class='text-center'>
+                            <h3>Esse restaurante não possuí produtos cadastrados</h3>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${produtos}" var="produto">
+                            <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
+                                <div class='item-lista-produtos' id="div-produto${produto.id}">
+                                    <p class="p-icon" style="background-image: url(${produto.imagem})">
+                                    </p>
+                                    <p class="p-msg">
+                                        <span class="nome-produto">${produto.nome}</span><br>
+                                        <span>${produto.descricao}</span><br>
+                                        <button type="submit" class="btn-adicionar-produto"
+                                            onclick="cesta.adicionarProduto('${produto.id}','${produto.nome}','${produto.preco}')">
+                                            Adicionar
+                                            <span class="item-preco-produto">
+                                                R$
+                                                <span class="preco-produto" id="produto${produto.id}">
+                                                    <script>
+                                                        getPrecoDesconto('${produto.preco}', "produto${produto.id}",
+                                                            "0")
+                                                    </script>
+                                                </span>
+                                            </span>
+                                        </button>
+                                    </p>
+                                    <!-- <span class="desconto-produto">
+                                        R$
+                                        <span id='desconto-produto1'>
+                                            <script>
+                                                getPrecoFormatado('${produto.preco}',
+                                                    "desconto-produto${produto.id}")
+                                            </script>
+                                        </span>
+                                    </span> -->
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

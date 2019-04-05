@@ -3,6 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
+
+<script>
+    if (window.location.pathname === "/droneats/index.jsp" || window.location.pathname === "/droneats/")
+        window.location.replace("FrontController?route=restaurante&action=ListarRestaurantes");
+</script>
+
 <html>
 
 <head>
@@ -27,47 +33,32 @@
         </div>
 
         <div class='container'>
-            <div class='row lista-restaurantes'>
-                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
-                    <a class='item-lista-restaurantes' href="restaurante/restaurante.jsp">
-                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48" />
-                        </p>
-                        <p class="p-msg">
-                            <b>Nome do Restaurante</b><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
-                    <a class='item-lista-restaurantes' href="restaurante/restaurante.jsp">
-                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48" />
-                        </p>
-                        <p class="p-msg">
-                            <b>Nome do Restaurante</b><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
-                    <a class='item-lista-restaurantes' href="restaurante/restaurante.jsp">
-                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48" />
-                        </p>
-                        <p class="p-msg">
-                            <b>Nome do Restaurante</b><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis.</span>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-12 col-md-6 col-lg-4 normalize-grid'>
-                    <a class='item-lista-restaurantes' href="restaurante/restaurante.jsp">
-                        <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante' width="48" />
-                        </p>
-                        <p class="p-msg">
-                            <b>Nome do Restaurante</b><br>
-                            <span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Numquam, omnis. </span>
-                        </p>
-                    </a>
-                </div>
+            <div class='row lista-restaurantes equal'>
+                <c:choose>
+                    <c:when test="${restaurantes[0] == null}">
+                        <div class='text-center'>
+                            <h3>Nenhum Restaurante Cadastrado</h3>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <c:forEach items="${restaurantes}" var="restaurante">
+                            <div class='col-sm-6 col-lg-4 normalize-grid'>
+                                <a class='item-lista-restaurantes'
+                                    href="FrontController?route=restaurante&action=ExibirRestaurante&id=${restaurante.id}">
+                                    <p class="p-icon"><img src='assets/images/store.svg' alt='Logo do Restaurante'
+                                            width="48" />
+                                    </p>
+                                    <p class="p-msg">
+                                        <b>
+                                            <c:out value="${restaurante.nome}" /></b><br>
+                                        <span>
+                                            <c:out value="${restaurante.descricao}" /></span>
+                                    </p>
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
     </div>

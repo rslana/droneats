@@ -11,12 +11,21 @@ class Cesta {
     atualizarCesta();
   }
 
-  adicionarProduto(produto) {
+  adicionarProduto(id, nome, preco) {
+    const produto = { id, nome, preco, quantidade: 1 };
     if (NOVO_RESTAURANTE.id) {
-      abrirModal("mensagem-troca-restaurante");
       NOVO_PRODUTO = produto;
+      if (cesta.produtos < 1) {
+        esvaziarCestaAdicionarProduto();
+      } else {
+        abrirModal("mensagem-troca-restaurante");
+      }
     } else {
-      this.produtos.push(produto)
+      if (this.produtos.some(e => e.id === produto.id)) {
+        this.produtos = this.produtos.map(p => (p.id === produto.id) ? { ...p, quantidade: p.quantidade + 1 } : p)
+      } else {
+        this.produtos.push(produto)
+      }
     }
 
     this.atualizarState();
@@ -32,20 +41,15 @@ class Cesta {
   }
 
   removerProduto(id) {
-    this.produtos = this.produtos.filter(produto => id != produto);
+    this.produtos = this.produtos.filter(produto => produto.id != id);
     this.atualizarState();
     atualizarCesta();
-  }
-
-  getQuantidadeProdutos = (produtoId) => {
-    const produtosFiltrado = this.produtos.filter(produto => produtoId == produto);
-    return produtosFiltrado.length;
   }
 
   calcularTotal() {
     let precoTotal = 0.0;
     cesta.produtos.forEach(produto => {
-      precoTotal += parseFloat(converterPreco(getPrecoProduto(produto).trim(), [",", "."]));
+      precoTotal += parseFloat(converterPreco((parseFloat(produto.preco) * produto.quantidade).toFixed(2), [",", "."]));
     });
     return precoTotal;
   }
@@ -58,30 +62,15 @@ const inserirConteudo = (id, conteudo) => {
 const produtos = (localStorage.getItem("cesta")) ? JSON.parse(localStorage.getItem("cesta")) : [];
 const cesta = new Cesta(produtos);
 
-const getNomeProduto = (produtoId) => {
-  const p = document.getElementById(`div-produto${produtoId}`);
-  return (p) ? p.getElementsByClassName('nome-produto')[0].innerHTML : null;
-}
-
-const getPrecoProduto = (produtoId) => {
-  const p = document.getElementById(`div-produto${produtoId}`);
-  return (p) ? p.getElementsByClassName('preco-produto')[0].innerHTML : null;
-}
-
-const getQuantidadeProduto = (produtoId) => {
-  produtosFiltrado = cesta.produtos.filter(produto => produtoId == produto);
-  return produtosFiltrado.length;
-}
-
-const template = (produtoId) => {
+const template = (produto) => {
   return `<div class='item-lista-cesta-compra'>
-    <p class="p-msg"><b>${getQuantidadeProduto(produtoId)}x</b></p>
+    <p class="p-msg"><b>${produto.quantidade}x</b></p>
     <p class="p-msg">
-      <span>${getNomeProduto(produtoId)}</span>
+      <span>${produto.nome}</span>
     </p>
     <p class="p-msg p-right">
-      <span><b>R$ ${getPrecoProduto(produtoId)}</b></span>
-      <span class="remover-produto-cesta" onclick="cesta.removerProduto(${produtoId})"><i
+      <span><b>R$ ${converterPreco(parseFloat(produto.preco).toFixed(2))}</b></span>
+      <span class="remover-produto-cesta" onclick="cesta.removerProduto(${produto.id})"><i
         class="far fa-trash-alt"></i></span>
     </p>
   </div>`;
@@ -89,9 +78,8 @@ const template = (produtoId) => {
 
 const atualizarCesta = () => {
   let conteudo = "";
-  var produtosCesta = removerDuplicados(cesta.produtos);
 
-  produtosCesta.forEach(produto => {
+  cesta.produtos.forEach(produto => {
     conteudo += template(produto);
   });
 
@@ -115,6 +103,7 @@ const atualizarCesta = () => {
 * Array divisor [from,to]
 */
 const converterPreco = (preco, divisor = [".", ","]) => {
+  preco = preco + "";
   const re = /^[0-9]{1,}[.,]{0,1}[0-9]{0,}$/;
   if (preco.match(re)) {
     const precoFormatado = preco.replace(...divisor);
@@ -135,7 +124,7 @@ const getPrecoDesconto = (preco, id, desconto) => {
 }
 
 const getPrecoFormatado = (preco, id, divisor = [".", ","]) => {
-  document.getElementById(id).innerHTML = converterPreco(preco, divisor);
+  document.getElementById(id).innerHTML = converterPreco(parseFloat(preco).toFixed(2), divisor);
 }
 
 const removerDuplicados = (array) => array.filter((item, i) => array.indexOf(item) == i);
@@ -153,7 +142,7 @@ const setRestaurante = (id, nome) => {
 const atualizarStateLinkCesta = () => {
   const restaurante = (localStorage.getItem("restaurante")) ? JSON.parse(localStorage.getItem("restaurante")) : null;
   if (restaurante && document.getElementById("link-cesta"))
-    document.getElementById("link-cesta").href = `restaurante/restaurante.jsp?restaurante=${restaurante.id}`;
+    document.getElementById("link-cesta").href = `FrontController?route=restaurante&action=ExibirRestaurante&id=${restaurante.id}`;
 
   if (cesta.produtos.length === 0 && document.getElementById("link-cesta"))
     document.getElementById("link-cesta").removeAttribute("href");
@@ -175,7 +164,7 @@ const esvaziarCestaAdicionarProduto = () => {
   localStorage.removeItem("restaurante");
   setRestaurante(NOVO_RESTAURANTE.id, NOVO_RESTAURANTE.nome);
   NOVO_RESTAURANTE = {};
-  cesta.adicionarProduto(NOVO_PRODUTO);
+  cesta.adicionarProduto(NOVO_PRODUTO.id, NOVO_PRODUTO.nome, NOVO_PRODUTO.preco);
   fecharModal("mensagem-troca-restaurante");
 }
 

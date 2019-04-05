@@ -10,8 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Cliente;
+import model.Produto;
 import model.Restaurante;
+import static persistence.ProdutoDAO.closeResources;
 
 /**
  *
@@ -82,7 +86,7 @@ public class RestauranteDAO {
         Statement st = conn.createStatement();
         Restaurante restaurante = null;
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM cliente WHERE id = " + id);
+            ResultSet rs = st.executeQuery("SELECT * FROM restaurante WHERE id = " + id);
             rs.first();
             restaurante = new Restaurante(
                     rs.getInt("id"),
@@ -105,6 +109,37 @@ public class RestauranteDAO {
         }
         return restaurante;
     }
+    
+    public static List<Restaurante> getRestaurantes() throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        List<Restaurante> restaurantes = new ArrayList<Restaurante>();
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM restaurante");
+            while (rs.next()) {
+                Restaurante restaurante = new Restaurante(
+                        rs.getInt("id"),
+                    rs.getString("cnpj"),
+                    rs.getString("descricao"),
+                    rs.getString("nome"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("bairro"),
+                    rs.getString("rua"),
+                    rs.getString("numero"),
+                    rs.getString("cep"),
+                    rs.getString("telefone"),
+                    null
+                );
+                restaurantes.add(restaurante);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return restaurantes;
+    }
 
     public static void closeResources(Connection conn, Statement st) {
         try {
@@ -118,6 +153,5 @@ public class RestauranteDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }
