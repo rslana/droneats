@@ -26,73 +26,66 @@
     <div class='corpo-usuario'>
         <div class='container'>
             <c:choose>
-                <c:when test="${mensagem != null}">
-                    <div class='row'>
+                <c:when test="${mensagemSucesso != null}">
+                    <div class='row' id="mensagemSucesso">
                         <div class='col-md-10 col-md-offset-1'>
                             <div class='msg-sucesso sucesso-pedido'>
                                 <p class="p-icon"><i class="fa fa-check" aria-hidden="true"></i></p>
                                 <p class="p-msg">
-                                    <b>Pedido realizado com sucesso</b><br>
-                                    <span>Acompanhe seu pedido clicando <a href='index.jsp'>aqui</a></span>
+                                    <span>${mensagemSucesso}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
+                    <script>
+                        cesta.esvaziarCesta();
+                    </script>
                 </c:when>
-                <c:when test="${pedido == null}">
+            </c:choose>
+            <c:choose>
+                <c:when test="${pedido != null}">
                     <div class='row'>
                         <div class='col-md-6 col-md-offset-3 normalize-grid'>
                             <h2 class="pedido-titulo">Pedido</h2>
                         </div>
                         <div class='col-md-6 col-md-offset-3 normalize-grid'>
                             <div class='detalhe-pedido'>
-                                <a class="nome-restaurante-pedido" href="restaurante/restaurante.jsp">
-                                    Nome do Restaurante
+                                <a class="nome-restaurante-pedido"
+                                    href="FrontController?route=restaurante&action=ExibirRestaurante&id=${pedido.restaurante.id}">
+                                    ${pedido.restaurante.nome}
                                 </a>
                                 <hr>
-                                <div class='item-lista-cesta-compra'>
-                                    <p class="p-msg"><i class="fas fa-shipping-fast"></i></p>
-                                    <p class="p-msg p-right">
-                                        <span>Estado do Pedido</span>
+                                <div class='item-lista-cesta-compra barra-estado-pedido'>
+                                    <p class="p-msg"><i class="fas fa-box"></i></p>
+                                    <p class="p-msg">
+                                        <span>${pedido.estado.estadoMensagem}</span>
+                                    </p>
+                                    <p class="p-msg p-right" style="min-width: 100px;">
+                                        <button class="btn-1 btn-right">Cancelar</button>
                                     </p>
                                 </div>
                                 <hr>
-                                <div class='item-lista-cesta-compra'>
-                                    <p class="p-msg"><b>2x</b></p>
-                                    <p class="p-msg">
-                                        <span>X-Bacon</span>
-                                    </p>
-                                    <p class="p-msg p-right">
-                                        <span>
-                                            <b>
-                                                R$
-                                                <span class="preco-produto" id="produto1">
-                                                    <script>
-                                                        getPrecoFormatado("7.50", "produto1")
-                                                    </script>
-                                                </span>
-                                            </b>
-                                        </span>
-                                    </p>
-                                </div>
-                                <div class='item-lista-cesta-compra'>
-                                    <p class="p-msg"><b>1x</b></p>
-                                    <p class="p-msg">
-                                        <span>X-Tudo</span>
-                                    </p>
-                                    <p class="p-msg p-right">
-                                        <span>
-                                            <b>
-                                                R$
-                                                <span class="preco-produto" id="produto2">
-                                                    <script>
-                                                        getPrecoFormatado("10.00", "produto2")
-                                                    </script>
-                                                </span>
-                                            </b>
-                                        </span>
-                                    </p>
-                                </div>
+                                <c:forEach items="${pedido.produtos}" var="produto">
+                                    <div class='item-lista-cesta-compra'>
+                                        <p class="p-msg"><b>${produto.quantidade}x</b></p>
+                                        <p class="p-msg">
+                                            <span>${produto.produto.nome}</span>
+                                        </p>
+                                        <p class="p-msg p-right">
+                                            <span>
+                                                <b>
+                                                    R$
+                                                    <span class="preco-produto" id="produto${produto.produto.id}">
+                                                        <script>
+                                                            getPrecoFormatado('${produto.preco}',
+                                                                'produto${produto.produto.id}')
+                                                        </script>
+                                                    </span>
+                                                </b>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </c:forEach>
                                 <div class='item-lista-cesta-compra msg-sucesso'>
                                     <p class="p-msg"><b>Total</b></p>
                                     <p class="p-msg p-right">
@@ -101,7 +94,7 @@
                                                 R$
                                                 <span class="preco-produto" id="preco-total">
                                                     <script>
-                                                        getPrecoFormatado("25.00", "preco-total")
+                                                        getPrecoFormatado('${pedido.valor}', "preco-total")
                                                     </script>
                                                 </span>
                                             </b>
@@ -111,7 +104,7 @@
                                 <hr>
                                 <div class="rodape-detalhe-pedido">
                                     <span class="data-detalhe-pedido">
-                                        Data do pedido: 22/03/2019 - 16:58
+                                        Data do pedido: ${pedido.dataPedido} - ${pedido.horarioPedido}
                                     </span>
                                 </div>
                             </div>
@@ -123,6 +116,7 @@
     </div>
     <script>
         atualizarStateLinkCesta();
+        apagarMensagem('mensagemSucesso');
     </script>
 </body>
 

@@ -51,8 +51,13 @@
                                     <p class="p-msg">
                                         <b>
                                             <c:out value="${restaurante.nome}" /></b><br>
-                                        <span>
-                                            <c:out value="${restaurante.descricao}" /></span>
+                                        <span id="restaurante${restaurante.id}">
+                                            <script>
+                                                getDescricaoFormatada('${restaurante.descricao}',
+                                                    'restaurante${restaurante.id}');
+                                            </script>
+                                            <!-- <c:out value="${restaurante.descricao}" /> -->
+                                        </span>
                                     </p>
                                 </a>
                             </div>

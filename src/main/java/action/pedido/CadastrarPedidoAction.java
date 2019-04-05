@@ -3,9 +3,11 @@ package action.pedido;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Cliente;
@@ -17,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.PedidoDAO;
 import persistence.PedidoProdutoDAO;
+import persistence.ProdutoDAO;
 import persistence.RestauranteDAO;
 
 /**
@@ -40,30 +43,43 @@ public class CadastrarPedidoAction implements Action {
 
             Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
 
-            Pedido pedido = new Pedido(0.00, cliente, restaurante);
+            JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
+
+            double valorTotal = 0;
+            for (int i = 0; i < produtosJSON.length(); i++) {
+                int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
+                double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
+                valorTotal += (quantidade * preco);
+            }
+
+            Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
             PedidoDAO.getInstance().save(pedido);
 
             pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
-
-            JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
-
             PedidoProduto pedidoProduto = null;
 
-            Produto produto = new Produto();
+            Produto produto = null;
 
+            ArrayList<PedidoProduto> produtos = new ArrayList<>();
             for (int i = 0; i < produtosJSON.length(); i++) {
                 int id = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
                 int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
                 double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
-
-                produto.setId(id);
+                produto = ProdutoDAO.getProduto(id);
                 pedidoProduto = new PedidoProduto(pedido, produto, quantidade, preco);
-
+                produtos.add(pedidoProduto);
                 PedidoProdutoDAO.getInstance().save(pedidoProduto);
             }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CadastrarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+
+            pedido.setProdutos(produtos);
+
+            request.setAttribute("mensagemSucesso", "Pedido realizado com sucesso!");
+            request.setAttribute("pedido", pedido);
+
+            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
+            view.forward(request, response);
+
+        } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(CadastrarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

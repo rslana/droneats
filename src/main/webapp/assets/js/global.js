@@ -56,7 +56,8 @@ class Cesta {
 }
 
 const inserirConteudo = (id, conteudo) => {
-  document.getElementById(id).innerHTML = conteudo;
+  if (document.getElementById(id) !== null)
+    document.getElementById(id).innerHTML = conteudo;
 }
 
 const produtos = (localStorage.getItem("cesta")) ? JSON.parse(localStorage.getItem("cesta")) : [];
@@ -83,12 +84,14 @@ const atualizarCesta = () => {
     conteudo += template(produto);
   });
 
-  document.getElementById("cesta-vazia").style.display = (conteudo) ? "none" : "block";
-  document.getElementById("restaurante-info-cesta-compra").style.display = (conteudo) ? "block" : "none";
-  document.getElementById("btn-finalizar-pedido").disabled = (conteudo) ? false : true;
+  if (document.getElementById("cesta-vazia") !== null) {
+    document.getElementById("cesta-vazia").style.display = (conteudo) ? "none" : "block";
+    document.getElementById("restaurante-info-cesta-compra").style.display = (conteudo) ? "block" : "none";
+    document.getElementById("btn-finalizar-pedido").disabled = (conteudo) ? false : true;
 
-  inserirConteudo("cesta", conteudo);
-  inserirConteudo("preco-total", converterPreco(cesta.calcularTotal().toFixed(2)));
+    inserirConteudo("cesta", conteudo);
+    inserirConteudo("preco-total", converterPreco(cesta.calcularTotal().toFixed(2)));
+  }
 
   const restaurante = JSON.parse(localStorage.getItem("restaurante"));
   if (restaurante)
@@ -204,4 +207,24 @@ const getShortMonth = (date) => {
 
 const getMonth = (date) => {
   return calendar[getNumberMonth(date)].short_month;
+}
+
+const getDescricaoFormatada = (descricao, id) => {
+  if (descricao.length > 120) {
+    document.getElementById(id).innerHTML = descricao.substring(0, 120) + "...";
+  } else {
+    document.getElementById(id).innerHTML = descricao;
+  }
+}
+
+const apagarMensagem = (id) => {
+  if (document.getElementById(id) !== null) {
+    setTimeout(() => {
+      document.getElementById(id).style.transition = '1.5s';
+      document.getElementById(id).style.opacity = 0;
+    }, 4000);
+    setTimeout(() => {
+      document.getElementById(id).style.display = 'none';
+    }, 5500);
+  }
 }

@@ -77,6 +77,8 @@ a {
   margin-top: 0px;
   padding: 8px 20px;
   font-size: 10pt;
+  margin-left: 15px;
+  margin-right: 5px;
 }
 
 .div-titulo-lista {
@@ -949,5 +951,35 @@ a {
 
   .normalize-grid {
     width: 100%;
+  }
+}
+
+// Animation
+
+.barra-estado-pedido {
+  position: relative;
+  -webkit-animation: barra_estado 2s alternate infinite;
+  /* Safari 4.0 - 8.0 */
+  animation: barra_estado 2s alternate infinite;
+  border-bottom: 5px solid rgb(0, 163, 81);
+}
+
+@-webkit-keyframes barra_estado {
+  0% {
+    border-bottom: 5px solid rgb(0, 163, 81);
+  }
+
+  100% {
+    border-bottom: 5px solid rgb(0, 97, 44);
+  }
+}
+
+@keyframes barra_estado {
+  0% {
+    border-bottom: 5px solid rgb(0, 163, 81);
+  }
+
+  100% {
+    border-bottom: 5px solid rgb(0, 97, 44);
   }
 }

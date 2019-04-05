@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.SQLException;
@@ -16,7 +11,7 @@ import persistence.PedidoDAO;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class Pedido {
 
@@ -61,7 +56,6 @@ public class Pedido {
         this.valor = valor;
         this.pago = true;
         this.estado = new PedidoEstadoProcessando();
-        System.out.println("### ESTADO: " + this.estado.getEstado());
         this.cliente = cliente;
         this.restaurante = restaurante;
     }
@@ -181,6 +175,15 @@ public class Pedido {
     public String getEstadoMensagem() {
         return estado.getEstadoMensagem();
     }
+
+    public ArrayList<PedidoProduto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(ArrayList<PedidoProduto> produtos) {
+        this.produtos = produtos;
+    }
+    
 
     public static String getDataAtualFormatada() {
         Calendar cal = Calendar.getInstance();

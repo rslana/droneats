@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.PedidoProduto;
-//import model.Cliente;
-//import model.Pedido;
-//import model.Restaurante;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class PedidoProdutoDAO {
       private static PedidoProdutoDAO instance = new PedidoProdutoDAO();
