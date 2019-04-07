@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -11,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import model.Cliente;
+import model.Pedido;
 
 /**
  *
@@ -90,6 +86,38 @@ public class ClienteDAO {
                     rs.getString("numero"),
                     rs.getString("cep"),
                     rs.getString("telefone")
+            );
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
+        return cliente;
+    }
+    
+    public static Cliente getClientePedido(Pedido pedido) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT * FROM cliente WHERE id = '" + pedido.getClienteId() + "'";
+        PreparedStatement comando = conn.prepareStatement(sql);
+        Cliente cliente = null;
+        try {
+            ResultSet rs = comando.executeQuery();
+
+            rs.first();
+            cliente = new Cliente(
+                    rs.getInt("id"),
+                    rs.getString("cpf"),
+                    rs.getString("senha"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("bairro"),
+                    rs.getString("rua"),
+                    rs.getString("numero"),
+                    rs.getString("cep"),
+                    rs.getString("telefone"),
+                    pedido
             );
         } catch (SQLException e) {
             throw e;

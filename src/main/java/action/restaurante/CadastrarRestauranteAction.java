@@ -17,7 +17,7 @@ import persistence.RestauranteDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class CadastrarRestauranteAction implements Action {
 

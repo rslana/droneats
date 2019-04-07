@@ -11,11 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Categoria;
-import model.Pedido;
-import model.PedidoProduto;
 import model.Restaurante;
 import persistence.CategoriaDAO;
-import persistence.PedidoProdutoDAO;
 
 /**
  *

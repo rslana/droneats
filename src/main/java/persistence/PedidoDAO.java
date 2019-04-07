@@ -101,7 +101,7 @@ public class PedidoDAO {
             pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
-            pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
+            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
 
         } catch (SQLException e) {
             e.printStackTrace();

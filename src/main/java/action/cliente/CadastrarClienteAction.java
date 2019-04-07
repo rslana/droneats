@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action.cliente;
 
 import controller.Action;
@@ -14,13 +9,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Categoria;
 import model.Cliente;
 import persistence.ClienteDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class CadastrarClienteAction implements Action {
 

@@ -3,6 +3,7 @@ package model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.pedidoestado.PedidoEstado;
@@ -13,7 +14,7 @@ import persistence.PedidoDAO;
  *
  * @author raj
  */
-public class Pedido {
+public class Pedido extends Observable {
 
     private int id;
     private Restaurante restaurante;
@@ -27,17 +28,14 @@ public class Pedido {
     private double valor;
     private boolean pago;
     ArrayList<PedidoProduto> produtos;
-
-    private int pedidoEstadoId;
     private PedidoEstado estado;
 
-    public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago, int pedidoEstadoId) {
+    public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago) {
         this.dataPedido = getDataAtualFormatada();
         this.horarioPedido = getHoraAtualFormatada();
         this.dataPagamento = dataPagamento;
         this.valor = valor;
         this.pago = pago;
-        this.pedidoEstadoId = pedidoEstadoId;
     }
 
     public Pedido(double valor, Cliente cliente, Restaurante restaurante, ArrayList<PedidoProduto> produtos) {
@@ -108,14 +106,6 @@ public class Pedido {
         this.pago = pago;
     }
 
-    public int getPedidoEstadoId() {
-        return pedidoEstadoId;
-    }
-
-    public void setPedidoEstadoId(int pedidoEstadoId) {
-        this.pedidoEstadoId = pedidoEstadoId;
-    }
-
     public Restaurante getRestaurante() {
         return restaurante;
     }
@@ -154,6 +144,11 @@ public class Pedido {
 
     public void setEstado(PedidoEstado estado) {
         this.estado = estado;
+        try {
+            this.updateEstado();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public int getRestauranteId() {
@@ -183,23 +178,23 @@ public class Pedido {
     public void setProdutos(ArrayList<PedidoProduto> produtos) {
         this.produtos = produtos;
     }
-    
+
     public String setProcessando(Pedido pedido) {
         return this.estado.setProcessando(this);
     }
-    
+
     public String setPreparando(Pedido pedido) {
         return this.estado.setPreparando(this);
     }
-    
+
     public String setEntregando(Pedido pedido) {
         return this.estado.setEntregando(this);
     }
-    
+
     public String setEntregue(Pedido pedido) {
         return this.estado.setEntregue(this);
     }
-    
+
     public String setCancelado(Pedido pedido) {
         return this.estado.setCancelado(this);
     }
@@ -212,7 +207,7 @@ public class Pedido {
 
         return ((day < 10) ? "0" + day : day) + "/" + ((month < 9) ? "0" + (month + 1) : month + 1) + "/" + year;
     }
-    
+
     public static String getHoraAtualFormatada() {
         Calendar cal = Calendar.getInstance();
         int hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -228,5 +223,15 @@ public class Pedido {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void updateEstado() throws ClassNotFoundException {
+        try {
+            PedidoDAO.getInstance().updateEstado(this);
+            setChanged();
+            notifyObservers();
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
