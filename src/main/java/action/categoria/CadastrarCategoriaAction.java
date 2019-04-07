@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action.categoria;
 
 import controller.Action;
@@ -20,7 +15,7 @@ import persistence.CategoriaDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class CadastrarCategoriaAction implements Action {
 
@@ -38,12 +33,11 @@ public class CadastrarCategoriaAction implements Action {
                 Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            //Pegar ID do restaurante na sessão
-            Restaurante restaurante = new Restaurante();
-            restaurante.setId(1);
-            categoria = new Categoria(nome, restaurante);
-
             try {
+                //Pegar restaurante na sessão
+                Restaurante restaurante = Restaurante.getRestaurante(999);
+                categoria = new Categoria(nome, restaurante);
+
                 CategoriaDAO.getInstance().save(categoria);
                 request.setAttribute("mensagemSucesso", "Categoria criada com sucesso!");
                 RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
@@ -53,13 +47,10 @@ public class CadastrarCategoriaAction implements Action {
                     request.setAttribute("mensagemErro", "Erro ao tentar criar categoria");
                     RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
                     view.forward(request, response);
-                    ex.printStackTrace();
                 } catch (ServletException ex1) {
                     Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex1);
                 }
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ServletException ex) {
+            } catch (ClassNotFoundException | ServletException ex) {
                 Logger.getLogger(CadastrarCategoriaAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

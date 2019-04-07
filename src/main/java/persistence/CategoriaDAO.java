@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -10,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import model.Categoria;
 import model.Restaurante;
 
@@ -85,6 +81,30 @@ public class CategoriaDAO {
             closeResources(conn, st);
         }
         return categoria;
+    }
+     
+     public static ArrayList<Categoria> listCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        ArrayList<Categoria> categorias = new ArrayList<>();
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM categoria WHERE restaurante_id = " + restaurante.getId());
+            while (rs.next()) {
+                Categoria categoria = new Categoria(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        null
+                );
+                categoria.setRestauranteId(rs.getInt("restaurante_id"));
+                categoria.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                categorias.add(categoria);
+            }
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, st);
+        }
+        return categorias;
     }
 
     public static void closeResources(Connection conn, Statement st) {

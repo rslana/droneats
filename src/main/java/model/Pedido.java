@@ -184,6 +184,25 @@ public class Pedido {
         this.produtos = produtos;
     }
     
+    public String setProcessando(Pedido pedido) {
+        return this.estado.setProcessando(this);
+    }
+    
+    public String setPreparando(Pedido pedido) {
+        return this.estado.setPreparando(this);
+    }
+    
+    public String setEntregando(Pedido pedido) {
+        return this.estado.setEntregando(this);
+    }
+    
+    public String setEntregue(Pedido pedido) {
+        return this.estado.setEntregue(this);
+    }
+    
+    public String setCancelado(Pedido pedido) {
+        return this.estado.setCancelado(this);
+    }
 
     public static String getDataAtualFormatada() {
         Calendar cal = Calendar.getInstance();

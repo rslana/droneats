@@ -36,38 +36,16 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido'
-                        href='FrontController?route=categoria&action=EditarCategoria&id=1'>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Combo Pequeno</span><br>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido'
-                        href='FrontController?route=categoria&action=EditarCategoria&id=1'>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Combo Médio</span><br>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido'
-                        href='FrontController?route=categoria&action=EditarCategoria&id=1'>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Combo Grande</span><br>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido'
-                        href='FrontController?route=categoria&action=EditarCategoria&id=1'>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Porções</span><br>
-                        </p>
-                    </a>
-                </div>
+                <c:forEach items="${categorias}" var="categoria">
+                    <div class='col-md-6 col-md-offset-3 normalize-grid'>
+                        <a class='msg-sucesso sucesso-pedido'
+                            href='FrontController?route=categoria&action=PrepararAlterarCategoria&id=${categoria.id}'>
+                            <p class="p-msg">
+                                <span class="nome-restaurante-lista-pedido">${categoria.nome}</span><br>
+                            </p>
+                        </a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>

@@ -24,25 +24,29 @@ public class Produto {
 
     private int restauranteId;
     private Restaurante restaurante;
-//    private int promocaoId;
+    private int categoriaId;
+    private Categoria categoria;
+
     private Promocao promocao;
 
-    public Produto(String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao) {
+    public Produto(String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imagem = imagem;
         this.restaurante = restaurante;
         this.promocao = promocao;
+        this.categoria = categoria;
     }
 
-    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao) {
+    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Categoria categoria, Promocao promocao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.imagem = imagem;
         this.restaurante = restaurante;
+        this.categoria = categoria;
         this.promocao = promocao;
     }
 
@@ -113,6 +117,22 @@ public class Produto {
 
     public void setRestaurante(Restaurante restaurante) {
         this.restaurante = restaurante;
+    }
+
+    public int getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
     }
 
     public Promocao getPromocao() {

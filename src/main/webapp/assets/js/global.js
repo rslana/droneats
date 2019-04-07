@@ -228,3 +228,8 @@ const apagarMensagem = (id) => {
     }, 5500);
   }
 }
+
+const checkPedidoEstado = (estado) => {
+  console.log(estado)
+  document.getElementById(estado.toLowerCase()).checked = true;
+}

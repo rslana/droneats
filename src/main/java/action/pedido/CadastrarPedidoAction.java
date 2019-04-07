@@ -76,6 +76,8 @@ public class CadastrarPedidoAction implements Action {
             request.setAttribute("mensagemSucesso", "Pedido realizado com sucesso!");
             request.setAttribute("pedido", pedido);
 
+//            response.sendRedirect('FrontController');
+            
             RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
             view.forward(request, response);
 

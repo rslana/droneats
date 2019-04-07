@@ -13,12 +13,12 @@ public class PromocaoUnitario implements Promocao {
 
     @Override
     public int obterDesconto() {
-        return 2;
+        return 5;
     }
 
     @Override
     public String obterPromocao() {
-        return "Promoção Unitario";
+        return "Promoção Unitário";
     }
     
 }

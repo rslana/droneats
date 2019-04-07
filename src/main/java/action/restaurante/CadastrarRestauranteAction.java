@@ -35,7 +35,7 @@ public class CadastrarRestauranteAction implements Action {
         String cnpjRestaurante = request.getParameter("cnpjRestaurante");
         String telefoneRestaurante = request.getParameter("telefoneRestaurante");
         String estadoRestaurante = request.getParameter("estadoRestaurante");
-        String cidadeRestaurante = request.getParameter("cidadeRestaurante");;
+        String cidadeRestaurante = request.getParameter("cidadeRestaurante");
         String cepRestaurante = request.getParameter("cepRestaurante");
         String bairroRestaurante = request.getParameter("bairroRestaurante");
         String ruaRestaurante = request.getParameter("ruaRestaurante");
@@ -57,7 +57,7 @@ public class CadastrarRestauranteAction implements Action {
 
                 proprietario.setId(ProprietarioDAO.getInstance().getLastProprietario().getId());
                 
-                Restaurante restaurante = new Restaurante(nomeRestaurante,descricaoRestaurante,
+                Restaurante restaurante = new Restaurante(cnpjRestaurante,descricaoRestaurante,
                         nomeRestaurante,cidadeRestaurante,estadoRestaurante,bairroRestaurante,ruaRestaurante,
                         numeroRestaurante,cepRestaurante,telefoneRestaurante,proprietario);
                 

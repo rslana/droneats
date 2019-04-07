@@ -98,9 +98,17 @@ CREATE TABLE IF NOT EXISTS `droneats`.`produto` (
   `descricao` VARCHAR(300) NULL,
   `preco`  DOUBLE(6,2) NULL,
   `imagem` VARCHAR(100) NULL,
+  `promocao` VARCHAR(45) NULL,
+  `categoria_id` INT NOT NULL,
   `restaurante_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_produto_restaurante1_idx` (`restaurante_id` ASC),
+  INDEX `fk_produto_categoria1_idx` (`categoria_id` ASC),
+  CONSTRAINT `fk_pedido_categoria1`
+    FOREIGN KEY (`categoria_id`)
+    REFERENCES `droneats`.`categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
   CONSTRAINT `fk_produto_restaurante1`
     FOREIGN KEY (`restaurante_id`)
     REFERENCES `droneats`.`restaurante` (`id`)
@@ -138,26 +146,26 @@ CREATE TABLE IF NOT EXISTS `droneats`.`pedido` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `droneats`.`categoria_produto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `droneats`.`categoria_produto` (
-  `categoria_id` INT NOT NULL,
-  `produto_id` INT NOT NULL,
-  PRIMARY KEY (`categoria_id`, `produto_id`),
-  INDEX `fk_categoria_has_produto_produto1_idx` (`produto_id` ASC),
-  INDEX `fk_categoria_has_produto_categoria1_idx` (`categoria_id` ASC),
-  CONSTRAINT `fk_categoria_has_produto_categoria1`
-    FOREIGN KEY (`categoria_id`)
-    REFERENCES `droneats`.`categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_categoria_has_produto_produto1`
-    FOREIGN KEY (`produto_id`)
-    REFERENCES `droneats`.`produto` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+-- -- -----------------------------------------------------
+-- -- Table `droneats`.`categoria_produto`
+-- -- -----------------------------------------------------
+-- CREATE TABLE IF NOT EXISTS `droneats`.`categoria_produto` (
+--   `categoria_id` INT NOT NULL,
+--   `produto_id` INT NOT NULL,
+--   PRIMARY KEY (`categoria_id`, `produto_id`),
+--   INDEX `fk_categoria_has_produto_produto1_idx` (`produto_id` ASC),
+--   INDEX `fk_categoria_has_produto_categoria1_idx` (`categoria_id` ASC),
+--   CONSTRAINT `fk_categoria_has_produto_categoria1`
+--     FOREIGN KEY (`categoria_id`)
+--     REFERENCES `droneats`.`categoria` (`id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION,
+--   CONSTRAINT `fk_categoria_has_produto_produto1`
+--     FOREIGN KEY (`produto_id`)
+--     REFERENCES `droneats`.`produto` (`id`)
+--     ON DELETE NO ACTION
+--     ON UPDATE NO ACTION)
+-- ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------

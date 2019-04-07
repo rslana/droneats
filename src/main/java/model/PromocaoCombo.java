@@ -13,7 +13,7 @@ public class PromocaoCombo implements Promocao {
 
     @Override
     public int obterDesconto() {
-        return 5;
+        return 10;
     }
 
     @Override

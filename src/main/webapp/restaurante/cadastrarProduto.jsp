@@ -65,15 +65,6 @@
                                             <c:out value="${categoria.nome}" />
                                         </option>
                                     </c:forEach>
-                                    <option value="1${categoria.id}">
-                                        Combo Grande
-                                    </option>
-                                    <option value="2${categoria.id}">
-                                        Combo Médio
-                                    </option>
-                                    <option value="3${categoria.id}">
-                                        Sanduíches com bife de hamburguer
-                                    </option>
                                 </select>
                             </div>
                             <button type="submit" class="btn-1" id="btnCadastrar"

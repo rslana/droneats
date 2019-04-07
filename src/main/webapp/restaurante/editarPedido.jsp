@@ -28,100 +28,109 @@
         <div class='container'>
             <div class='row'>
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <h2 class="pedido-titulo">Pedido 99</h2>
+                    <h2 class="pedido-titulo">Pedido ${pedido.id}</h2>
                 </div>
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
                     <div class='detalhe-pedido'>
-                        <a class="nome-restaurante-pedido" href="restaurante/restaurante.jsp">
-                            Nome do Cliente
-                        </a>
+                        <span class="nome-restaurante-pedido">
+                            ${pedido.cliente.nome}
+                        </span>
                         <hr>
-                        <div class='item-lista-cesta-compra'>
-                            <p class="p-msg"><i class="fas fa-shipping-fast"></i></p>
-                            <p class="p-msg p-right">
-                                <span>Estado do Pedido: <b>Preparando</b></span>
+                        <div class='item-lista-cesta-compra barra-estado-pedido'>
+                            <p class="p-msg"><i class="fas fa-box"></i></p>
+                            <p class="p-msg">
+                                <span>${pedido.estado.estadoMensagem}</span>
                             </p>
+                            <p class="p-msg p-right" style="min-width:0px"></p>
                         </div>
+                        <c:choose>
+                            <c:when test="${mensagem != null}">
+                                <br><br>
+                                <h4 class="text-center">
+                                    <c:out value="${mensagem}" />
+                                </h4>
+                                <br>
+                            </c:when>
+                        </c:choose>
                         <br>
                         <div class='row equal'>
-                            <form action='FrontController?route=pedido&action=EditarPedidoEstado'>
+                            <form action='FrontController?route=pedido&action=AlterarPedidoEstado' method="POST">
+                                <input type='hidden' name="pedidoId" value="${pedido.id}" />
                                 <div class='div-troca-estado-pedido'>
                                     <div class='col-md-12'>
                                         <label for="processando" class='item-troca-estado-pedido'>
                                             <input type="radio" id="processando" name="estadoPedido"
-                                                value="processando" />
-                                            Processando
+                                                value="Processando" />
+                                            <span>
+                                                Processando
+                                            </span>
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
                                         <label for="preparando" class='item-troca-estado-pedido'>
                                             <input type="radio" id="preparando" name="estadoPedido"
-                                                value="preparando" />
-                                            Preparando
+                                                value="Preparando" />
+                                            <span>
+                                                Preparando
+                                            </span>
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
                                         <label for="entregando" class='item-troca-estado-pedido'>
                                             <input type="radio" id="entregando" name="estadoPedido"
-                                                value="entregando" />
-                                            Entregando
+                                                value="Entregando" />
+                                            <span>
+                                                Entregando
+                                            </span>
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
                                         <label for="entregue" class='item-troca-estado-pedido'>
-                                            <input type="radio" id="entregue" name="estadoPedido" value="entregue" />
-                                            Entregue
+                                            <input type="radio" id="entregue" name="estadoPedido" value="Entregue" />
+                                            <span>
+                                                Entregue
+                                            </span>
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
                                         <label for="cancelado" class='item-troca-estado-pedido'>
-                                            <input type="radio" id="cancelado" name="estadoPedido" value="cancelado" />
-                                            Cancelado
+                                            <input type="radio" id="cancelado" name="estadoPedido" value="Cancelado" />
+                                            <span>
+                                                Cancelado
+                                            </span>
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
                                         <button type="submit" class="btn-1">Editar Estado</button>
                                     </div>
+                                    <script>
+                                        checkPedidoEstado('${pedido.estado.estado}')
+                                    </script>
                                 </div>
                             </form>
                         </div>
                         <hr>
-                        <div class='item-lista-cesta-compra'>
-                            <p class="p-msg"><b>2x</b></p>
-                            <p class="p-msg">
-                                <span>X-Bacon</span>
-                            </p>
-                            <p class="p-msg p-right">
-                                <span>
-                                    <b>
-                                        R$
-                                        <span class="preco-produto" id="produto1">
-                                            <script>
-                                                getPrecoFormatado("7.50", "produto1")
-                                            </script>
-                                        </span>
-                                    </b>
-                                </span>
-                            </p>
-                        </div>
-                        <div class='item-lista-cesta-compra'>
-                            <p class="p-msg"><b>1x</b></p>
-                            <p class="p-msg">
-                                <span>X-Tudo</span>
-                            </p>
-                            <p class="p-msg p-right">
-                                <span>
-                                    <b>
-                                        R$
-                                        <span class="preco-produto" id="produto2">
-                                            <script>
-                                                getPrecoFormatado("10.00", "produto2")
-                                            </script>
-                                        </span>
-                                    </b>
-                                </span>
-                            </p>
-                        </div>
+                        <c:forEach items="${pedido.produtos}" var="produto">
+                            <div class='item-lista-cesta-compra'>
+                                <p class="p-msg"><b>${produto.quantidade}x</b></p>
+                                <p class="p-msg">
+                                    <span>${produto.produto.nome}</span>
+                                </p>
+                                <p class="p-msg p-right">
+                                    <span>
+                                        <b>
+                                            R$
+                                            <span class="preco-produto" id="produto${produto.produto.id}">
+                                                <script>
+                                                    getPrecoFormatado("${produto.preco}",
+                                                        "produto${produto.produto.id}")
+                                                </script>
+                                            </span>
+                                        </b>
+                                    </span>
+                                </p>
+                            </div>
+                        </c:forEach>
                         <div class='item-lista-cesta-compra msg-sucesso'>
                             <p class="p-msg"><b>Total</b></p>
                             <p class="p-msg p-right">
@@ -130,7 +139,7 @@
                                         R$
                                         <span class="preco-produto" id="preco-total">
                                             <script>
-                                                getPrecoFormatado("25.00", "preco-total")
+                                                getPrecoFormatado("${pedido.valor}", "preco-total")
                                             </script>
                                         </span>
                                     </b>
@@ -140,7 +149,7 @@
                         <hr>
                         <div class="rodape-detalhe-pedido">
                             <span class="data-detalhe-pedido">
-                                Data do pedido: 22/03/2019 - 16:58
+                                Data do pedido: ${pedido.dataPedido} - ${pedido.horarioPedido}
                             </span>
                         </div>
                     </div>
@@ -148,11 +157,6 @@
             </div>
         </div>
     </div>
-    <script>
-        document.getElementById("btnCadastrar").addEventListener("click", function (event) {
-            event.preventDefault()
-        });
-    </script>
 </body>
 
 </html>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Categoria;
 import model.Produto;
 import model.Restaurante;
 
@@ -32,14 +33,14 @@ public class ProdutoDAO {
         Statement st = conn.createStatement();
 
         try {
-            String sql = "INSERT INTO produto (nome, descricao, preco, imagem, restaurante_id) VALUES (?,?,?,?,?)";
+            String sql = "INSERT INTO produto (nome, descricao, preco, imagem, restaurante_id, categoria_id) VALUES (?,?,?,?,?,?)";
             PreparedStatement comando = conn.prepareStatement(sql);
             comando.setString(1, produto.getNome());
             comando.setString(2, produto.getDescricao());
             comando.setDouble(3, produto.getPreco());
             comando.setString(4, produto.getImagem());
             comando.setInt(5, produto.getRestaurante().getId());
-
+            comando.setInt(6, produto.getCategoria().getId());
             comando.execute();
 
         } catch (SQLException e) {
@@ -77,11 +78,14 @@ public class ProdutoDAO {
                     rs.getDouble("preco"),
                     rs.getString("imagem"),
                     null,
+                    null,
                     null
             );
-            
+
             produto.setRestauranteId(rs.getInt("restaurante_id"));
             produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            produto.setCategoriaId(rs.getInt("categoria_id"));
+            produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -90,10 +94,10 @@ public class ProdutoDAO {
         return produto;
     }
 
-    public static List<Produto> listProdutosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+    public static ArrayList<Produto> listProdutosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
-        List<Produto> produtos = new ArrayList<Produto>();
+        ArrayList<Produto> produtos = new ArrayList<Produto>();
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE restaurante_id = " + restaurante.getId());
             while (rs.next()) {
@@ -104,8 +108,13 @@ public class ProdutoDAO {
                         rs.getDouble("preco"),
                         rs.getString("imagem"),
                         null,
+                        null,
                         null
                 );
+                produto.setRestauranteId(rs.getInt("restaurante_id"));
+                produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                produto.setCategoriaId(rs.getInt("categoria_id"));
+                produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
                 produtos.add(produto);
             }
         } catch (SQLException e) {
@@ -129,10 +138,14 @@ public class ProdutoDAO {
                     rs.getString("descricao"),
                     rs.getDouble("preco"),
                     rs.getString("imagem"),
+                    null,
+                    null,
                     null
             );
             produto.setRestauranteId(rs.getInt("restaurante_id"));
             produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            produto.setCategoriaId(rs.getInt("categoria_id"));
+            produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
