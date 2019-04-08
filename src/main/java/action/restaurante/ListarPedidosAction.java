@@ -10,11 +10,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Pedido;
 import model.PedidoProduto;
+import model.Proprietario;
 import model.Restaurante;
 import persistence.PedidoDAO;
 import persistence.PedidoProdutoDAO;
+import persistence.RestauranteDAO;
 
 /**
  *
@@ -23,25 +26,27 @@ import persistence.PedidoProdutoDAO;
 public class ListarPedidosAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            Restaurante restaurante = Restaurante.getRestaurante(999);
-            ArrayList<Pedido> pedidos = PedidoDAO.listPedidosRestaurante(restaurante);
+            if (Proprietario.isLogado(session)) {
+                Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
+                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                
+                ArrayList<Pedido> pedidos = PedidoDAO.listPedidosRestaurante(restaurante);
+                ArrayList<PedidoProduto> produtos;
+                for (Pedido pedido : pedidos) {
+                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    pedido.setProdutos(produtos);
+                }
 
-            ArrayList<PedidoProduto> produtos;
-            for(Pedido pedido : pedidos) {
-                produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
-                pedido.setProdutos(produtos);
+                request.setAttribute("pedidos", pedidos);
+
+                RequestDispatcher view = request.getRequestDispatcher("/restaurante/pedidos.jsp");
+                view.forward(request, response);
             }
-            
-            request.setAttribute("pedidos", pedidos);
-
-            RequestDispatcher view = request.getRequestDispatcher("/restaurante/pedidos.jsp");
-            view.forward(request, response);
-            
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(action.restaurante.ListarPedidosAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

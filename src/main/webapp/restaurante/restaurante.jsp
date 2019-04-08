@@ -33,8 +33,8 @@
             </p>
         </div>
 
-        <div class='container'>
-            <div class='row lista-produtos equal'>
+        <div class='container' style="width: 90%">
+            <div class='row'>
                 <c:choose>
                     <c:when test="${produtos[0] == null}">
                         <div class='text-center'>
@@ -42,66 +42,82 @@
                         </div>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach items="${produtos}" var="produto">
-                            <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
-                                <div class='item-lista-produtos' id="div-produto${produto.id}">
-                                    <p class="p-icon" style="background-image: url(${produto.imagem})">
-                                    </p>
-                                    <p class="p-msg">
-                                        <span class="nome-produto">${produto.nome}</span><br>
-                                        <span>${produto.descricao}</span><br>
-                                        <button type="submit" class="btn-adicionar-produto"
-                                            onclick="cesta.adicionarProduto('${produto.id}','${produto.nome}',calcularDesconto('${produto.preco}', '${produto.promocao.obterDesconto()}'))">
-                                            Adicionar
-                                            <c:choose>
-                                                <c:when test="${produto.promocao != null}">
-                                                    <span class="item-preco-produto">
-                                                        R$
-                                                        <span class="preco-produto" id="produto${produto.id}">
-                                                            <script>
-                                                                getPrecoDesconto('${produto.preco}',
-                                                                    "produto${produto.id}",
-                                                                    "${produto.obterDesconto()}")
-                                                            </script>
-                                                        </span>
-                                                    </span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <span class="item-preco-produto">
-                                                        R$
-                                                        <span class="preco-produto" id="produto${produto.id}">
-                                                            <script>
-                                                                getPrecoDesconto('${produto.preco}',
-                                                                    "produto${produto.id}",
-                                                                    "0")
-                                                            </script>
-                                                        </span>
-                                                    </span>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </button>
-                                    </p>
-                                    <c:choose>
-                                        <c:when test="${produto.promocao != null}">
-                                            <span class="desconto-produto">
-                                                R$
-                                                <span id='desconto-produto${produto.id}'>
-                                                    <script>
-                                                        getPrecoFormatado('${produto.preco}',
-                                                            "desconto-produto${produto.id}")
-                                                    </script>
-                                                </span>
-                                            </span>
-                                        </c:when>
-                                    </c:choose>
-                                </div>
-                            </div>
+                        <c:forEach items="${produtosByCategoria}" var="categoria">
+                            <c:choose>
+                                <c:when test="${categoria.value[0] != null}">
+                                    <div class='row'>
+                                        <div class='col-12 col-md-6 col-lg-6 col-xl-4'>
+                                            <h3 style="margin-bottom: 10px">${categoria.value[0].categoria.nome}</h3>
+                                        </div>
+                                    </div>
+                                    <div class='row lista-produtos equal'>
+                                        <c:forEach items="${categoria.value}" var="produto">
+                                            <div class='col-12 col-md-6 col-lg-6 col-xl-4 normalize-grid'>
+                                                <div class='item-lista-produtos' id="div-produto${produto.id}">
+                                                    <p class="p-icon" style="background-image: url(${produto.imagem})">
+                                                    </p>
+                                                    <p class="p-msg">
+                                                        <span class="nome-produto">${produto.nome}</span><br>
+                                                        <span>${produto.descricao}</span><br>
+                                                        <button type="submit" class="btn-adicionar-produto"
+                                                            onclick="cesta.adicionarProduto('${produto.id}','${produto.nome}',calcularDesconto('${produto.preco}', '${produto.promocao.obterDesconto()}'))">
+                                                            Adicionar
+                                                            <c:choose>
+                                                                <c:when test="${produto.promocao != null}">
+                                                                    <span class="item-preco-produto">
+                                                                        R$
+                                                                        <span class="preco-produto"
+                                                                            id="produto${produto.id}">
+                                                                            <script>
+                                                                                getPrecoDesconto('${produto.preco}',
+                                                                                    "produto${produto.id}",
+                                                                                    "${produto.obterDesconto()}")
+                                                                            </script>
+                                                                        </span>
+                                                                    </span>
+                                                                </c:when>
+                                                                <c:otherwise>
+                                                                    <span class="item-preco-produto">
+                                                                        R$
+                                                                        <span class="preco-produto"
+                                                                            id="produto${produto.id}">
+                                                                            <script>
+                                                                                getPrecoDesconto('${produto.preco}',
+                                                                                    "produto${produto.id}",
+                                                                                    "0")
+                                                                            </script>
+                                                                        </span>
+                                                                    </span>
+                                                                </c:otherwise>
+                                                            </c:choose>
+                                                        </button>
+                                                    </p>
+                                                    <c:choose>
+                                                        <c:when test="${produto.promocao != null}">
+                                                            <span class="desconto-produto">
+                                                                R$
+                                                                <span id='desconto-produto${produto.id}'>
+                                                                    <script>
+                                                                        getPrecoFormatado('${produto.preco}',
+                                                                            "desconto-produto${produto.id}")
+                                                                    </script>
+                                                                </span>
+                                                            </span>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </c:when>
+                            </c:choose>
                         </c:forEach>
                     </c:otherwise>
                 </c:choose>
             </div>
         </div>
     </div>
+
     <div class='cesta-compra'>
         <form action='FrontController?route=pedido&action=CadastrarPedido' method="POST" id="formFinalizarPedido">
             <div class='corpo-cesta-compra'>

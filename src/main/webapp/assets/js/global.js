@@ -234,6 +234,13 @@ const apagarMensagem = (id) => {
 }
 
 const checkPedidoEstado = (estado) => {
-  console.log(estado)
   document.getElementById(estado.toLowerCase()).checked = true;
+}
+
+const getPrimeiroNome = nome => {
+  if (nome) {
+    nome = nome.split(" ");
+    nome = nome[0].charAt(0).toUpperCase() + nome[0].toLowerCase().slice(1);
+  }
+  return nome;
 }

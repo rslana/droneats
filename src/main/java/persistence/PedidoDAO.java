@@ -92,7 +92,7 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
             pedido.setCliente(ClienteDAO.getClientePedido(pedido));
@@ -104,8 +104,8 @@ public class PedidoDAO {
         }
         return pedido;
     }
-    
-    public static Pedido getPedidoCliente(int id,Cliente cliente) throws ClassNotFoundException, SQLException {
+
+    public static Pedido getPedidoCliente(int id, Cliente cliente) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Pedido pedido = null;
@@ -127,7 +127,42 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
+
+            pedido.setClienteId(rs.getInt("cliente_id"));
+            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return pedido;
+    }
+    
+    public static Pedido getPedidoRestaurante(int id, Restaurante restaurante) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        Pedido pedido = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id + " AND restaurante_id = " + restaurante.getId());
+            rs.first();
+
+            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+
+            pedido = new Pedido(
+                    rs.getInt("id"),
+                    rs.getString("data_pedido"),
+                    rs.getString("hora_pedido"),
+                    rs.getString("data_pagamento"),
+                    rs.getDouble("valor"),
+                    rs.getBoolean("pago"),
+                    pedidoEstado,
+                    null,
+                    null
+            );
+            pedido.setRestauranteId(rs.getInt("restaurante_id"));
+            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
             pedido.setCliente(ClienteDAO.getClientePedido(pedido));
@@ -192,7 +227,7 @@ public class PedidoDAO {
             closeResources(conn, st);
         }
     }
-    
+
     public static ArrayList<Pedido> listPedidosCliente(Cliente cliente) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -219,7 +254,7 @@ public class PedidoDAO {
 
                 pedido.setClienteId(rs.getInt("cliente_id"));
                 pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
-                
+
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -229,7 +264,7 @@ public class PedidoDAO {
         }
         return pedidos;
     }
-    
+
     public static ArrayList<Pedido> listPedidosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -256,7 +291,7 @@ public class PedidoDAO {
 
                 pedido.setClienteId(rs.getInt("cliente_id"));
                 pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
-                
+
                 pedidos.add(pedido);
             }
         } catch (SQLException e) {
@@ -265,6 +300,23 @@ public class PedidoDAO {
             closeResources(conn, st);
         }
         return pedidos;
+    }
+    
+    public int countPedidosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT count(*) as quantidade FROM pedido WHERE restaurante_id = " + restaurante.getId();
+        PreparedStatement comando = conn.prepareStatement(sql);
+       
+        try {
+            ResultSet rs = comando.executeQuery();
+            rs.first();
+            
+            return rs.getInt("quantidade");
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
     }
 
     public static void closeResources(Connection conn, Statement st) {

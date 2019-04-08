@@ -9,9 +9,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Categoria;
+import model.Proprietario;
 import model.Restaurante;
 import persistence.CategoriaDAO;
+import persistence.RestauranteDAO;
 
 /**
  *
@@ -20,9 +23,8 @@ import persistence.CategoriaDAO;
 public class CadastrarCategoriaAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         String nome = request.getParameter("nome");
-        Categoria categoria;
 
         if (nome.equals("")) {
             try {
@@ -34,14 +36,16 @@ public class CadastrarCategoriaAction implements Action {
             }
         } else {
             try {
-                //Pegar restaurante na sessão
-                Restaurante restaurante = Restaurante.getRestaurante(999);
-                categoria = new Categoria(nome, restaurante);
+                if (Proprietario.isLogado(session)) {
+                    Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
+                    Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                    Categoria categoria = new Categoria(nome, restaurante);
 
-                CategoriaDAO.getInstance().save(categoria);
-                request.setAttribute("mensagemSucesso", "Categoria criada com sucesso!");
-                RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
-                view.forward(request, response);
+                    CategoriaDAO.getInstance().save(categoria);
+                    request.setAttribute("mensagemSucesso", "Categoria criada com sucesso!");
+                    RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarCategoria.jsp");
+                    view.forward(request, response);
+                }
             } catch (SQLException ex) {
                 try {
                     request.setAttribute("mensagemErro", "Erro ao tentar criar categoria");

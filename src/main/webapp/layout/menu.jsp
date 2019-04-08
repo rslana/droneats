@@ -3,11 +3,14 @@
     <div class="logo">
       <h3><a href='index.jsp' class="droneats">Dron<span>eats</span></a></h3>
     </div>
-    <!-- Falta adicionar lógica para tratar sessão -->
     <c:choose>
-      <c:when test="${usuario == 'Cliente'}">
+      <c:when test="${permissao == 'Cliente'}">
         <div class='itens-right'>
-          <a href='cliente/perfil.jsp' class="menu-item"><i class="far fa-user"></i>Perfil</a>
+          <a href='cliente/perfil.jsp' class="menu-item"><i class="far fa-user"></i>
+            <script>
+              document.write(getPrimeiroNome('${usuario.nome}'))
+            </script>
+          </a>
           <a href='FrontController?route=cliente&action=ListarPedidos' class="menu-item"><i
               class="fas fa-parachute-box"></i>Pedidos</a>
           <a class="menu-item" id="link-cesta">
@@ -18,10 +21,11 @@
               </script>
             </span>
           </a>
-          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
+          <a href='FrontController?route=usuario&action=Logout' class="menu-item"><i
+              class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
-      <c:when test="${usuario != 'Restaurante'}">
+      <c:when test="${permissao == 'Proprietario'}">
         <div class='itens-right'>
           <a href='restaurante/perfil.jsp' class="menu-item"><i class="fas fa-store-alt"></i>Perfil</a>
           <a href='FrontController?route=restaurante&action=ListarPedidos' class="menu-item"><i
@@ -30,7 +34,8 @@
               class="fas fa-utensils"></i>Produtos</a>
           <a href='FrontController?route=categoria&action=ListarCategorias' class="menu-item"><i
               class="fas fa-tags"></i></i>Categorias</a>
-          <a href='auth/sair.jsp' class="menu-item"><i class="fas fa-sign-out-alt"></i>Sair</a>
+          <a href='FrontController?route=usuario&action=Logout' class="menu-item"><i
+              class="fas fa-sign-out-alt"></i>Sair</a>
         </div>
       </c:when>
       <c:otherwise>

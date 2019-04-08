@@ -5,6 +5,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import persistence.ClienteDAO;
 
 /**
@@ -41,6 +42,20 @@ public class Cliente extends Usuario implements Observer {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public static Cliente login(String email, String senha) {
+        try {
+            return ClienteDAO.login(email, senha);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static boolean isLogado(HttpSession session) {
+        Cliente cliente = (Cliente) session.getAttribute("usuario");
+        return cliente != null;
     }
 
     @Override

@@ -12,12 +12,13 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author rslana
  */
- @MultipartConfig
+@MultipartConfig
 public class FrontController extends HttpServlet {
 
     /**
@@ -29,19 +30,20 @@ public class FrontController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
         String route = request.getParameter("route");
-        Action actionObject = null;
-        if(action == null || action.equals("")){
+        Action actionObject;
+        if (action == null || action.equals("")) {
             response.sendRedirect("index.jsp");
         }
-        actionObject = ActionFactory.create(action,route);
-         if (actionObject != null){
-            actionObject.execute(request, response);
+        actionObject = ActionFactory.create(action, route);
+        if (actionObject != null) {
+            HttpSession session = request.getSession(true);
+            actionObject.execute(request, response, session);
         }
-        
+
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
     }

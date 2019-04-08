@@ -10,9 +10,14 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Pedido;
 import model.PedidoProduto;
+import model.Proprietario;
+import model.Restaurante;
+import persistence.PedidoDAO;
 import persistence.PedidoProdutoDAO;
+import persistence.RestauranteDAO;
 
 /**
  *
@@ -21,24 +26,32 @@ import persistence.PedidoProdutoDAO;
 public class PrepararAlterarPedidoAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         int pedidoId = Integer.parseInt(request.getParameter("id"));
-        
+
         try {
-            Pedido pedido = Pedido.getPedido(pedidoId);
-            
-            ArrayList<PedidoProduto> produtos;
-            produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
-            
-            pedido.setProdutos(produtos);
-            request.setAttribute("pedido", pedido);
-            
-            RequestDispatcher view = request.getRequestDispatcher("/restaurante/editarPedido.jsp");
-            view.forward(request, response);
-            
+            if (Proprietario.isLogado(session)) {
+                Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
+                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+
+                Pedido pedido = PedidoDAO.getPedidoRestaurante(pedidoId, restaurante);
+
+                if (pedido != null) {
+                    ArrayList<PedidoProduto> produtos;
+                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+
+                    pedido.setProdutos(produtos);
+                    request.setAttribute("pedido", pedido);
+                    RequestDispatcher view = request.getRequestDispatcher("/restaurante/editarPedido.jsp");
+                    view.forward(request, response);
+                } else {
+                    response.sendRedirect("FrontController?route=restaurante&action=ListarProdutos");
+                }
+
+            }
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(PrepararAlterarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

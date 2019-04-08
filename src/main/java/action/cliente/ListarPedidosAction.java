@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Cliente;
 import model.Pedido;
 import model.PedidoProduto;
@@ -23,22 +24,23 @@ import persistence.PedidoProdutoDAO;
 public class ListarPedidosAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            Cliente cliente = Cliente.getCliente(999);
-            ArrayList<Pedido> pedidos = PedidoDAO.listPedidosCliente(cliente);
+            if (Cliente.isLogado(session)) {
+                Cliente cliente = (Cliente) session.getAttribute("usuario");
+                ArrayList<Pedido> pedidos = PedidoDAO.listPedidosCliente(cliente);
 
-            ArrayList<PedidoProduto> produtos;
-            for(Pedido pedido : pedidos) {
-                produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
-                pedido.setProdutos(produtos);
+                ArrayList<PedidoProduto> produtos;
+                for (Pedido pedido : pedidos) {
+                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    pedido.setProdutos(produtos);
+                }
+
+                request.setAttribute("pedidos", pedidos);
+
+                RequestDispatcher view = request.getRequestDispatcher("/cliente/pedidos.jsp");
+                view.forward(request, response);
             }
-            
-            request.setAttribute("pedidos", pedidos);
-            
-            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedidos.jsp");
-            view.forward(request, response);
-            
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(ListarPedidosAction.class.getName()).log(Level.SEVERE, null, ex);
         }

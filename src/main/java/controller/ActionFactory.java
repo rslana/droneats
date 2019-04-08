@@ -7,10 +7,10 @@ package controller;
 public class ActionFactory {
 
     public static Action create(String action, String route) {
-        Action actionObject = null;
+        Action actionObject;
         String nomeClasse = "action." + route + "." + action + "Action";
-        Class classe = null;
-        Object objeto = null;
+        Class classe;
+        Object objeto;
         try {
             classe = Class.forName(nomeClasse);
             objeto = classe.newInstance();

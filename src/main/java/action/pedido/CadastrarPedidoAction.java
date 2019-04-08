@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Cliente;
 import model.Email;
 import model.Pedido;
@@ -25,60 +26,66 @@ import persistence.RestauranteDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class CadastrarPedidoAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            String pedidoJS = request.getParameter("pedido");
-            JSONObject pedidoJSON = new JSONObject(pedidoJS);
-            int restauranteId = Integer.parseInt(pedidoJSON.getString("restaurante"));
+            if (Cliente.isLogado(session)) {
+                Cliente cliente = (Cliente) session.getAttribute("usuario");
+                String pedidoJS = request.getParameter("pedido");
+                JSONObject pedidoJSON = new JSONObject(pedidoJS);
+                int restauranteId = Integer.parseInt(pedidoJSON.getString("restaurante"));
 
-            Cliente cliente = Cliente.getCliente(999);
-            Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
+                Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
 
-            JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
+                JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
 
-            double valorTotal = 0;
-            for (int i = 0; i < produtosJSON.length(); i++) {
-                int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
-                double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
-                valorTotal += (quantidade * preco);
+                double valorTotal = 0;
+                for (int i = 0; i < produtosJSON.length(); i++) {
+                    int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
+                    double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
+                    valorTotal += (quantidade * preco);
+                }
+
+                Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
+                PedidoDAO.getInstance().save(pedido);
+
+                pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
+
+                PedidoProduto pedidoProduto;
+                Produto produto;
+                ArrayList<PedidoProduto> produtos = new ArrayList<>();
+                for (int i = 0; i < produtosJSON.length(); i++) {
+                    int id = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
+                    int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
+                    double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
+                    produto = ProdutoDAO.getProduto(id);
+                    pedidoProduto = new PedidoProduto(pedido, produto, quantidade, preco);
+                    produtos.add(pedidoProduto);
+                    PedidoProdutoDAO.getInstance().save(pedidoProduto);
+                }
+
+                pedido.setProdutos(produtos);
+
+                String msgEmail = "<h2 style='text-align:center; padding: 50px 20px'>Olá, " + cliente.getNome() + " </h2>";
+                msgEmail += "<h3 style='text-align:center;'>Você acabou de fazer um pedido no Droneats.</h3><br/>";
+                msgEmail += "<h2 style='text-align:center;'>" + pedido.getEstado().getEstadoMensagem() + "</h2>";
+                Email email = new Email(cliente.getEmail(), "Status do Pedido " + pedido.getId(), msgEmail);
+                email.enviarEmail();
+
+                request.setAttribute("mensagemSucesso", "Pedido realizado com sucesso!");
+                request.setAttribute("pedido", pedido);
+
+                RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
+                view.forward(request, response);
+            } else {
+                request.setAttribute("mensagemErro", "Você precisa estar logado para executar essa ação!");
+                RequestDispatcher view = request.getRequestDispatcher("/auth/loginCliente.jsp");
+                view.forward(request, response);
             }
-
-            Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
-            PedidoDAO.getInstance().save(pedido);
-
-            pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
-
-            PedidoProduto pedidoProduto;
-            Produto produto;
-            ArrayList<PedidoProduto> produtos = new ArrayList<>();
-            for (int i = 0; i < produtosJSON.length(); i++) {
-                int id = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
-                int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
-                double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
-                produto = ProdutoDAO.getProduto(id);
-                pedidoProduto = new PedidoProduto(pedido, produto, quantidade, preco);
-                produtos.add(pedidoProduto);
-                PedidoProdutoDAO.getInstance().save(pedidoProduto);
-            }
-
-            pedido.setProdutos(produtos);
-
-            String msgEmail = "<h2 style='text-align:center; padding: 50px 20px'>Olá, " + cliente.getNome() + " </h2>";
-            msgEmail += "<h3 style='text-align:center;'>Você acabou de fazer um pedido no Droneats.</h3><br/>";
-            msgEmail += "<h2 style='text-align:center;'>" + pedido.getEstado().getEstadoMensagem() + "</h2>";
-            Email email = new Email(cliente.getEmail(), "Status do Pedido " + pedido.getId(), msgEmail);
-            email.enviarEmail();
-            
-            request.setAttribute("mensagemSucesso", "Pedido realizado com sucesso!");
-            request.setAttribute("pedido", pedido);
-
-            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
-            view.forward(request, response);
 
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(CadastrarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);

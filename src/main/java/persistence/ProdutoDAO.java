@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Categoria;
@@ -129,6 +130,45 @@ public class ProdutoDAO {
         return produtos;
     }
 
+    public static HashMap<Integer, ArrayList<Produto>> listProdutosRestauranteByCategoria(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        HashMap<Integer, ArrayList<Produto>> produtosByCategoria = new HashMap<>();
+        ArrayList<Categoria> categorias = CategoriaDAO.listCategoriasRestaurante(restaurante);
+
+        try {
+            for (Categoria categoria : categorias) {
+                ArrayList<Produto> produtos = new ArrayList<>();
+                ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE restaurante_id = " + restaurante.getId() + " AND categoria_id = " + categoria.getId());
+                while (rs.next()) {
+                    Produto produto = new Produto(
+                            rs.getInt("id"),
+                            rs.getString("nome"),
+                            rs.getString("descricao"),
+                            rs.getDouble("preco"),
+                            rs.getString("imagem"),
+                            null,
+                            null,
+                            null
+                    );
+                    produto.setRestauranteId(rs.getInt("restaurante_id"));
+                    produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                    produto.setCategoriaId(rs.getInt("categoria_id"));
+                    produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
+                    Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+                    produto.setPromocao(promocao);
+                    produtos.add(produto);
+                }
+                produtosByCategoria.put(categoria.getId(), produtos);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return produtosByCategoria;
+    }
+
     public static Produto getProduto(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -158,6 +198,23 @@ public class ProdutoDAO {
             closeResources(conn, st);
         }
         return produto;
+    }
+
+    public int countProdutosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT count(*) as quantidade FROM produto WHERE restaurante_id = " + restaurante.getId();
+        PreparedStatement comando = conn.prepareStatement(sql);
+
+        try {
+            ResultSet rs = comando.executeQuery();
+            rs.first();
+
+            return rs.getInt("quantidade");
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
     }
 
     public static void closeResources(Connection conn, Statement st) {

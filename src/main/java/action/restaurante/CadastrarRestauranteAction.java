@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Proprietario;
 import model.Restaurante;
 import persistence.ProprietarioDAO;
@@ -22,7 +23,7 @@ import persistence.RestauranteDAO;
 public class CadastrarRestauranteAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException {
         //Prorpietario
         String nomeProprietario = request.getParameter("nomeProprietario");
         String emailProprietario = request.getParameter("emailProprietario");

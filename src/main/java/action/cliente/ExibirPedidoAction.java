@@ -11,8 +11,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Cliente;
 import model.Pedido;
 import model.PedidoProduto;
+import persistence.PedidoDAO;
 import persistence.PedidoProdutoDAO;
 
 /**
@@ -22,21 +25,28 @@ import persistence.PedidoProdutoDAO;
 public class ExibirPedidoAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         int pedidoId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            Pedido pedido = Pedido.getPedido(pedidoId);
+            if (Cliente.isLogado(session)) {
+                Cliente cliente = (Cliente) session.getAttribute("usuario");
+                Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
 
-            ArrayList<PedidoProduto> produtos;
-            produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                if (pedido != null) {
+                    ArrayList<PedidoProduto> produtos;
+                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
 
-            pedido.setProdutos(produtos);
-            request.setAttribute("pedido", pedido);
+                    pedido.setProdutos(produtos);
+                    request.setAttribute("pedido", pedido);
 
-            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
-            view.forward(request, response);
+                    RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
+                    view.forward(request, response);
+                } else {
+                    response.sendRedirect("FrontController?route=cliente&action=ListarPedidos");
+                }
 
+            }
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(PrepararAlterarPedidoAction.class.getName()).log(Level.SEVERE, null, ex);
         }

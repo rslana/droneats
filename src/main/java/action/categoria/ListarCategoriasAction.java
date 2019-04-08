@@ -10,9 +10,12 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Categoria;
+import model.Proprietario;
 import model.Restaurante;
 import persistence.CategoriaDAO;
+import persistence.RestauranteDAO;
 
 /**
  *
@@ -21,20 +24,21 @@ import persistence.CategoriaDAO;
 public class ListarCategoriasAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            // Pegar Restaurante da sessão
-            Restaurante restaurante = Restaurante.getRestaurante(999);
-            ArrayList<Categoria> categorias = CategoriaDAO.listCategoriasRestaurante(restaurante);
-            
-            request.setAttribute("categorias", categorias);
+            if (Proprietario.isLogado(session)) {
+                Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
+                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                ArrayList<Categoria> categorias = CategoriaDAO.listCategoriasRestaurante(restaurante);
 
-            RequestDispatcher view = request.getRequestDispatcher("/restaurante/categorias.jsp");
-            view.forward(request, response);
-            
+                request.setAttribute("categorias", categorias);
+
+                RequestDispatcher view = request.getRequestDispatcher("/restaurante/categorias.jsp");
+                view.forward(request, response);
+            }
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(action.restaurante.ListarPedidosAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

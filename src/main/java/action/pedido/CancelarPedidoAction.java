@@ -10,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Cliente;
 import model.Pedido;
 import model.PedidoProduto;
@@ -23,26 +24,28 @@ import persistence.PedidoProdutoDAO;
 public class CancelarPedidoAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         int pedidoId = Integer.parseInt(request.getParameter("pedidoId"));
 
         try {
-            Cliente cliente = Cliente.getCliente(999);
+            if (Cliente.isLogado(session)) {
+                Cliente cliente = (Cliente) session.getAttribute("usuario");
 
-            Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
+                Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
 
-            String mensagem = pedido.setCancelado(pedido);
+                String mensagem = pedido.setCancelado(pedido);
 
-            Pedido novoPedido = Pedido.getPedido(pedidoId);
-            ArrayList<PedidoProduto> produtos;
-            produtos = PedidoProdutoDAO.listProdutosPedido(novoPedido);
+                Pedido novoPedido = Pedido.getPedido(pedidoId);
+                ArrayList<PedidoProduto> produtos;
+                produtos = PedidoProdutoDAO.listProdutosPedido(novoPedido);
 
-            novoPedido.setProdutos(produtos);
+                novoPedido.setProdutos(produtos);
 
-            request.setAttribute("mensagem", mensagem);
-            request.setAttribute("pedido", novoPedido);
-            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
-            view.forward(request, response);
+                request.setAttribute("mensagem", mensagem);
+                request.setAttribute("pedido", novoPedido);
+                RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
+                view.forward(request, response);
+            }
 
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
             Logger.getLogger(AlterarPedidoEstadoAction.class.getName()).log(Level.SEVERE, null, ex);

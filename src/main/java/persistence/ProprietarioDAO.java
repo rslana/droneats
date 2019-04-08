@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -10,12 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import model.Produto;
 import model.Proprietario;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class ProprietarioDAO {
 
@@ -117,6 +111,40 @@ public class ProprietarioDAO {
                     rs.getString("cep"),
                     rs.getString("telefone")
             );
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
+        return proprietario;
+    }
+    
+    public static Proprietario login(String email, String senha) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Proprietario proprietario = null;
+        PreparedStatement comando = null;
+        try {
+            String sql = "SELECT * FROM proprietario WHERE email = ? AND senha = ?";
+            comando = conn.prepareStatement(sql);
+            comando.setString(1, email);
+            comando.setString(2, senha);
+            ResultSet rs = comando.executeQuery();
+            if (rs.first()) {
+                proprietario = new Proprietario(
+                    rs.getInt("id"),
+                    rs.getString("cpf"),
+                    rs.getString("senha"),
+                    rs.getString("nome"),
+                    rs.getString("email"),
+                    rs.getString("cidade"),
+                    rs.getString("estado"),
+                    rs.getString("bairro"),
+                    rs.getString("rua"),
+                    rs.getString("numero"),
+                    rs.getString("cep"),
+                    rs.getString("telefone")
+                );
+            }
         } catch (SQLException e) {
             throw e;
         } finally {

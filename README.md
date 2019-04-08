@@ -17,3 +17,5 @@ You have to create ```config.Config.java```
         public static final String EMAIL_PASS = "";
         public static final String EMAIL_FROM = "";
     }
+
+If you don't want to use AWS S3 just leave the ```UPLOAD_WITH_AWS = false``` and the ```ACCESS_KEY``` and ```SECRET_KEY``` blank.

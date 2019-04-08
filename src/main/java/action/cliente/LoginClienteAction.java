@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action.cliente;
 
 import controller.Action;
@@ -20,18 +15,17 @@ import persistence.ClienteDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class LoginClienteAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException {
         try {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
             Cliente cliente = ClienteDAO.login(email, senha);
             if (cliente != null) {
-                HttpSession session = request.getSession(true);
                 session.setAttribute("cliente", cliente);
                 session.setAttribute("usuario", "cliente");
                 RequestDispatcher view = request.getRequestDispatcher("/index.jsp");

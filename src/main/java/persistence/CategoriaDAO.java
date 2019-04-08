@@ -59,8 +59,8 @@ public class CategoriaDAO {
 
         }
     }
-    
-     public static Categoria getCategoria(int id) throws ClassNotFoundException, SQLException {
+
+    public static Categoria getCategoria(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Categoria categoria = null;
@@ -72,9 +72,9 @@ public class CategoriaDAO {
                     rs.getString("nome"),
                     null
             );
-             categoria.setRestauranteId(rs.getInt("restaurante_id"));
+            categoria.setRestauranteId(rs.getInt("restaurante_id"));
             categoria.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -82,8 +82,8 @@ public class CategoriaDAO {
         }
         return categoria;
     }
-     
-     public static ArrayList<Categoria> listCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+
+    public static ArrayList<Categoria> listCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         ArrayList<Categoria> categorias = new ArrayList<>();
@@ -107,6 +107,23 @@ public class CategoriaDAO {
         return categorias;
     }
 
+    public int countCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        String sql = "SELECT count(*) as quantidade FROM categoria WHERE restaurante_id = " + restaurante.getId();
+        PreparedStatement comando = conn.prepareStatement(sql);
+       
+        try {
+            ResultSet rs = comando.executeQuery();
+            rs.first();
+            
+            return rs.getInt("quantidade");
+        } catch (SQLException e) {
+            throw e;
+        } finally {
+            closeResources(conn, comando);
+        }
+    }
+    
     public static void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
