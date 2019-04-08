@@ -18,9 +18,9 @@ INSERT INTO `categoria` (`id`, `nome`, `restaurante_id`) VALUES
 (999, 'Sobremesas', 999);
 
 INSERT INTO `produto` (`id`, `nome`, `descricao`, `preco`, `imagem`, `promocao`, `categoria_id`, `restaurante_id`) VALUES
-(997, 'Pizza de Pepperoni', 'Deliciosas fatias de pepperoni (salame especial com páprica) e mussarela', 39.90, 'uploads/produtos/PRODUTO-2019-3-31_19-42-20_999.png', 'Unitario', 998,999),
+(997, 'Pizza de Pepperoni', 'Deliciosas fatias de pepperoni (salame especial com páprica) e mussarela', 39.90, 'uploads/produtos/PRODUTO-2019-3-31_19-42-20_999.png', 'PromocaoUnitario', 998,999),
 (998, 'Feijoada da Boa', 'Feijão vermelho com linguiças picadas e pé de porco', 14.50, 'uploads/produtos/PRODUTO-2019-3-31_18-43-26_779.jpg', NULL, 996, 999),
-(999, 'Combo Lanche Médio', 'Hamgurguer, Refrigerante e Batata Frita', 22.90, 'uploads/produtos/PRODUTO-2019-04-6_12-37-36_126.jpg', NULL, 996, 999);
+(999, 'Combo Lanche Médio', 'Hamgurguer, Refrigerante e Batata Frita', 22.90, 'uploads/produtos/PRODUTO-2019-04-6_12-37-36_126.jpg', 'PromocaoCombo', 996, 999);
 
 INSERT INTO `pedido_produto` (`pedido_id`, `produto_id`, `quantidade`, `preco`) VALUES
 (998, 997, 1, 39.90),

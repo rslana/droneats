@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package persistence;
 
 import java.sql.Connection;
@@ -11,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import model.Cliente;
 import model.Pedido;
 import model.Restaurante;
@@ -110,6 +104,41 @@ public class PedidoDAO {
         }
         return pedido;
     }
+    
+    public static Pedido getPedidoCliente(int id,Cliente cliente) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        Pedido pedido = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id + " AND cliente_id = " + cliente.getId());
+            rs.first();
+
+            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+
+            pedido = new Pedido(
+                    rs.getInt("id"),
+                    rs.getString("data_pedido"),
+                    rs.getString("hora_pedido"),
+                    rs.getString("data_pagamento"),
+                    rs.getDouble("valor"),
+                    rs.getBoolean("pago"),
+                    pedidoEstado,
+                    null,
+                    null
+            );
+            pedido.setRestauranteId(rs.getInt("restaurante_id"));
+            pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+
+            pedido.setClienteId(rs.getInt("cliente_id"));
+            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return pedido;
+    }
 
     public Pedido getLastPedido() throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
@@ -169,7 +198,7 @@ public class PedidoDAO {
         Statement st = conn.createStatement();
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE cliente_id = " + cliente.getId());
+            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE cliente_id = " + cliente.getId() + " ORDER BY id DESC");
             while (rs.next()) {
 
                 PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
@@ -206,7 +235,7 @@ public class PedidoDAO {
         Statement st = conn.createStatement();
         ArrayList<Pedido> pedidos = new ArrayList<>();
         try {
-            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE restaurante_id = " + restaurante.getId());
+            ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE restaurante_id = " + restaurante.getId() + " ORDER BY id DESC");
             while (rs.next()) {
 
                 PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));

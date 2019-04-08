@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package model;
+package model.promocao;
 
 /**
  *
- * @author ariel
+ * @author raj
  */
 public class PromocaoCombo implements Promocao {
 
@@ -21,4 +16,8 @@ public class PromocaoCombo implements Promocao {
         return "Promoção Combo";
     }
 
+    @Override
+    public String obterClasse() {
+        return this.getClass().getSimpleName();
+    }
 }

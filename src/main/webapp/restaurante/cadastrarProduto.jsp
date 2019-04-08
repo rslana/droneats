@@ -27,6 +27,7 @@
         <div class='container'>
             <div class='row'>
                 <div class='col-12 col-md-8 col-md-offset-2 form-crud'>
+                    <%@ include file = "../layout/mensagem.jsp" %>
                     <div class='corpo-form'>
                         <form action='FrontController?route=produto&action=CadastrarProduto' method="POST"
                             enctype="multipart/form-data" id="formCadastroProduto">
@@ -53,10 +54,6 @@
                                 <textarea name='descricao' cols='30' rows='3'></textarea><br />
                             </div>
                             <div class='form-input form-input-left'>
-                                <label for='imagem'>Imagem</label><br />
-                                <input type="file" name="imagem" /><br />
-                            </div>
-                            <div class='form-input form-input-right'>
                                 <label for='categoriaId'>Categoria</label><br>
                                 <select name="categoriaId" required <c:if test="${operacao == 'Excluir'}"> disabled
                                     </c:if>>
@@ -67,6 +64,25 @@
                                     </c:forEach>
                                 </select>
                             </div>
+                            <div class='form-input form-input-right'>
+                                <label for='promocao'>Promoção</label><br>
+                                <select name="promocao" required <c:if test="${operacao == 'Excluir'}"> disabled
+                                    </c:if>>
+                                    <option value="">
+                                        <c:out value="Sem promoção" />
+                                    </option>
+                                    <c:forEach items="${promocoes}" var="promocao">
+                                        <option value="${promocao.obterClasse()}">
+                                            <c:out value="${promocao.obterPromocao()} • ${promocao.obterDesconto()}%" />
+                                        </option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class='form-input'>
+                                <label for='imagem'>Imagem</label><br />
+                                <input type="file" name="imagem" /><br />
+                            </div>
+
                             <button type="submit" class="btn-1" id="btnCadastrar"
                                 onclick="submitWithLoading(this,'formCadastroProduto')">Cadastrar Produto</button>
                         </form>

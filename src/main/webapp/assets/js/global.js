@@ -87,7 +87,7 @@ const atualizarCesta = () => {
   if (document.getElementById("cesta-vazia") !== null) {
     document.getElementById("cesta-vazia").style.display = (conteudo) ? "none" : "block";
     document.getElementById("restaurante-info-cesta-compra").style.display = (conteudo) ? "block" : "none";
-    document.getElementById("btn-finalizar-pedido").disabled = (conteudo) ? false : true;
+    document.getElementById("btnFinalizarPedido").disabled = (conteudo) ? false : true;
 
     inserirConteudo("cesta", conteudo);
     inserirConteudo("preco-total", converterPreco(cesta.calcularTotal().toFixed(2)));
@@ -119,11 +119,15 @@ const converterPreco = (preco, divisor = [".", ","]) => {
 * String preco
 * String desconto (ex: 10 representa 10% de desconto)
 */
-const getPrecoDesconto = (preco, id, desconto) => {
+const calcularDesconto = (preco, desconto) => {
   preco = parseFloat(converterPreco(preco, [",", "."]));
   desconto = parseFloat(converterPreco(desconto, [",", "."]));
 
-  document.getElementById(id).innerHTML = converterPreco((preco - preco * desconto / 100).toFixed(2));
+  return (preco - preco * desconto / 100).toFixed(2);
+}
+
+const getPrecoDesconto = (preco, id, desconto) => {
+  document.getElementById(id).innerHTML = converterPreco(calcularDesconto(preco, desconto));
 }
 
 const getPrecoFormatado = (preco, id, divisor = [".", ","]) => {

@@ -46,7 +46,7 @@
                         <c:choose>
                             <c:when test="${mensagem != null}">
                                 <br><br>
-                                <h4 class="text-center">
+                                <h4 class="text-center msg-pedido">
                                     <c:out value="${mensagem}" />
                                 </h4>
                                 <br>
@@ -54,7 +54,8 @@
                         </c:choose>
                         <br>
                         <div class='row equal'>
-                            <form action='FrontController?route=pedido&action=AlterarPedidoEstado' method="POST">
+                            <form action='FrontController?route=pedido&action=AlterarPedidoEstado' method="POST"
+                                id="formEditarPedido">
                                 <input type='hidden' name="pedidoId" value="${pedido.id}" />
                                 <div class='div-troca-estado-pedido'>
                                     <div class='col-md-12'>
@@ -101,7 +102,8 @@
                                         </label>
                                     </div>
                                     <div class='col-md-12'>
-                                        <button type="submit" class="btn-1">Editar Estado</button>
+                                        <button type="submit" class="btn-1" id="btnEditarEstado"
+                                            onclick="submitWithLoading(this,'formEditarPedido')">Editar Estado</button>
                                     </div>
                                     <script>
                                         checkPedidoEstado('${pedido.estado.estado}')
@@ -157,6 +159,11 @@
             </div>
         </div>
     </div>
+    <script>
+        document.getElementById("btnEditarEstado").addEventListener("click", function (event) {
+            event.preventDefault()
+        });
+    </script>
 </body>
 
 </html>

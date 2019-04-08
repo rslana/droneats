@@ -29,48 +29,34 @@
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
                     <h2 class="pedido-titulo">Pedidos</h2>
                 </div>
-                <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido' href='cliente/pedido.jsp'>
-                        <p class="p-msg data-pedido">
-                            <span>20</span>
-                            <br>
-                            <span>FEV</span>
-                        </p>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Nome do Restaurante</span><br>
-                            <span class="descricao-pedido">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Officia, reiciendis!</span>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-md-6 col-md-offset-3  normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido' href='cliente/pedido.jsp'>
-                        <p class="p-msg data-pedido">
-                            <span>03</span>
-                            <br>
-                            <span>JAN</span>
-                        </p>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Restaurante do Zé Maria</span><br>
-                            <span class="descricao-pedido">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                Veritatis, reprehenderit voluptatum quas iste voluptate porro!</span>
-                        </p>
-                    </a>
-                </div>
-                <div class='col-md-6 col-md-offset-3  normalize-grid'>
-                    <a class='msg-sucesso sucesso-pedido' href='cliente/pedido.jsp'>
-                        <p class="p-msg data-pedido">
-                            <span>20</span>
-                            <br>
-                            <span>FEV</span>
-                        </p>
-                        <p class="p-msg">
-                            <span class="nome-restaurante-lista-pedido">Pizzaria LPV</span><br>
-                            <span class="descricao-pedido">Lorem ipsum dolor sit amet consectetur adipisicing
-                                elit.</span>
-                        </p>
-                    </a>
-                </div>
+                <c:forEach items="${pedidos}" var="pedido">
+                    <div class='col-md-6 col-md-offset-3 normalize-grid'>
+                        <a class='msg-sucesso sucesso-pedido'
+                            href='FrontController?route=cliente&action=ExibirPedido&id=${pedido.id}'>
+                            <p class="p-msg data-pedido">
+                                <span>
+                                    <script>
+                                        document.write(getNumberDay('${pedido.dataPedido}'))
+                                    </script>
+                                </span>
+                                <br>
+                                <span>
+                                    <script>
+                                        document.write(getShortMonth('${pedido.dataPedido}'))
+                                    </script>
+                                </span>
+                            </p>
+                            <p class="p-msg">
+                                <span class="nome-restaurante-lista-pedido">${pedido.restaurante.nome}</span><br>
+                                <span class="descricao-pedido">
+                                    <c:forEach items="${pedido.produtos}" var="produto">
+                                        ${produto.quantidade}x ${produto.produto.nome} •
+                                    </c:forEach>
+                                </span>
+                            </p>
+                        </a>
+                    </div>
+                </c:forEach>
             </div>
         </div>
     </div>

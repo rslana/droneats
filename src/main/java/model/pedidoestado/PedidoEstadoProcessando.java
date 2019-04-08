@@ -21,7 +21,7 @@ public class PedidoEstadoProcessando implements PedidoEstado {
 
     @Override
     public String setEntregando(Pedido pedido) {
-        return "Pedido está sendo processado, aguardando confirmação do restaurante, não é possível alterar para entregando";
+        return "Pedido está sendo processado, aguardando confirmação do restaurante. Não é possível alterar para entregando";
     }
 
     @Override
@@ -42,6 +42,6 @@ public class PedidoEstadoProcessando implements PedidoEstado {
 
     @Override
     public String getEstadoMensagem() {
-        return "Pedido Processando, aguardando confirmação do restaurante";
+        return "Pedido processando, aguardando confirmação do restaurante";
     }
 }

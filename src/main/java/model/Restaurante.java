@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.sql.SQLException;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import persistence.RestauranteDAO;
@@ -14,7 +11,7 @@ import persistence.RestauranteDAO;
  *
  * @author raj
  */
-public class Restaurante {
+public class Restaurante implements Observer {
 
     private int id;
     private String cnpj;
@@ -33,7 +30,7 @@ public class Restaurante {
 
     public Restaurante() {
     }
-    
+
     public Restaurante(int id, String cnpj, String descricao, String nome, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone, Proprietario proprietario) {
         this.id = id;
         this.cnpj = cnpj;
@@ -174,5 +171,21 @@ public class Restaurante {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    @Override
+    public void update(Observable pedidoSubject, Object arg) {
+        String novoEstado;
+        if (pedidoSubject instanceof Pedido) {
+            Pedido pedido = (Pedido) pedidoSubject;
+            if (pedido.getEstado().getEstado().equals("Cancelado")) {
+                novoEstado = pedido.getEstado().getEstadoMensagem();
+                String msg = "Olá, " + getNome() + ", o cliente " + pedido.getCliente().getNome() + " alterou o estado do pedido para " + novoEstado + ".";
+                System.out.println(msg);
+                String assunto = "Pedido " + pedido.getId() + " - " + pedido.getCliente().getNome();
+                Email email = new Email(this.getProprietario().getEmail(), assunto, "<h2 style='text-align:center; padding: 50px 20px'>" + msg + "</h2>");
+                email.enviarEmail();
+            }
+        }
     }
 }

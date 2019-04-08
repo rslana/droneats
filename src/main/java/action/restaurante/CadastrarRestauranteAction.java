@@ -45,7 +45,7 @@ public class CadastrarRestauranteAction implements Action {
         if (nomeProprietario.equals("") || emailProprietario.equals("") || senhaProprietario.equals("") || cpfProprietario.equals("") || telefoneProprietario.equals("")) {
             try {
                 request.setAttribute("mensagemErro", "Você deve preencher todos os campos");
-                RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroRestaurante.jsp");
                 view.forward(request, response);
             } catch (ServletException ex) {
                 Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);

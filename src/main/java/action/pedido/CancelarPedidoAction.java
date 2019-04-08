@@ -1,4 +1,4 @@
-package action.cliente;
+package action.pedido;
 
 import controller.Action;
 import java.io.IOException;
@@ -20,27 +20,32 @@ import persistence.PedidoProdutoDAO;
  *
  * @author raj
  */
-public class ListarPedidosAction implements Action {
+public class CancelarPedidoAction implements Action {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int pedidoId = Integer.parseInt(request.getParameter("pedidoId"));
+
         try {
             Cliente cliente = Cliente.getCliente(999);
-            ArrayList<Pedido> pedidos = PedidoDAO.listPedidosCliente(cliente);
 
+            Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
+
+            String mensagem = pedido.setCancelado(pedido);
+
+            Pedido novoPedido = Pedido.getPedido(pedidoId);
             ArrayList<PedidoProduto> produtos;
-            for(Pedido pedido : pedidos) {
-                produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
-                pedido.setProdutos(produtos);
-            }
-            
-            request.setAttribute("pedidos", pedidos);
-            
-            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedidos.jsp");
+            produtos = PedidoProdutoDAO.listProdutosPedido(novoPedido);
+
+            novoPedido.setProdutos(produtos);
+
+            request.setAttribute("mensagem", mensagem);
+            request.setAttribute("pedido", novoPedido);
+            RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
             view.forward(request, response);
-            
+
         } catch (ClassNotFoundException | SQLException | ServletException ex) {
-            Logger.getLogger(ListarPedidosAction.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AlterarPedidoEstadoAction.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

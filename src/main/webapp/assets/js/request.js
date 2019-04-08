@@ -13,10 +13,10 @@ const post = (path, params, method = "post") => {
 
   const restaurante = JSON.parse(localStorage.getItem('restaurante'));
 
-  const json = JSON.stringify(restaurante);
-  const blob = new Blob([json], {
-    type: 'application/json'
-  });
+  // const json = JSON.stringify(restaurante);
+  // const blob = new Blob([json], {
+  //   type: 'application/json'
+  // });
 
   const produtos = JSON.parse(localStorage.getItem('cesta'));
 
@@ -24,14 +24,13 @@ const post = (path, params, method = "post") => {
     restaurante: restaurante.id,
     produtos
   }
-  console.log(pedido)
 
   const hiddenPedido = document.createElement("input");
   hiddenPedido.setAttribute("type", "hidden");
   hiddenPedido.setAttribute("name", "pedido");
   hiddenPedido.setAttribute("value", JSON.stringify(pedido));
 
-  form.append("document", blob);
+  // form.append("document", blob);
   form.appendChild(hiddenPedido);
 
   document.body.appendChild(form);
@@ -39,6 +38,9 @@ const post = (path, params, method = "post") => {
 }
 
 const finalizarPedido = () => {
+  document.getElementById('btnFinalizarPedido').disabled = true;
+  document.getElementById('btnFinalizarPedido').innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+
   post('FrontController?route=pedido&action=CadastrarPedido');
 }
 
@@ -52,7 +54,7 @@ const submitWithLoading = (btn, formId) => {
   const form = document.getElementById(formId);
 
   btn.disabled = true;
-  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> &nbsp;Cadastrando Produto`;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
 
   form.submit();
 }

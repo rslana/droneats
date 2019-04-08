@@ -6,12 +6,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Categoria;
 import model.Produto;
 import model.Restaurante;
+import model.promocao.Promocao;
+import model.promocao.PromocaoFactory;
 
 /**
  *
@@ -33,14 +34,15 @@ public class ProdutoDAO {
         Statement st = conn.createStatement();
 
         try {
-            String sql = "INSERT INTO produto (nome, descricao, preco, imagem, restaurante_id, categoria_id) VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO produto (nome, descricao, preco, imagem, promocao, restaurante_id, categoria_id) VALUES (?,?,?,?,?,?,?)";
             PreparedStatement comando = conn.prepareStatement(sql);
             comando.setString(1, produto.getNome());
             comando.setString(2, produto.getDescricao());
             comando.setDouble(3, produto.getPreco());
             comando.setString(4, produto.getImagem());
-            comando.setInt(5, produto.getRestaurante().getId());
-            comando.setInt(6, produto.getCategoria().getId());
+            comando.setString(5, (produto.getPromocao() != null) ? produto.getPromocao().obterClasse() : null);
+            comando.setInt(6, produto.getRestaurante().getId());
+            comando.setInt(7, produto.getCategoria().getId());
             comando.execute();
 
         } catch (SQLException e) {
@@ -97,7 +99,7 @@ public class ProdutoDAO {
     public static ArrayList<Produto> listProdutosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
-        ArrayList<Produto> produtos = new ArrayList<Produto>();
+        ArrayList<Produto> produtos = new ArrayList<>();
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE restaurante_id = " + restaurante.getId());
             while (rs.next()) {
@@ -115,6 +117,8 @@ public class ProdutoDAO {
                 produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
                 produto.setCategoriaId(rs.getInt("categoria_id"));
                 produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
+                Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+                produto.setPromocao(promocao);
                 produtos.add(produto);
             }
         } catch (SQLException e) {
@@ -146,6 +150,8 @@ public class ProdutoDAO {
             produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
             produto.setCategoriaId(rs.getInt("categoria_id"));
             produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
+            Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+            produto.setPromocao(promocao);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

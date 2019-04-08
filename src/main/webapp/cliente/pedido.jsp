@@ -17,6 +17,7 @@
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
     <script src="http://localhost:8080/droneats/assets/js/global.js"></script>
+    <script src="http://localhost:8080/droneats/assets/js/request.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Pedido</title>
 </head>
@@ -46,7 +47,7 @@
                 <c:when test="${pedido != null}">
                     <div class='row'>
                         <div class='col-md-6 col-md-offset-3 normalize-grid'>
-                            <h2 class="pedido-titulo">Pedido</h2>
+                            <h2 class="pedido-titulo">Pedido ${pedido.id}</h2>
                         </div>
                         <div class='col-md-6 col-md-offset-3 normalize-grid'>
                             <div class='detalhe-pedido'>
@@ -55,15 +56,30 @@
                                     ${pedido.restaurante.nome}
                                 </a>
                                 <hr>
-                                <div class='item-lista-cesta-compra barra-estado-pedido'>
+                                <form class='item-lista-cesta-compra barra-estado-pedido'
+                                    action='FrontController?route=pedido&action=CancelarPedido' method="POST"
+                                    id="formCancelarPedido">
+                                    <!-- <form action='FrontController?route=pedido&action=CancelarPedido' method="POST"> -->
                                     <p class="p-msg"><i class="fas fa-box"></i></p>
                                     <p class="p-msg">
                                         <span>${pedido.estado.estadoMensagem}</span>
                                     </p>
                                     <p class="p-msg p-right" style="min-width: 100px;">
-                                        <button class="btn-1 btn-right">Cancelar</button>
+                                        <input type='hidden' name="pedidoId" value="${pedido.id}" />
+                                        <button class="btn-1 btn-right" id="btnCancelar"
+                                            onclick="submitWithLoading(this,'formCancelarPedido')">Cancelar</button>
                                     </p>
-                                </div>
+                                    <!-- </form> -->
+                                </form>
+                                <c:choose>
+                                    <c:when test="${mensagem != null}">
+                                        <br><br>
+                                        <h4 class="text-center msg-pedido">
+                                            <c:out value="${mensagem}" />
+                                        </h4>
+                                        <br>
+                                    </c:when>
+                                </c:choose>
                                 <hr>
                                 <c:forEach items="${pedido.produtos}" var="produto">
                                     <div class='item-lista-cesta-compra'>
@@ -115,6 +131,9 @@
         </div>
     </div>
     <script>
+        document.getElementById("btnCancelar").addEventListener("click", function (event) {
+            event.preventDefault()
+        });
         atualizarStateLinkCesta();
         apagarMensagem('mensagemSucesso');
     </script>

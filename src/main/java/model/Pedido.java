@@ -144,11 +144,7 @@ public class Pedido extends Observable {
 
     public void setEstado(PedidoEstado estado) {
         this.estado = estado;
-        try {
-            this.updateEstado();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.updateEstado();
     }
 
     public int getRestauranteId() {
@@ -213,7 +209,7 @@ public class Pedido extends Observable {
         int hour = cal.get(Calendar.HOUR_OF_DAY);
         int minute = cal.get(Calendar.MINUTE);
 
-        return hour + ":" + minute;
+        return ((hour < 10) ? "0" + hour : hour) + ":" + ((minute < 10) ? "0" + minute : minute);
     }
 
     public static Pedido getPedido(int id) throws ClassNotFoundException {
@@ -225,12 +221,12 @@ public class Pedido extends Observable {
         return null;
     }
 
-    public void updateEstado() throws ClassNotFoundException {
+    public void updateEstado() {
         try {
             PedidoDAO.getInstance().updateEstado(this);
             setChanged();
             notifyObservers();
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

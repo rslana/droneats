@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package action.produto;
 
+import config.Config;
 import controller.Action;
 import java.io.File;
 import java.io.IOException;
@@ -22,17 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import model.Categoria;
 import model.Produto;
-import model.Promocao;
-import model.PromocaoCombo;
-import model.PromocaoUnitario;
+import model.promocao.Promocao;
 import model.Restaurante;
+import model.promocao.PromocaoFactory;
 import org.apache.commons.io.FilenameUtils;
 import persistence.ProdutoDAO;
 import s3.UploadFileAwsS3;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class CadastrarProdutoAction implements Action {
 
@@ -44,7 +39,7 @@ public class CadastrarProdutoAction implements Action {
             String descricao = request.getParameter("descricao");
             int categoriaId = Integer.parseInt(request.getParameter("categoriaId"));
             Part filePart = request.getPart("imagem");
-            String promocaoTipo = null; // unitario / combo / null
+            String promocaoTipo = request.getParameter("promocao"); // PromocaoUnitario / PromocaoCombo / vazio
 
             if (nome.equals("") || preco < 0 || descricao.equals("") || categoriaId <= 0) {
 //                Redirecionar para página de erro
@@ -62,28 +57,24 @@ public class CadastrarProdutoAction implements Action {
                     Files.copy(input, file.toPath());
                 }
 
-//                String filePath = uploadPath.toString() + File.separator + fileNameUpload;
-//                UploadFileAwsS3 uploadAws = new UploadFileAwsS3("droneats/produtos", filePath, fileNameUpload);
-//                uploadAws.doUpload();
-//                String imagemS3 = "https://s3.us-east-2.amazonaws.com/droneats/produtos/" + fileNameUpload;
-                String imagemLocal = path + File.separator + fileNameUpload;
-
-                Promocao promocao = null;
-                if (promocao != null) {
-                    if (promocaoTipo.equals("unitario")) {
-                        promocao = new PromocaoUnitario();
-                    } else if (promocaoTipo.equals("combo")) {
-                        promocao = new PromocaoCombo();
-                    }
+                String imagemUrl;
+                if (Config.UPLOAD_WITH_AWS) {
+                    String filePath = uploadPath.toString() + File.separator + fileNameUpload;
+                    UploadFileAwsS3 uploadAws = new UploadFileAwsS3("droneats/produtos", filePath, fileNameUpload);
+                    uploadAws.doUpload();
+                    imagemUrl = "https://s3.us-east-2.amazonaws.com/droneats/produtos/" + fileNameUpload;
+                } else {
+                    imagemUrl = path + File.separator + fileNameUpload;
                 }
 
+                Promocao promocao = PromocaoFactory.create(promocaoTipo);
+
                 //Pegar restaurante na sessão
-                Restaurante restaurante = Restaurante.getRestaurante(999);
+                Restaurante restaurante = Restaurante.getRestaurante(1000);
 
                 Categoria categoria = Categoria.getCategoria(categoriaId);
 
-                Produto produto = new Produto(nome, descricao, preco, imagemLocal, restaurante, promocao, categoria);
-
+                Produto produto = new Produto(nome, descricao, preco, imagemUrl, restaurante, promocao, categoria);
                 ProdutoDAO.getInstance().save(produto);
 
                 request.setAttribute("mensagemSucesso", "Produto criado com sucesso!");

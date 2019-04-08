@@ -11,6 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Categoria;
+import model.promocao.Promocao;
+import model.promocao.PromocaoCombo;
+import model.promocao.PromocaoUnitario;
 import model.Restaurante;
 import persistence.CategoriaDAO;
 
@@ -25,8 +28,13 @@ public class PrepararCadastrarProdutoAction implements Action {
         try {
             Restaurante restaurante = Restaurante.getRestaurante(999);
             ArrayList<Categoria> categorias = CategoriaDAO.listCategoriasRestaurante(restaurante);
+            ArrayList<Promocao> promocoes = new ArrayList<>();
+            
+            promocoes.add(new PromocaoCombo());
+            promocoes.add(new PromocaoUnitario());
             
             request.setAttribute("categorias", categorias);
+            request.setAttribute("promocoes", promocoes);
             
             RequestDispatcher view = request.getRequestDispatcher("/restaurante/cadastrarProduto.jsp");
             view.forward(request, response);
