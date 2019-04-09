@@ -28,7 +28,7 @@ public class ExibirRestauranteAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 response.sendRedirect("FrontController?route=restaurante&action=Dashboard");
             } else {
                 int restauranteId = Integer.parseInt(request.getParameter("id"));
@@ -36,10 +36,8 @@ public class ExibirRestauranteAction implements Action {
                 request.setAttribute("restaurante", restaurante);
 
                 List<Produto> produtos = ProdutoDAO.listProdutosRestaurante(restaurante);
-
                 HashMap<Integer, ArrayList<Produto>> produtosByCategoria = ProdutoDAO.listProdutosRestauranteByCategoria(restaurante);
-                System.out.println(produtosByCategoria);
-
+                
                 request.setAttribute("produtos", produtos);
                 request.setAttribute("produtosByCategoria", produtosByCategoria);
 

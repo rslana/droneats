@@ -53,9 +53,8 @@ public class Cliente extends Usuario implements Observer {
         return null;
     }
     
-    public static boolean isLogado(HttpSession session) {
-        Cliente cliente = (Cliente) session.getAttribute("usuario");
-        return cliente != null;
+    public static boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("usuario") instanceof Cliente;
     }
 
     @Override

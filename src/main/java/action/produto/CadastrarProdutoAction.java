@@ -48,7 +48,7 @@ public class CadastrarProdutoAction implements Action {
 //                Redirecionar para página de erro
                 response.sendRedirect("index.jsp");
             } else {
-                if (Proprietario.isLogado(session)) {
+                if (Proprietario.isLoggedIn(session)) {
                     Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                     Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
                     

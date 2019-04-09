@@ -131,6 +131,16 @@
                     <br><br><br>
                     Sua cesta está vazia
                 </div>
+                <c:choose>
+                    <c:when test="${error != null}">
+                        <div class='item-lista-cesta-compra msg-erro' id="mensagemErro">
+                            <p class="p-msg">&nbsp;&nbsp;${error}</p>
+                        </div>
+                        <script>
+                            cesta.esvaziarCesta();
+                        </script>
+                    </c:when>
+                </c:choose>
                 <div id="cesta"></div>
                 <hr>
                 <div class='item-lista-cesta-compra'>
@@ -166,6 +176,7 @@
         document.getElementById("btnFinalizarPedido").addEventListener("click", function (event) {
             event.preventDefault()
         });
+        apagarMensagem('mensagemErro');
     </script>
 </body>
 

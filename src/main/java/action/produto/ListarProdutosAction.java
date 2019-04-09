@@ -26,7 +26,7 @@ public class ListarProdutosAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                 Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
          

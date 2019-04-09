@@ -217,6 +217,37 @@ public class ProdutoDAO {
         }
     }
 
+    public static Produto getProdutoRestaurante(int id,Restaurante restaurante) throws ClassNotFoundException, SQLException {
+        Connection conn = DatabaseLocator.getInstance().getConnection();
+        Statement st = conn.createStatement();
+        Produto produto = null;
+        try {
+            ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE id = " + id + " AND restaurante_id = " + restaurante.getId());
+            rs.first();
+            produto = new Produto(
+                    rs.getInt("id"),
+                    rs.getString("nome"),
+                    rs.getString("descricao"),
+                    rs.getDouble("preco"),
+                    rs.getString("imagem"),
+                    null,
+                    null,
+                    null
+            );
+            produto.setRestauranteId(rs.getInt("restaurante_id"));
+            produto.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            produto.setCategoriaId(rs.getInt("categoria_id"));
+            produto.setCategoria(Categoria.getCategoria(rs.getInt("categoria_id")));
+            Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+            produto.setPromocao(promocao);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResources(conn, st);
+        }
+        return produto;
+    }
+    
     public static void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {

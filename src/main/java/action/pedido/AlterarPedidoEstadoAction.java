@@ -31,7 +31,7 @@ public class AlterarPedidoEstadoAction implements Action {
         String estado = request.getParameter("estadoPedido");
         
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                 Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
                 

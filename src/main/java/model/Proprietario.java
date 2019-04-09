@@ -33,9 +33,8 @@ public class Proprietario extends Usuario {
         return null;
     }
     
-    public static boolean isLogado(HttpSession session) {
-        Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-        return proprietario != null;
+    public static boolean isLoggedIn(HttpSession session) {
+        return session.getAttribute("usuario") instanceof Proprietario;
     }
 
     public static Proprietario getProprietario(int id) throws ClassNotFoundException {

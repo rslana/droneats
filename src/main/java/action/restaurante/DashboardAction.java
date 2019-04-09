@@ -25,7 +25,7 @@ public class DashboardAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                 int quantidadePedidos = PedidoDAO.getInstance().countPedidosRestaurante(RestauranteDAO.getRestauranteProprrietario(proprietario));
                 int quantidadeProdutos = ProdutoDAO.getInstance().countProdutosRestaurante(RestauranteDAO.getRestauranteProprrietario(proprietario));

@@ -22,7 +22,7 @@ public class ListarRestaurantesAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 response.sendRedirect("FrontController?route=restaurante&action=Dashboard");
             } else {
                 request.setAttribute("restaurantes", RestauranteDAO.getRestaurantes());

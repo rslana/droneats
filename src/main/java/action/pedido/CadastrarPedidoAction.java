@@ -33,7 +33,7 @@ public class CadastrarPedidoAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Cliente.isLogado(session)) {
+            if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
                 String pedidoJS = request.getParameter("pedido");
                 JSONObject pedidoJSON = new JSONObject(pedidoJS);
@@ -44,32 +44,39 @@ public class CadastrarPedidoAction implements Action {
                 JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
 
                 double valorTotal = 0;
-                for (int i = 0; i < produtosJSON.length(); i++) {
-                    int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
-                    double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
-                    valorTotal += (quantidade * preco);
-                }
-
-                Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
-                PedidoDAO.getInstance().save(pedido);
-
-                pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
-
                 PedidoProduto pedidoProduto;
-                Produto produto;
+//                Produto produto;
                 ArrayList<PedidoProduto> produtos = new ArrayList<>();
                 for (int i = 0; i < produtosJSON.length(); i++) {
-                    int id = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
                     int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
-                    double preco = Double.parseDouble(produtosJSON.getJSONObject(i).getString("preco"));
-                    produto = ProdutoDAO.getProduto(id);
-                    pedidoProduto = new PedidoProduto(pedido, produto, quantidade, preco);
+                    int produtoId = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
+
+                    Produto produto = ProdutoDAO.getProdutoRestaurante(produtoId, restaurante);
+
+                    if (produto == null) {
+                        request.setAttribute("error", "Ocorreu um erro. Não foi possível concluir seu pedido.");
+                        RequestDispatcher view = request.getRequestDispatcher("FrontController?route=restaurante&action=ExibirRestaurante&id="+restauranteId);
+                        view.forward(request, response);
+                    }
+
+                    valorTotal += (quantidade * produto.calcularDesconto());
+                    
+                    pedidoProduto = new PedidoProduto(null, produto, quantidade, produto.calcularDesconto());
                     produtos.add(pedidoProduto);
-                    PedidoProdutoDAO.getInstance().save(pedidoProduto);
+                    
+                }
+                
+                Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
+                PedidoDAO.getInstance().save(pedido);
+                pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
+
+                for(PedidoProduto pD : produtos) {
+                    pD.setPedido(pedido);
+                    PedidoProdutoDAO.getInstance().save(pD);
                 }
 
                 pedido.setProdutos(produtos);
-
+                
                 String msgEmail = "<h2 style='text-align:center; padding: 50px 20px'>Olá, " + cliente.getNome() + " </h2>";
                 msgEmail += "<h3 style='text-align:center;'>Você acabou de fazer um pedido no Droneats.</h3><br/>";
                 msgEmail += "<h2 style='text-align:center;'>" + pedido.getEstado().getEstadoMensagem() + "</h2>";

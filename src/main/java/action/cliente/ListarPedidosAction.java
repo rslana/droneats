@@ -26,7 +26,7 @@ public class ListarPedidosAction implements Action {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         try {
-            if (Cliente.isLogado(session)) {
+            if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
                 ArrayList<Pedido> pedidos = PedidoDAO.listPedidosCliente(cliente);
 

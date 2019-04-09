@@ -29,7 +29,7 @@ public class ExibirPedidoAction implements Action {
         int pedidoId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            if (Cliente.isLogado(session)) {
+            if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
                 Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
 

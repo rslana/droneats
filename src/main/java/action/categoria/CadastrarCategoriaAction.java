@@ -36,7 +36,7 @@ public class CadastrarCategoriaAction implements Action {
             }
         } else {
             try {
-                if (Proprietario.isLogado(session)) {
+                if (Proprietario.isLoggedIn(session)) {
                     Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                     Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
                     Categoria categoria = new Categoria(nome, restaurante);

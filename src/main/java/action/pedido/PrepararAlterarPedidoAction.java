@@ -30,7 +30,7 @@ public class PrepararAlterarPedidoAction implements Action {
         int pedidoId = Integer.parseInt(request.getParameter("id"));
 
         try {
-            if (Proprietario.isLogado(session)) {
+            if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
                 Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
 
