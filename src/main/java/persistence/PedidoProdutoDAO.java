@@ -6,12 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import model.Pedido;
 import model.PedidoProduto;
-import model.Produto;
-import model.Restaurante;
-import static persistence.ProdutoDAO.closeResources;
 
 /**
  *
@@ -49,7 +45,7 @@ public class PedidoProdutoDAO {
         }
     }
 
-    public static ArrayList<PedidoProduto> listProdutosPedido(Pedido pedido) throws SQLException, ClassNotFoundException {
+    public ArrayList<PedidoProduto> listProdutosPedido(Pedido pedido) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         ArrayList<PedidoProduto> produtos = new ArrayList<>();
@@ -64,9 +60,9 @@ public class PedidoProdutoDAO {
                 );
 
                 pedidoProduto.setPedidoId(rs.getInt("pedido_id"));
-                pedidoProduto.setPedido(Pedido.getPedido(rs.getInt("pedido_id")));
+                pedidoProduto.setPedido(PedidoDAO.getInstance().getPedido(rs.getInt("pedido_id")));
                 pedidoProduto.setProdutoId(rs.getInt("produto_id"));
-                pedidoProduto.setProduto(Produto.getProduto(rs.getInt("produto_id")));
+                pedidoProduto.setProduto(ProdutoDAO.getInstance().getProduto(rs.getInt("produto_id")));
                 produtos.add(pedidoProduto);
             }
         } catch (SQLException e) {
@@ -77,7 +73,7 @@ public class PedidoProdutoDAO {
         return produtos;
     }
 
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
@@ -89,6 +85,5 @@ public class PedidoProdutoDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }

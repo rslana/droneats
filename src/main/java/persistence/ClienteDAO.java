@@ -64,7 +64,7 @@ public class ClienteDAO {
         }
     }
 
-    public static Cliente getCliente(int id) throws SQLException, ClassNotFoundException {
+    public Cliente getCliente(int id) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         String sql = "SELECT * FROM cliente WHERE id = '" + id + "'";
         PreparedStatement comando = conn.prepareStatement(sql);
@@ -95,7 +95,7 @@ public class ClienteDAO {
         return cliente;
     }
     
-    public static Cliente getClientePedido(Pedido pedido) throws SQLException, ClassNotFoundException {
+    public Cliente getClientePedido(Pedido pedido) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         String sql = "SELECT * FROM cliente WHERE id = '" + pedido.getClienteId() + "'";
         PreparedStatement comando = conn.prepareStatement(sql);
@@ -127,7 +127,7 @@ public class ClienteDAO {
         return cliente;
     }
     
-    public static Cliente login(String email, String senha) throws ClassNotFoundException, SQLException {
+    public Cliente login(String email, String senha) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Cliente cliente = null;
         PreparedStatement comando = null;
@@ -161,7 +161,7 @@ public class ClienteDAO {
         return cliente;
     }
 
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
@@ -173,6 +173,5 @@ public class ClienteDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }

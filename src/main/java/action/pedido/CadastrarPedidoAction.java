@@ -39,19 +39,19 @@ public class CadastrarPedidoAction implements Action {
                 JSONObject pedidoJSON = new JSONObject(pedidoJS);
                 int restauranteId = Integer.parseInt(pedidoJSON.getString("restaurante"));
 
-                Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestaurante(restauranteId);
 
                 JSONArray produtosJSON = pedidoJSON.getJSONArray("produtos");
 
                 double valorTotal = 0;
                 PedidoProduto pedidoProduto;
-//                Produto produto;
+                Produto produto;
                 ArrayList<PedidoProduto> produtos = new ArrayList<>();
                 for (int i = 0; i < produtosJSON.length(); i++) {
                     int quantidade = produtosJSON.getJSONObject(i).getInt("quantidade");
                     int produtoId = Integer.parseInt(produtosJSON.getJSONObject(i).getString("id"));
 
-                    Produto produto = ProdutoDAO.getProdutoRestaurante(produtoId, restaurante);
+                    produto = ProdutoDAO.getInstance().getProdutoRestaurante(produtoId, restaurante);
 
                     if (produto == null) {
                         request.setAttribute("error", "Ocorreu um erro. Não foi possível concluir seu pedido.");
@@ -63,7 +63,6 @@ public class CadastrarPedidoAction implements Action {
                     
                     pedidoProduto = new PedidoProduto(null, produto, quantidade, produto.calcularDesconto());
                     produtos.add(pedidoProduto);
-                    
                 }
                 
                 Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
@@ -89,7 +88,7 @@ public class CadastrarPedidoAction implements Action {
                 RequestDispatcher view = request.getRequestDispatcher("/cliente/pedido.jsp");
                 view.forward(request, response);
             } else {
-                request.setAttribute("mensagemErro", "Você precisa estar logado para executar essa ação!");
+                request.setAttribute("mensagemErro", "Você precisa estar logado para fazer um pedido!");
                 RequestDispatcher view = request.getRequestDispatcher("/auth/loginCliente.jsp");
                 view.forward(request, response);
             }

@@ -60,7 +60,7 @@ public class CategoriaDAO {
         }
     }
 
-    public static Categoria getCategoria(int id) throws ClassNotFoundException, SQLException {
+    public Categoria getCategoria(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Categoria categoria = null;
@@ -73,7 +73,7 @@ public class CategoriaDAO {
                     null
             );
             categoria.setRestauranteId(rs.getInt("restaurante_id"));
-            categoria.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            categoria.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,7 +83,7 @@ public class CategoriaDAO {
         return categoria;
     }
 
-    public static ArrayList<Categoria> listCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+    public ArrayList<Categoria> listCategoriasRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         ArrayList<Categoria> categorias = new ArrayList<>();
@@ -96,7 +96,7 @@ public class CategoriaDAO {
                         null
                 );
                 categoria.setRestauranteId(rs.getInt("restaurante_id"));
-                categoria.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                categoria.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
                 categorias.add(categoria);
             }
         } catch (SQLException e) {
@@ -124,7 +124,7 @@ public class CategoriaDAO {
         }
     }
     
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
@@ -136,6 +136,5 @@ public class CategoriaDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }

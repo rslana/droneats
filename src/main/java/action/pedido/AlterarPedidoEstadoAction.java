@@ -33,9 +33,9 @@ public class AlterarPedidoEstadoAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
                 
-                Pedido pedido = PedidoDAO.getPedidoRestaurante(pedidoId, restaurante);
+                Pedido pedido = PedidoDAO.getInstance().getPedidoRestaurante(pedidoId, restaurante);
                 
                 if (pedido != null) {
                     String mensagem;
@@ -59,9 +59,9 @@ public class AlterarPedidoEstadoAction implements Action {
                             mensagem = null;
                     }
                     
-                    Pedido novoPedido = Pedido.getPedido(pedidoId);
+                    Pedido novoPedido = PedidoDAO.getInstance().getPedido(pedidoId);
                     ArrayList<PedidoProduto> produtos;
-                    produtos = PedidoProdutoDAO.listProdutosPedido(novoPedido);
+                    produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(novoPedido);
                     
                     novoPedido.setProdutos(produtos);
                     

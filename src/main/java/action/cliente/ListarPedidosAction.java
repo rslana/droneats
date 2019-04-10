@@ -28,11 +28,11 @@ public class ListarPedidosAction implements Action {
         try {
             if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
-                ArrayList<Pedido> pedidos = PedidoDAO.listPedidosCliente(cliente);
+                ArrayList<Pedido> pedidos = PedidoDAO.getInstance().listPedidosCliente(cliente);
 
                 ArrayList<PedidoProduto> produtos;
                 for (Pedido pedido : pedidos) {
-                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(pedido);
                     pedido.setProdutos(produtos);
                 }
 

@@ -31,13 +31,13 @@ public class CancelarPedidoAction implements Action {
             if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
 
-                Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
+                Pedido pedido = PedidoDAO.getInstance().getPedidoCliente(pedidoId, cliente);
 
                 String mensagem = pedido.setCancelado(pedido);
 
-                Pedido novoPedido = Pedido.getPedido(pedidoId);
+                Pedido novoPedido = PedidoDAO.getInstance().getPedido(pedidoId);
                 ArrayList<PedidoProduto> produtos;
-                produtos = PedidoProdutoDAO.listProdutosPedido(novoPedido);
+                produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(novoPedido);
 
                 novoPedido.setProdutos(produtos);
 

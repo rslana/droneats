@@ -32,13 +32,13 @@ public class PrepararAlterarPedidoAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
 
-                Pedido pedido = PedidoDAO.getPedidoRestaurante(pedidoId, restaurante);
+                Pedido pedido = PedidoDAO.getInstance().getPedidoRestaurante(pedidoId, restaurante);
 
                 if (pedido != null) {
                     ArrayList<PedidoProduto> produtos;
-                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(pedido);
 
                     pedido.setProdutos(produtos);
                     request.setAttribute("pedido", pedido);

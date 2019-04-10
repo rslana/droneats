@@ -30,12 +30,12 @@ public class ListarPedidosAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
                 
-                ArrayList<Pedido> pedidos = PedidoDAO.listPedidosRestaurante(restaurante);
+                ArrayList<Pedido> pedidos = PedidoDAO.getInstance().listPedidosRestaurante(restaurante);
                 ArrayList<PedidoProduto> produtos;
                 for (Pedido pedido : pedidos) {
-                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(pedido);
                     pedido.setProdutos(produtos);
                 }
 

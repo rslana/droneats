@@ -151,13 +151,4 @@ public class Produto {
         double desconto = (this.getPromocao() != null) ? this.getPromocao().obterDesconto() : 0;
         return this.getPreco() - this.getPreco() * desconto / 100;
     }
-    
-    public static Produto getProduto(int id) throws ClassNotFoundException {
-        try {
-            return ProdutoDAO.getProduto(id);
-        } catch (SQLException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
 }

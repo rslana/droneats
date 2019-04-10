@@ -24,6 +24,7 @@ import model.promocao.Promocao;
 import model.Restaurante;
 import model.promocao.PromocaoFactory;
 import org.apache.commons.io.FilenameUtils;
+import persistence.CategoriaDAO;
 import persistence.ProdutoDAO;
 import persistence.RestauranteDAO;
 import s3.UploadFileAwsS3;
@@ -50,7 +51,7 @@ public class CadastrarProdutoAction implements Action {
             } else {
                 if (Proprietario.isLoggedIn(session)) {
                     Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                    Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                    Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
                     
                     String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     String fileNameUpload = createFileNameUpload(fileName);
@@ -75,7 +76,7 @@ public class CadastrarProdutoAction implements Action {
                     }
 
                     Promocao promocao = PromocaoFactory.create(promocaoTipo);
-                    Categoria categoria = Categoria.getCategoria(categoriaId);
+                    Categoria categoria = CategoriaDAO.getInstance().getCategoria(categoriaId);
 
                     Produto produto = new Produto(nome, descricao, preco, imagemUrl, restaurante, promocao, categoria);
                     ProdutoDAO.getInstance().save(produto);

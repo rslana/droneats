@@ -34,19 +34,19 @@
                         <div class='col-md-6 normalize-grid'>
                             <p>
                                 <b>Nome</b><br>
-                                João Maria da Silva
+                                ${usuario.nome}
                             </p>
                             <p>
                                 <b>CPF</b><br>
-                                123******00
+                                ${usuario.cpf}
                             </p>
                             <p>
                                 <b>Telefone</b><br>
-                                (32) 99999-8888
+                                ${usuario.telefone}
                             </p>
                             <p>
                                 <b>E-mail</b><br>
-                                joaomaria@email.com
+                                ${usuario.email}
                             </p>
                         </div>
                     </div>

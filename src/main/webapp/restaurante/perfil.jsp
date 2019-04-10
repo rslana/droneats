@@ -32,21 +32,37 @@
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
                     <div class='detalhe-pedido detalhe-perfil'>
                         <div class='col-md-6 normalize-grid'>
+                            <h3>Restaurante</h3>
                             <p>
                                 <b>Nome</b><br>
-                                Restaurante da Esquina
+                                ${restaurante.nome}
                             </p>
                             <p>
                                 <b>CNPJ</b><br>
-                                123******00032/0000
+                                ${restaurante.cnpj}
                             </p>
                             <p>
                                 <b>Telefone</b><br>
-                                (32) 33333-2222
+                                ${restaurante.telefone}
+                            </p>
+                        </div>
+                        <div class='col-md-6 normalize-grid'>
+                            <h3>Proprietário</h3>
+                            <p>
+                                <b>Nome</b><br>
+                                ${usuario.nome}
+                            </p>
+                            <p>
+                                <b>CPF</b><br>
+                                ${usuario.cpf}
+                            </p>
+                            <p>
+                                <b>Telefone</b><br>
+                                ${usuario.telefone}
                             </p>
                             <p>
                                 <b>E-mail</b><br>
-                                contato@restauranteesquina.com
+                                ${usuario.email}
                             </p>
                         </div>
                     </div>

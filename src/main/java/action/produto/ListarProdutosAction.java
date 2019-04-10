@@ -28,9 +28,9 @@ public class ListarProdutosAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
          
-                ArrayList<Produto> produtos = ProdutoDAO.listProdutosRestaurante(restaurante);
+                ArrayList<Produto> produtos = ProdutoDAO.getInstance().listProdutosRestaurante(restaurante);
 
                 request.setAttribute("produtos", produtos);
 

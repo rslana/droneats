@@ -25,7 +25,7 @@ public class ListarRestaurantesAction implements Action {
             if (Proprietario.isLoggedIn(session)) {
                 response.sendRedirect("FrontController?route=restaurante&action=Dashboard");
             } else {
-                request.setAttribute("restaurantes", RestauranteDAO.getRestaurantes());
+                request.setAttribute("restaurantes", RestauranteDAO.getInstance().getRestaurantes());
                 RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
                 view.forward(request, response);
             }

@@ -212,15 +212,6 @@ public class Pedido extends Observable {
         return ((hour < 10) ? "0" + hour : hour) + ":" + ((minute < 10) ? "0" + minute : minute);
     }
 
-    public static Pedido getPedido(int id) throws ClassNotFoundException {
-        try {
-            return PedidoDAO.getPedido(id);
-        } catch (SQLException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
     public void updateEstado() {
         try {
             PedidoDAO.getInstance().updateEstado(this);

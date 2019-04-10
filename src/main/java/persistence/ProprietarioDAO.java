@@ -88,7 +88,7 @@ public class ProprietarioDAO {
         return proprietario;
     }
 
-    public static Proprietario getProprietario(int id) throws SQLException, ClassNotFoundException {
+    public Proprietario getProprietario(int id) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         String sql = "SELECT * FROM proprietario WHERE id = " + id;
         PreparedStatement comando = conn.prepareStatement(sql);
@@ -119,7 +119,7 @@ public class ProprietarioDAO {
         return proprietario;
     }
     
-    public static Proprietario login(String email, String senha) throws ClassNotFoundException, SQLException {
+    public Proprietario login(String email, String senha) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Proprietario proprietario = null;
         PreparedStatement comando = null;
@@ -153,7 +153,7 @@ public class ProprietarioDAO {
         return proprietario;
     }
 
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
@@ -165,6 +165,5 @@ public class ProprietarioDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }

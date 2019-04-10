@@ -32,11 +32,12 @@ public class ExibirRestauranteAction implements Action {
                 response.sendRedirect("FrontController?route=restaurante&action=Dashboard");
             } else {
                 int restauranteId = Integer.parseInt(request.getParameter("id"));
-                Restaurante restaurante = RestauranteDAO.getRestaurante(restauranteId);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestaurante(restauranteId);
                 request.setAttribute("restaurante", restaurante);
 
-                List<Produto> produtos = ProdutoDAO.listProdutosRestaurante(restaurante);
-                HashMap<Integer, ArrayList<Produto>> produtosByCategoria = ProdutoDAO.listProdutosRestauranteByCategoria(restaurante);
+                List<Produto> produtos = ProdutoDAO.getInstance().listProdutosRestaurante(restaurante);
+                
+                HashMap<Integer, ArrayList<Produto>> produtosByCategoria = ProdutoDAO.getInstance().listProdutosRestauranteByCategoria(restaurante);
                 
                 request.setAttribute("produtos", produtos);
                 request.setAttribute("produtosByCategoria", produtosByCategoria);

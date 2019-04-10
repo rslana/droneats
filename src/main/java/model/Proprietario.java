@@ -1,10 +1,7 @@
 package model;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
-import persistence.ProprietarioDAO;
+
 
 /**
  *
@@ -23,28 +20,8 @@ public class Proprietario extends Usuario {
     public Proprietario(int id, String nome, String email, String senha, String cpf, String telefone) {
         super(id, cpf, senha, nome, email, telefone);
     }
-    
-    public static Proprietario login(String email, String senha) {
-        try {
-            return ProprietarioDAO.login(email, senha);
-        } catch (ClassNotFoundException | SQLException ex) {
-            Logger.getLogger(Proprietario.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-    
+
     public static boolean isLoggedIn(HttpSession session) {
         return session.getAttribute("usuario") instanceof Proprietario;
     }
-
-    public static Proprietario getProprietario(int id) throws ClassNotFoundException {
-        try {
-            return ProprietarioDAO.getProprietario(id);
-        } catch (SQLException ex) {
-            Logger.getLogger(Cliente.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
 }

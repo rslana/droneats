@@ -28,8 +28,8 @@ public class ListarCategoriasAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                Restaurante restaurante = RestauranteDAO.getRestauranteProprrietario(proprietario);
-                ArrayList<Categoria> categorias = CategoriaDAO.listCategoriasRestaurante(restaurante);
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
+                ArrayList<Categoria> categorias = CategoriaDAO.getInstance().listCategoriasRestaurante(restaurante);
 
                 request.setAttribute("categorias", categorias);
 

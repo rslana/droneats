@@ -25,7 +25,7 @@
     <%@ include file = "../layout/menu.jsp" %>
     <div class='corpo-home'>
         <div class='titulo-home'>
-            <h1>Dashboard</h1>
+            <h1>${restaurante.nome}</h1>
         </div>
         <div class='container'>
             <div class='row lista-restaurantes equal'>

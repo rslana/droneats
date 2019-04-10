@@ -75,7 +75,7 @@ public class RestauranteDAO {
         }
     }
 
-    public static Restaurante getRestaurante(int id) throws ClassNotFoundException, SQLException {
+    public Restaurante getRestaurante(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Restaurante restaurante = null;
@@ -97,7 +97,7 @@ public class RestauranteDAO {
                     null
             );
             restaurante.setProprietarioId(rs.getInt("proprietario_id"));
-            restaurante.setProprietario(Proprietario.getProprietario(rs.getInt("proprietario_id")));
+            restaurante.setProprietario(ProprietarioDAO.getInstance().getProprietario(rs.getInt("proprietario_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -106,7 +106,7 @@ public class RestauranteDAO {
         return restaurante;
     }
     
-    public static Restaurante getRestaurantePedido(Pedido pedido) throws ClassNotFoundException, SQLException {
+    public Restaurante getRestaurantePedido(Pedido pedido) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Restaurante restaurante = null;
@@ -129,7 +129,7 @@ public class RestauranteDAO {
                     pedido
             );
             restaurante.setProprietarioId(rs.getInt("proprietario_id"));
-            restaurante.setProprietario(Proprietario.getProprietario(rs.getInt("proprietario_id")));
+            restaurante.setProprietario(ProprietarioDAO.getInstance().getProprietario(rs.getInt("proprietario_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -138,7 +138,7 @@ public class RestauranteDAO {
         return restaurante;
     }
     
-    public static Restaurante getRestauranteProprrietario(Proprietario proprietario) throws ClassNotFoundException, SQLException {
+    public Restaurante getRestauranteProprietario(Proprietario proprietario) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Restaurante restaurante = null;
@@ -160,7 +160,7 @@ public class RestauranteDAO {
                     null
             );
             restaurante.setProprietarioId(rs.getInt("proprietario_id"));
-            restaurante.setProprietario(Proprietario.getProprietario(rs.getInt("proprietario_id")));
+            restaurante.setProprietario(ProprietarioDAO.getInstance().getProprietario(rs.getInt("proprietario_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -169,7 +169,7 @@ public class RestauranteDAO {
         return restaurante;
     }
 
-    public static List<Restaurante> getRestaurantes() throws SQLException, ClassNotFoundException {
+    public List<Restaurante> getRestaurantes() throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         List<Restaurante> restaurantes = new ArrayList<>();
@@ -192,7 +192,7 @@ public class RestauranteDAO {
                 );
 
                 restaurante.setProprietarioId(rs.getInt("proprietario_id"));
-                restaurante.setProprietario(Proprietario.getProprietario(rs.getInt("proprietario_id")));
+                restaurante.setProprietario(ProprietarioDAO.getInstance().getProprietario(rs.getInt("proprietario_id")));
                 restaurantes.add(restaurante);
             }
         } catch (SQLException e) {
@@ -203,7 +203,7 @@ public class RestauranteDAO {
         return restaurantes;
     }
 
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();

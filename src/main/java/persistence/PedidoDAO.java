@@ -54,7 +54,6 @@ public class PedidoDAO {
     }
 
     public void deletePedido(int id) throws SQLException, ClassNotFoundException {
-
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
 
@@ -66,11 +65,10 @@ public class PedidoDAO {
             throw e;
         } finally {
             closeResources(conn, st);
-
         }
     }
 
-    public static Pedido getPedido(int id) throws ClassNotFoundException, SQLException {
+    public Pedido getPedido(int id) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Pedido pedido = null;
@@ -92,10 +90,10 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
+            pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurantePedido(pedido));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
-            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
+            pedido.setCliente(ClienteDAO.getInstance().getClientePedido(pedido));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,7 +103,7 @@ public class PedidoDAO {
         return pedido;
     }
 
-    public static Pedido getPedidoCliente(int id, Cliente cliente) throws ClassNotFoundException, SQLException {
+    public Pedido getPedidoCliente(int id, Cliente cliente) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Pedido pedido = null;
@@ -127,10 +125,10 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
+            pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurantePedido(pedido));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
-            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
+            pedido.setCliente(ClienteDAO.getInstance().getClientePedido(pedido));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,7 +138,7 @@ public class PedidoDAO {
         return pedido;
     }
     
-    public static Pedido getPedidoRestaurante(int id, Restaurante restaurante) throws ClassNotFoundException, SQLException {
+    public Pedido getPedidoRestaurante(int id, Restaurante restaurante) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Pedido pedido = null;
@@ -162,10 +160,10 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(RestauranteDAO.getRestaurantePedido(pedido));
+            pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurantePedido(pedido));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
-            pedido.setCliente(ClienteDAO.getClientePedido(pedido));
+            pedido.setCliente(ClienteDAO.getInstance().getClientePedido(pedido));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -198,10 +196,10 @@ public class PedidoDAO {
                     null
             );
             pedido.setRestauranteId(rs.getInt("restaurante_id"));
-            pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+            pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
 
             pedido.setClienteId(rs.getInt("cliente_id"));
-            pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
+            pedido.setCliente(ClienteDAO.getInstance().getCliente(rs.getInt("cliente_id")));
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -228,7 +226,7 @@ public class PedidoDAO {
         }
     }
 
-    public static ArrayList<Pedido> listPedidosCliente(Cliente cliente) throws SQLException, ClassNotFoundException {
+    public ArrayList<Pedido> listPedidosCliente(Cliente cliente) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         ArrayList<Pedido> pedidos = new ArrayList<>();
@@ -250,10 +248,10 @@ public class PedidoDAO {
                         null
                 );
                 pedido.setRestauranteId(rs.getInt("restaurante_id"));
-                pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
 
                 pedido.setClienteId(rs.getInt("cliente_id"));
-                pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
+                pedido.setCliente(ClienteDAO.getInstance().getCliente(rs.getInt("cliente_id")));
 
                 pedidos.add(pedido);
             }
@@ -265,7 +263,7 @@ public class PedidoDAO {
         return pedidos;
     }
 
-    public static ArrayList<Pedido> listPedidosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
+    public ArrayList<Pedido> listPedidosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         ArrayList<Pedido> pedidos = new ArrayList<>();
@@ -287,10 +285,10 @@ public class PedidoDAO {
                         null
                 );
                 pedido.setRestauranteId(rs.getInt("restaurante_id"));
-                pedido.setRestaurante(Restaurante.getRestaurante(rs.getInt("restaurante_id")));
+                pedido.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
 
                 pedido.setClienteId(rs.getInt("cliente_id"));
-                pedido.setCliente(Cliente.getCliente(rs.getInt("cliente_id")));
+                pedido.setCliente(ClienteDAO.getInstance().getCliente(rs.getInt("cliente_id")));
 
                 pedidos.add(pedido);
             }
@@ -319,7 +317,7 @@ public class PedidoDAO {
         }
     }
 
-    public static void closeResources(Connection conn, Statement st) {
+    public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {
                 st.close();
@@ -331,6 +329,5 @@ public class PedidoDAO {
         } catch (SQLException e) {
 
         }
-
     }
 }

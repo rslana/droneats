@@ -2,6 +2,7 @@ package action.usuario;
 
 import controller.Action;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -10,10 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Cliente;
+import persistence.ClienteDAO;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 public class LoginClienteAction implements Action {
 
@@ -26,7 +28,7 @@ public class LoginClienteAction implements Action {
             response.sendRedirect("index.jsp");
         } else {
             try {
-                Cliente cliente = Cliente.login(email, senha);
+                Cliente cliente = ClienteDAO.getInstance().login(email, senha);
                 if (cliente != null) {
                     session.setAttribute("usuario", cliente);
                     session.setAttribute("permissao", cliente.getClass().getSimpleName());
@@ -36,7 +38,7 @@ public class LoginClienteAction implements Action {
                     RequestDispatcher view = request.getRequestDispatcher("/auth/loginCliente.jsp");
                     view.forward(request, response);
                 }
-            } catch (ServletException ex) {
+            } catch (ServletException | ClassNotFoundException | SQLException ex) {
                 Logger.getLogger(LoginClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

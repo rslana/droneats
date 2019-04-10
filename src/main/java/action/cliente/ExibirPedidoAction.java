@@ -31,11 +31,11 @@ public class ExibirPedidoAction implements Action {
         try {
             if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
-                Pedido pedido = PedidoDAO.getPedidoCliente(pedidoId, cliente);
+                Pedido pedido = PedidoDAO.getInstance().getPedidoCliente(pedidoId, cliente);
 
                 if (pedido != null) {
                     ArrayList<PedidoProduto> produtos;
-                    produtos = PedidoProdutoDAO.listProdutosPedido(pedido);
+                    produtos = PedidoProdutoDAO.getInstance().listProdutosPedido(pedido);
 
                     pedido.setProdutos(produtos);
                     request.setAttribute("pedido", pedido);

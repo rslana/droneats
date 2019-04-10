@@ -180,15 +180,6 @@ public class Restaurante implements Observer {
         this.proprietario = proprietario;
     }
 
-    public static Restaurante getRestaurante(int id) throws ClassNotFoundException {
-        try {
-            return RestauranteDAO.getRestaurante(id);
-        } catch (SQLException ex) {
-            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
     @Override
     public void update(Observable pedidoSubject, Object arg) {
         String novoEstado;

@@ -24,7 +24,7 @@ public class LoginClienteAction implements Action {
         try {
             String email = request.getParameter("email");
             String senha = request.getParameter("senha");
-            Cliente cliente = ClienteDAO.login(email, senha);
+            Cliente cliente = ClienteDAO.getInstance().login(email, senha);
             if (cliente != null) {
                 session.setAttribute("cliente", cliente);
                 session.setAttribute("usuario", "cliente");

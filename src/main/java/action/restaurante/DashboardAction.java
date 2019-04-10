@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Proprietario;
+import model.Restaurante;
 import persistence.CategoriaDAO;
 import persistence.PedidoDAO;
 import persistence.ProdutoDAO;
@@ -27,9 +28,10 @@ public class DashboardAction implements Action {
         try {
             if (Proprietario.isLoggedIn(session)) {
                 Proprietario proprietario = (Proprietario) session.getAttribute("usuario");
-                int quantidadePedidos = PedidoDAO.getInstance().countPedidosRestaurante(RestauranteDAO.getRestauranteProprrietario(proprietario));
-                int quantidadeProdutos = ProdutoDAO.getInstance().countProdutosRestaurante(RestauranteDAO.getRestauranteProprrietario(proprietario));
-                int quantidadeCategorias = CategoriaDAO.getInstance().countCategoriasRestaurante(RestauranteDAO.getRestauranteProprrietario(proprietario));
+                Restaurante restaurante = RestauranteDAO.getInstance().getRestauranteProprietario(proprietario);
+                int quantidadePedidos = PedidoDAO.getInstance().countPedidosRestaurante(restaurante);
+                int quantidadeProdutos = ProdutoDAO.getInstance().countProdutosRestaurante(restaurante);
+                int quantidadeCategorias = CategoriaDAO.getInstance().countCategoriasRestaurante(restaurante);
                 
                 request.setAttribute("quantidadePedidos", quantidadePedidos);
                 request.setAttribute("quantidadeProdutos", quantidadeProdutos);
@@ -37,7 +39,7 @@ public class DashboardAction implements Action {
                 RequestDispatcher view = request.getRequestDispatcher("/restaurante/dashboard.jsp");
                 view.forward(request, response);
             } else {
-                request.setAttribute("restaurantes", RestauranteDAO.getRestaurantes());
+                request.setAttribute("restaurantes", RestauranteDAO.getInstance().getRestaurantes());
                 RequestDispatcher view = request.getRequestDispatcher("/index.jsp");
                 view.forward(request, response);
             }
