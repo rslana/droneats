@@ -14,7 +14,7 @@
         href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
     <!-- Less -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
-    <script src="http://localhost:8080/droneats/assets/js/restaurante.js"></script>
+    <script src="http://localhost:8080/droneats/assets/js/form.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Cadastro Restaurante</title>
 </head>
@@ -53,7 +53,7 @@
                         <input type="password" name="senhaProprietario" /><br />
                     </div>
                     <button type="div" class="btn-1" id="btnContinuar"
-                        onclick="mudarPassoCadastroRestaurante(2)">Continuar</button>
+                        onclick="mudarPassoCadastro(2)">Continuar</button>
                 </div>
 
                 <div id="passo2">
@@ -99,7 +99,7 @@
                         <textarea name='descricaoRestaurante' id='' cols='30' rows='5'></textarea><br />
                     </div>
                     <button type="div" class="btn-1" id="btnCadastrar">Finalizar Cadastro</button>
-                    <div onclick="mudarPassoCadastroRestaurante(1)" class="btn-voltar">
+                    <div onclick="mudarPassoCadastro(1)" class="btn-voltar">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </div>
                 </div>

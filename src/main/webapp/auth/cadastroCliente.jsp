@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css"
         href="http://localhost:8080/droneats/assets/fontawesome-free-5.7.2-web/css/all.css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js"></script>
+    <script src="http://localhost:8080/droneats/assets/js/form.js"></script>
     <%@ include file = "../utils/config.jsp" %>
     <title>Cadastro Cliente</title>
 </head>
@@ -28,27 +29,61 @@
         <div class='corpo-form form-cadastro'>
             <form action="FrontController?route=cliente&action=CadastrarCliente" method="post">
                 <h2>Cadastro de Cliente</h2>
-                <div class='form-input'>
-                    <label for='nome'>Nome</label><br />
-                    <input type="text" name="nome" /><br />
+                <div id='passo1'>
+                    <div class='form-input'>
+                        <label for='nome'>Nome</label><br />
+                        <input type="text" name="nome" /><br />
+                    </div>
+                    <div class='form-input form-input-left'>
+                        <label for='cpf'>CPF</label><br />
+                        <input type="text" name="cpf" /><br />
+                    </div>
+                    <div class='form-input form-input-right'>
+                        <label for='telefone'>Telefone</label><br />
+                        <input type="text" name="telefone" /><br />
+                    </div>
+                    <div class='form-input form-input-left'>
+                        <label for='email'>E-mail</label><br />
+                        <input type="email" name="email" /><br />
+                    </div>
+                    <div class='form-input form-input-right'>
+                        <label for='senha'>Senha</label>
+                        <input type="password" name="senha" /><br />
+                    </div>
+                    <button type="submit" class="btn-1" id="btnContinuar"
+                        onclick="mudarPassoCadastro(2)">Próximo</button>
                 </div>
-                <div class='form-input form-input-left'>
-                    <label for='cpf'>CPF</label><br />
-                    <input type="text" name="cpf" /><br />
+                <div id="passo2">
+                    <h3><i class="fas fa-utensils"></i><br><br>Seu endereço principal</h3>
+                    <div class='form-input form-input-left'>
+                        <label for='estado'>Estado</label><br />
+                        <input type="text" name="estado" /><br />
+                    </div>
+                    <div class='form-input form-input-right'>
+                        <label for='cidade'>Cidade</label><br />
+                        <input type="text" name="cidade" /><br />
+                    </div>
+                    <div class='form-input form-input-left'>
+                        <label for='cep'>CEP</label><br />
+                        <input type="text" name="cep" /><br />
+                    </div>
+                    <div class='form-input form-input-right'>
+                        <label for='bairro'>Bairro</label><br />
+                        <input type="text" name="bairro" /><br />
+                    </div>
+                    <div class='form-input form-input-left'>
+                        <label for='rua'>Rua</label><br />
+                        <input type="text" name="rua" /><br />
+                    </div>
+                    <div class='form-input form-input-right'>
+                        <label for='numero'>Número</label><br />
+                        <input type="text" name="numero" /><br />
+                    </div>
+                    <button type="div" class="btn-1" id="btnCadastrar">Finalizar Cadastro</button>
+                    <div onclick="mudarPassoCadastro(1)" class="btn-voltar">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </div>
                 </div>
-                <div class='form-input form-input-right'>
-                    <label for='telefone'>Telefone</label><br />
-                    <input type="text" name="telefone" /><br />
-                </div>
-                <div class='form-input form-input-left'>
-                    <label for='email'>E-mail</label><br />
-                    <input type="email" name="email" /><br />
-                </div>
-                <div class='form-input form-input-right'>
-                    <label for='senha'>Senha</label>
-                    <input type="password" name="senha" /><br />
-                </div>
-                <button type="submit" class="btn-1">Cadastrar</button>
             </form>
         </div>
         <div class='rodape-corpo-form'>
@@ -57,6 +92,11 @@
             </span>
         </div>
     </div>
+    <script>
+        document.getElementById("btnContinuar").addEventListener("click", function (event) {
+            event.preventDefault()
+        });
+    </script>
 </body>
 
 </html>

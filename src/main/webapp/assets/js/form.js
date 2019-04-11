@@ -1,4 +1,4 @@
-const mudarPassoCadastroRestaurante = (passo) => {
+const mudarPassoCadastro = (passo) => {
   if (passo === 1) {
     document.getElementById("passo1").style.display = "block";
     document.getElementById("passo2").style.display = "none";

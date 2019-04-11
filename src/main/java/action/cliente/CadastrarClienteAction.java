@@ -25,15 +25,16 @@ public class CadastrarClienteAction implements Action {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
         String cpf = request.getParameter("cpf");
-        String telefone = request.getParameter("telefone");
-//        String cidade = request.getParameter("cidade");
-//        String estado = request.getParameter("estado");
-//        String bairro = request.getParameter("bairro");
-//        String rua = request.getParameter("rua");
-//        String numero = request.getParameter("numero");
-//        String cep = request.getParameter("cep");
+        String cidade = request.getParameter("cidade");
+        String estado = request.getParameter("estado");
+        String bairro = request.getParameter("bairro");
+        String rua = request.getParameter("rua");
+        String numero = request.getParameter("numero");
+        String cep = request.getParameter("cep");
+         String telefone = request.getParameter("telefone");
 
-        if (nome.equals("") || email.equals("") || senha.equals("") || cpf.equals("") || telefone.equals("")) {
+        if (nome.equals("") || email.equals("") || senha.equals("") || cpf.equals("") || cidade.equals("")|| estado.equals("") || 
+                bairro.equals("") || rua.equals("") || numero.equals("") || cep.equals("") || telefone.equals("")) {
             try {
                 request.setAttribute("mensagemErro", "Você deve preencher todos os campos");
                 RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
@@ -42,7 +43,7 @@ public class CadastrarClienteAction implements Action {
                 Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Cliente cliente = new Cliente(nome, email, senha, cpf, telefone);
+            Cliente cliente = new Cliente(nome, email, senha, cpf, cidade, estado, bairro, rua, numero, cep, telefone);
 
             try {
                 ClienteDAO.getInstance().save(cliente);

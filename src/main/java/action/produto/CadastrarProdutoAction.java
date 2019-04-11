@@ -47,7 +47,7 @@ public class CadastrarProdutoAction implements Action {
 
             if (nome.equals("") || preco < 0 || descricao.equals("") || categoriaId <= 0) {
 //                Redirecionar para página de erro
-                response.sendRedirect("index.jsp");
+                response.sendRedirect("/restaurante/cadastrarProduto.jsp");
             } else {
                 if (Proprietario.isLoggedIn(session)) {
                     Proprietario proprietario = (Proprietario) session.getAttribute("usuario");

@@ -19,8 +19,8 @@ public class Cliente extends Usuario implements Observer {
         pedido.addObserver(this);
     }
 
-    public Cliente(String nome, String email, String senha, String cpf, String telefone) {
-        super(cpf, senha, nome, email, telefone);
+    public Cliente(String nome, String email, String senha, String cpf, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
+        super(nome, email, senha, cpf, cidade, estado, bairro, rua, numero, cep, telefone);
     }
 
     public Cliente(int id, String cpf, String senha, String nome, String email, String telefone) {
@@ -30,7 +30,7 @@ public class Cliente extends Usuario implements Observer {
     public Cliente() {
 
     }
-    
+
     public static boolean isLoggedIn(HttpSession session) {
         return session.getAttribute("usuario") instanceof Cliente;
     }
@@ -43,7 +43,7 @@ public class Cliente extends Usuario implements Observer {
             novoEstado = pedido.getEstado().getEstadoMensagem();
             String msg = "Olá, " + getNome() + ", o estado do seu pedido mudou. " + novoEstado + ".";
             System.out.println(msg);
-            
+
             String msgEmail = "<h2 style='text-align:center; padding: 50px 20px'>Olá, " + getNome() + " </h2>";
             msgEmail += "<h3 style='text-align:center;'>O estado do seu pedido mudou.</h3><br/>";
             msgEmail += "<h2 style='text-align:center;'>" + novoEstado + "</h2>";
@@ -56,5 +56,5 @@ public class Cliente extends Usuario implements Observer {
     public String getTipo() {
         return "Cliente";
     }
-    
+
 }

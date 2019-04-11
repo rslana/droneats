@@ -11,7 +11,7 @@ CREATE DATABASE droneats;
 CREATE TABLE IF NOT EXISTS `droneats`.`cliente` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NOT NULL UNIQUE,
   `senha` VARCHAR(45) NULL,
   `cpf` VARCHAR(45) NULL,
   `cidade` VARCHAR(45) NULL,
@@ -31,7 +31,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `droneats`.`proprietario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NOT NULL UNIQUE,
   `senha` VARCHAR(45) NULL,
   `cpf` VARCHAR(45) NULL,
   `cidade` VARCHAR(45) NULL,
@@ -77,7 +77,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `droneats`.`categoria` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(70) NULL,
+  `nome` VARCHAR(70) NOT NULL,
   `restaurante_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_categoria_restaurante_idx` (`restaurante_id` ASC),

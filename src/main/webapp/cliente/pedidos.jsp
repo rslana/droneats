@@ -29,6 +29,24 @@
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
                     <h2 class="pedido-titulo">Pedidos</h2>
                 </div>
+                <c:choose>
+                    <c:when test="${pedidos[0] == null}">
+                        <div class='col-md-6 col-md-offset-3 normalize-grid'>
+                            <a class='item-lista-produtos' href='index.jsp'>
+                                <p class="p-msg icon-pedido">
+                                    <span>
+                                        <i class="fas fa-search fa-2x"></i>
+                                    </span>
+                                </p>
+                                <p class="p-msg">
+                                    <span class="nome-restaurante-lista-pedido">Você não possui pedidos ainda</span><br>
+                                    <span class="descricao-pedido">Clique aqui para conferir os restaurantes mais
+                                        próximos de você.</span>
+                                </p>
+                            </a>
+                        </div>
+                    </c:when>
+                </c:choose>
                 <c:forEach items="${pedidos}" var="pedido">
                     <div class='col-md-6 col-md-offset-3 normalize-grid'>
                         <a class='msg-sucesso sucesso-pedido'
@@ -48,6 +66,9 @@
                             </p>
                             <p class="p-msg">
                                 <span class="nome-restaurante-lista-pedido">${pedido.restaurante.nome}</span><br>
+                                <span class="descricao-pedido">
+                                    <i class="fas fa-history"></i>&nbsp; ${pedido.estado.estado}
+                                </span><br>
                                 <span class="descricao-pedido">
                                     <c:forEach items="${pedido.produtos}" var="produto">
                                         ${produto.quantidade}x ${produto.produto.nome} •
