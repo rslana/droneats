@@ -178,5 +178,9 @@ public abstract class Usuario {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-
+     public abstract String getTipo();
+     
+    public String getinFormacaoUsuario(){
+        return "Tipo: "+getTipo()+" - Nome: "+getNome();
+    }
 }

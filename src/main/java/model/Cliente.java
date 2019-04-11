@@ -51,4 +51,10 @@ public class Cliente extends Usuario implements Observer {
             email.enviarEmail();
         }
     }
+
+    @Override
+    public String getTipo() {
+        return "Cliente";
+    }
+    
 }
