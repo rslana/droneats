@@ -1,6 +1,5 @@
 package action.restaurante;
 
-import action.cliente.CadastrarClienteAction;
 import controller.Action;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -49,7 +48,7 @@ public class CadastrarRestauranteAction implements Action {
                 RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroRestaurante.jsp");
                 view.forward(request, response);
             } catch (ServletException ex) {
-                Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CadastrarRestauranteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             try {
@@ -65,22 +64,20 @@ public class CadastrarRestauranteAction implements Action {
                 RestauranteDAO.getInstance().save(restaurante);
                 
                 request.setAttribute("mensagemSucesso", "Cadastro efetuado com sucesso!");
-                RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroRestaurante.jsp");
                 view.forward(request, response);
             } catch (SQLException ex) {
                 try {
-                    Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
-                    request.setAttribute("mensagemErro", "Erro ao tentar efetuar cadastro como cliente");
-                    RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
+                    Logger.getLogger(CadastrarRestauranteAction.class.getName()).log(Level.SEVERE, null, ex);
+                    request.setAttribute("mensagemErro", "Erro ao tentar efetuar cadastro como restaurante");
+                    RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroRestaurante.jsp");
                     view.forward(request, response);
                 } catch (ServletException ex1) {
-                    Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex1);
+                    Logger.getLogger(CadastrarRestauranteAction.class.getName()).log(Level.SEVERE, null, ex1);
                 }
             } catch (ClassNotFoundException | ServletException ex) {
-                Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CadastrarRestauranteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
-
         }
     }
-
 }

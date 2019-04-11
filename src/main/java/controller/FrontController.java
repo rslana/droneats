@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author rslana
+ * @author raj
  */
 @MultipartConfig
 public class FrontController extends HttpServlet {
@@ -35,7 +29,7 @@ public class FrontController extends HttpServlet {
         String action = request.getParameter("action");
         String route = request.getParameter("route");
         Action actionObject;
-        if (action == null || action.equals("")) {
+        if (action == null || action.equals("") || route == null || route.equals("")) {
             response.sendRedirect("index.jsp");
         }
         actionObject = ActionFactory.create(action, route);
@@ -43,9 +37,6 @@ public class FrontController extends HttpServlet {
             HttpSession session = request.getSession(true);
             actionObject.execute(request, response, session);
         }
-
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

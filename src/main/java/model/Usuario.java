@@ -1,6 +1,5 @@
 package model;
 
-
 /**
  *
  * @author raj
@@ -20,10 +19,10 @@ public abstract class Usuario {
     private String senha;
     private String cpf;
 
-    public Usuario(int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        this.id = id;
+    public Usuario(String nome, String email, String senha, String cpf, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
         this.nome = nome;
         this.email = email;
+        this.senha = senha;
         this.cidade = cidade;
         this.estado = estado;
         this.bairro = bairro;
@@ -31,7 +30,6 @@ public abstract class Usuario {
         this.numero = numero;
         this.cep = cep;
         this.telefone = telefone;
-
     }
 
     public Usuario(String nome, String email, String telefone) {
@@ -70,7 +68,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    public Usuario( int id, String cpf, String senha, String nome, String email, String telefone) {
+    public Usuario(int id, String cpf, String senha, String nome, String email, String telefone) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -78,9 +76,9 @@ public abstract class Usuario {
         this.cpf = cpf;
         this.senha = senha;
     }
-    
+
     public Usuario() {
-        
+
     }
 
     public int getId() {
@@ -178,9 +176,10 @@ public abstract class Usuario {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
-     public abstract String getTipo();
-     
-    public String getinFormacaoUsuario(){
-        return "Tipo: "+getTipo()+" - Nome: "+getNome();
+
+    public abstract String getTipo();
+
+    public String getInformacaoUsuario() {
+        return "Tipo: " + getTipo() + " - Nome: " + getNome();
     }
 }
