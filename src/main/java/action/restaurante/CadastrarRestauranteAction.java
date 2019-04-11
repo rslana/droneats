@@ -52,7 +52,12 @@ public class CadastrarRestauranteAction implements Action {
             }
         } else {
             try {
-                Proprietario proprietario = new Proprietario(nomeProprietario, emailProprietario, senhaProprietario, cpfProprietario, telefoneProprietario);
+                Proprietario proprietario = new Proprietario();
+                proprietario.setNome(nomeProprietario)
+                        .setEmail(emailProprietario)
+                        .setSenha(senhaProprietario)
+                        .setCpf(cpfProprietario)
+                        .setTelefone(telefoneProprietario);
                 ProprietarioDAO.getInstance().save(proprietario);
 
                 proprietario.setId(ProprietarioDAO.getInstance().getLastProprietario().getId());

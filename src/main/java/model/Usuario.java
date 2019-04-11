@@ -19,64 +19,6 @@ public abstract class Usuario {
     private String senha;
     private String cpf;
 
-    public Usuario(String nome, String email, String senha, String cpf, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.senha = senha;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.bairro = bairro;
-        this.rua = rua;
-        this.numero = numero;
-        this.cep = cep;
-        this.telefone = telefone;
-    }
-
-    public Usuario(String nome, String email, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-    }
-
-    public Usuario(int id, String nome, String email, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-    }
-
-    public Usuario(String cpf, String senha, int id, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.bairro = bairro;
-        this.rua = rua;
-        this.numero = numero;
-        this.cep = cep;
-        this.telefone = telefone;
-        this.cpf = cpf;
-        this.senha = senha;
-    }
-
-    public Usuario(String cpf, String senha, String nome, String email, String telefone) {
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.cpf = cpf;
-        this.senha = senha;
-    }
-
-    public Usuario(int id, String cpf, String senha, String nome, String email, String telefone) {
-        this.id = id;
-        this.nome = nome;
-        this.email = email;
-        this.telefone = telefone;
-        this.cpf = cpf;
-        this.senha = senha;
-    }
-
     public Usuario() {
 
     }
@@ -85,96 +27,108 @@ public abstract class Usuario {
         return id;
     }
 
-    public void setId(int id) {
+    public Usuario setId(int id) {
         this.id = id;
+        return this;
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public Usuario setNome(String nome) {
         this.nome = nome;
+        return this;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public Usuario setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
+    public Usuario setCidade(String cidade) {
         this.cidade = cidade;
+        return this;
     }
 
     public String getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public Usuario setEstado(String estado) {
         this.estado = estado;
+        return this;
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
+    public Usuario setBairro(String bairro) {
         this.bairro = bairro;
+        return this;
     }
 
     public String getRua() {
         return rua;
     }
 
-    public void setRua(String rua) {
+    public Usuario setRua(String rua) {
         this.rua = rua;
+        return this;
     }
 
     public String getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
+    public Usuario setNumero(String numero) {
         this.numero = numero;
+        return this;
     }
 
     public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public Usuario setCep(String cep) {
         this.cep = cep;
+        return this;
     }
 
     public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(String telefone) {
+    public Usuario setTelefone(String telefone) {
         this.telefone = telefone;
+        return this;
     }
 
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public Usuario setSenha(String senha) {
         this.senha = senha;
+        return this;
     }
 
     public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public Usuario setCpf(String cpf) {
         this.cpf = cpf;
+        return this;
     }
 
     public abstract String getTipo();

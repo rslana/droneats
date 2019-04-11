@@ -73,20 +73,19 @@ public class ClienteDAO {
             ResultSet rs = comando.executeQuery();
 
             rs.first();
-            cliente = new Cliente(
-                    rs.getInt("id"),
-                    rs.getString("cpf"),
-                    rs.getString("senha"),
-                    rs.getString("nome"),
-                    rs.getString("email"),
-                    rs.getString("cidade"),
-                    rs.getString("estado"),
-                    rs.getString("bairro"),
-                    rs.getString("rua"),
-                    rs.getString("numero"),
-                    rs.getString("cep"),
-                    rs.getString("telefone")
-            );
+            cliente = new Cliente();
+            cliente.setId(rs.getInt("id"))
+                    .setCpf(rs.getString("cpf"))
+                    .setSenha(rs.getString("senha"))
+                    .setNome(rs.getString("nome"))
+                    .setEmail(rs.getString("email"))
+                    .setCidade(rs.getString("cidade"))
+                    .setEstado(rs.getString("estado"))
+                    .setBairro(rs.getString("bairro"))
+                    .setRua(rs.getString("rua"))
+                    .setNumero(rs.getString("numero"))
+                    .setCep(rs.getString("cep"))
+                    .setTelefone(rs.getString("telefone"));
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -94,7 +93,7 @@ public class ClienteDAO {
         }
         return cliente;
     }
-    
+
     public Cliente getClientePedido(Pedido pedido) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         String sql = "SELECT * FROM cliente WHERE id = '" + pedido.getClienteId() + "'";
@@ -104,21 +103,19 @@ public class ClienteDAO {
             ResultSet rs = comando.executeQuery();
 
             rs.first();
-            cliente = new Cliente(
-                    rs.getInt("id"),
-                    rs.getString("cpf"),
-                    rs.getString("senha"),
-                    rs.getString("nome"),
-                    rs.getString("email"),
-                    rs.getString("cidade"),
-                    rs.getString("estado"),
-                    rs.getString("bairro"),
-                    rs.getString("rua"),
-                    rs.getString("numero"),
-                    rs.getString("cep"),
-                    rs.getString("telefone"),
-                    pedido
-            );
+            cliente = new Cliente(pedido);
+            cliente.setId(rs.getInt("id"))
+                    .setCpf(rs.getString("cpf"))
+                    .setSenha(rs.getString("senha"))
+                    .setNome(rs.getString("nome"))
+                    .setEmail(rs.getString("email"))
+                    .setCidade(rs.getString("cidade"))
+                    .setEstado(rs.getString("estado"))
+                    .setBairro(rs.getString("bairro"))
+                    .setRua(rs.getString("rua"))
+                    .setNumero(rs.getString("numero"))
+                    .setCep(rs.getString("cep"))
+                    .setTelefone(rs.getString("telefone"));
         } catch (SQLException e) {
             throw e;
         } finally {
@@ -126,7 +123,7 @@ public class ClienteDAO {
         }
         return cliente;
     }
-    
+
     public Cliente login(String email, String senha) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Cliente cliente = null;
@@ -138,20 +135,19 @@ public class ClienteDAO {
             comando.setString(2, senha);
             ResultSet rs = comando.executeQuery();
             if (rs.first()) {
-                cliente = new Cliente(
-                    rs.getInt("id"),
-                    rs.getString("cpf"),
-                    rs.getString("senha"),
-                    rs.getString("nome"),
-                    rs.getString("email"),
-                    rs.getString("cidade"),
-                    rs.getString("estado"),
-                    rs.getString("bairro"),
-                    rs.getString("rua"),
-                    rs.getString("numero"),
-                    rs.getString("cep"),
-                    rs.getString("telefone")
-                );
+                cliente = new Cliente();
+                cliente.setId(rs.getInt("id"))
+                        .setCpf(rs.getString("cpf"))
+                        .setSenha(rs.getString("senha"))
+                        .setNome(rs.getString("nome"))
+                        .setEmail(rs.getString("email"))
+                        .setCidade(rs.getString("cidade"))
+                        .setEstado(rs.getString("estado"))
+                        .setBairro(rs.getString("bairro"))
+                        .setRua(rs.getString("rua"))
+                        .setNumero(rs.getString("numero"))
+                        .setCep(rs.getString("cep"))
+                        .setTelefone(rs.getString("telefone"));
             }
         } catch (SQLException e) {
             throw e;

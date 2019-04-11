@@ -20,7 +20,7 @@ import persistence.ClienteDAO;
 public class CadastrarClienteAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
@@ -31,10 +31,10 @@ public class CadastrarClienteAction implements Action {
         String rua = request.getParameter("rua");
         String numero = request.getParameter("numero");
         String cep = request.getParameter("cep");
-         String telefone = request.getParameter("telefone");
+        String telefone = request.getParameter("telefone");
 
-        if (nome.equals("") || email.equals("") || senha.equals("") || cpf.equals("") || cidade.equals("")|| estado.equals("") || 
-                bairro.equals("") || rua.equals("") || numero.equals("") || cep.equals("") || telefone.equals("")) {
+        if (nome.equals("") || email.equals("") || senha.equals("") || cpf.equals("") || cidade.equals("") || estado.equals("")
+                || bairro.equals("") || rua.equals("") || numero.equals("") || cep.equals("") || telefone.equals("")) {
             try {
                 request.setAttribute("mensagemErro", "Você deve preencher todos os campos");
                 RequestDispatcher view = request.getRequestDispatcher("/auth/cadastroCliente.jsp");
@@ -43,8 +43,18 @@ public class CadastrarClienteAction implements Action {
                 Logger.getLogger(CadastrarClienteAction.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            Cliente cliente = new Cliente(nome, email, senha, cpf, cidade, estado, bairro, rua, numero, cep, telefone);
-
+            Cliente cliente = new Cliente();
+            cliente.setNome(nome)
+                    .setEmail(email)
+                    .setSenha(senha)
+                    .setCpf(cpf)
+                    .setCidade(cidade)
+                    .setEstado(estado)
+                    .setBairro(bairro)
+                    .setRua(rua)
+                    .setNumero(numero)
+                    .setCep(cep)
+                    .setTelefone(telefone);
             try {
                 ClienteDAO.getInstance().save(cliente);
                 request.setAttribute("mensagemSucesso", "Cadastro efetuado com sucesso!");

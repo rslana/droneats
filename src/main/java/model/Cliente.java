@@ -10,21 +10,8 @@ import javax.servlet.http.HttpSession;
  */
 public class Cliente extends Usuario implements Observer {
 
-    public Cliente(int id, String cpf, String senha, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        super(cpf, senha, id, nome, email, cidade, estado, bairro, rua, numero, cep, telefone);
-    }
-
-    public Cliente(int id, String cpf, String senha, String nome, String email, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone, Observable pedido) {
-        super(cpf, senha, id, nome, email, cidade, estado, bairro, rua, numero, cep, telefone);
+    public Cliente(Observable pedido) {
         pedido.addObserver(this);
-    }
-
-    public Cliente(String nome, String email, String senha, String cpf, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone) {
-        super(nome, email, senha, cpf, cidade, estado, bairro, rua, numero, cep, telefone);
-    }
-
-    public Cliente(int id, String cpf, String senha, String nome, String email, String telefone) {
-        super(id, cpf, senha, nome, email, telefone);
     }
 
     public Cliente() {
