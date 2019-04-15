@@ -6,15 +6,15 @@ package model.pedidoestado;
  */
 public class PedidoEstadoFactory {
     public static PedidoEstado create(String pedidoEstado) {
-        PedidoEstado pedidoEstadoObject = null;
+        PedidoEstado pedidoEstadoObject;
         String nomeClasse = "model.pedidoestado.PedidoEstado" + pedidoEstado;
-        Class classe = null;
-        Object objeto = null;
+        Class classe;
+        Object objeto;
         try {
             classe = Class.forName(nomeClasse);
             objeto = classe.newInstance();
 
-        } catch (Exception e) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             return null;
         }
         if (!(objeto instanceof PedidoEstado)) {

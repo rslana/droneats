@@ -60,7 +60,6 @@ public class CadastrarPedidoAction implements Action {
                     }
 
                     valorTotal += (quantidade * produto.calcularDesconto());
-                    
                     pedidoProduto = new PedidoProduto(null, produto, quantidade, produto.calcularDesconto());
                     produtos.add(pedidoProduto);
                 }

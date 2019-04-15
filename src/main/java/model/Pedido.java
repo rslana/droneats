@@ -30,24 +30,6 @@ public class Pedido extends Observable {
     ArrayList<PedidoProduto> produtos;
     private PedidoEstado estado;
 
-    public Pedido(String horarioPedido, String dataPagamento, double valor, boolean pago) {
-        this.dataPedido = getDataAtualFormatada();
-        this.horarioPedido = getHoraAtualFormatada();
-        this.dataPagamento = dataPagamento;
-        this.valor = valor;
-        this.pago = pago;
-    }
-
-    public Pedido(double valor, Cliente cliente, Restaurante restaurante, ArrayList<PedidoProduto> produtos) {
-        this.dataPedido = getDataAtualFormatada();
-        this.horarioPedido = getHoraAtualFormatada();
-        this.valor = valor;
-        this.pago = true;
-        this.produtos = produtos;
-        this.cliente = cliente;
-        this.restaurante = restaurante;
-    }
-
     public Pedido(double valor, Cliente cliente, Restaurante restaurante) {
         this.dataPedido = getDataAtualFormatada();
         this.horarioPedido = getHoraAtualFormatada();
@@ -69,9 +51,6 @@ public class Pedido extends Observable {
         this.estado = estado;
         this.restaurante = restaurante;
         this.cliente = cliente;
-    }
-
-    public Pedido() {
     }
 
     public int getId() {
