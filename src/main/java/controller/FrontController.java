@@ -32,7 +32,7 @@ public class FrontController extends HttpServlet {
         if (action == null || action.equals("") || route == null || route.equals("")) {
             response.sendRedirect("index.jsp");
         }
-        actionObject = ActionFactory.create(action, route);
+        actionObject = (Action) MainFactory.create("action." + route + "." + action + "Action");
         if (actionObject != null) {
             HttpSession session = request.getSession(true);
             actionObject.execute(request, response, session);

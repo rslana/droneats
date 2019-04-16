@@ -1,5 +1,6 @@
 package persistence;
 
+import controller.MainFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,6 @@ import model.Cliente;
 import model.Pedido;
 import model.Restaurante;
 import model.pedidoestado.PedidoEstado;
-import model.pedidoestado.PedidoEstadoFactory;
 
 /**
  *
@@ -76,7 +76,7 @@ public class PedidoDAO {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id);
             rs.first();
 
-            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
             pedido = new Pedido(
                     rs.getInt("id"),
@@ -110,8 +110,8 @@ public class PedidoDAO {
         try {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id + " AND cliente_id = " + cliente.getId());
             rs.first();
-
-            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            
+            PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
             pedido = new Pedido(
                     rs.getInt("id"),
@@ -146,7 +146,7 @@ public class PedidoDAO {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE id = " + id + " AND restaurante_id = " + restaurante.getId());
             rs.first();
 
-            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
             pedido = new Pedido(
                     rs.getInt("id"),
@@ -182,7 +182,7 @@ public class PedidoDAO {
             ResultSet rs = comando.executeQuery();
             rs.first();
 
-            PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+            PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
             pedido = new Pedido(
                     rs.getInt("id"),
@@ -234,7 +234,7 @@ public class PedidoDAO {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE cliente_id = " + cliente.getId() + " ORDER BY id DESC");
             while (rs.next()) {
 
-                PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+                PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
                 Pedido pedido = new Pedido(
                         rs.getInt("id"),
@@ -271,7 +271,7 @@ public class PedidoDAO {
             ResultSet rs = st.executeQuery("SELECT * FROM pedido WHERE restaurante_id = " + restaurante.getId() + " ORDER BY id DESC");
             while (rs.next()) {
 
-                PedidoEstado pedidoEstado = PedidoEstadoFactory.create(rs.getString("estado"));
+                PedidoEstado pedidoEstado = (PedidoEstado) MainFactory.create(PedidoEstado.class.getName()+rs.getString("estado"));
 
                 Pedido pedido = new Pedido(
                         rs.getInt("id"),

@@ -1,13 +1,13 @@
-package model.promocao;
+package controller;
 
 /**
  *
  * @author raj
  */
-public class PromocaoFactory {
-    public static Promocao create(String promocao) {
-        Promocao promocaoObject;
-        String nomeClasse = "model.promocao." + promocao;
+public class MainFactory {
+    public static Object create(String action) {
+        Object actionObject;
+        String nomeClasse = action;
         Class classe;
         Object objeto;
         try {
@@ -17,10 +17,10 @@ public class PromocaoFactory {
         } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
             return null;
         }
-        if (!(objeto instanceof Promocao)) {
+        if (!(objeto instanceof Object)) {
             return null;
         }
-        promocaoObject = (Promocao) objeto;
-        return promocaoObject;
+        actionObject = (Object) objeto;
+        return actionObject;
     }
 }

@@ -1,5 +1,6 @@
 package persistence;
 
+import controller.MainFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +14,6 @@ import model.Categoria;
 import model.Produto;
 import model.Restaurante;
 import model.promocao.Promocao;
-import model.promocao.PromocaoFactory;
 
 /**
  *
@@ -67,36 +67,6 @@ public class ProdutoDAO {
         return (deleted > 0);
     }
 
-    public Produto read(int id) throws SQLException, ClassNotFoundException {
-        Connection conn = DatabaseLocator.getInstance().getConnection();
-        Statement st = conn.createStatement();
-        Produto produto = null;
-        try {
-            ResultSet rs = st.executeQuery("SELECT * FROM produto WHERE id =" + id);
-            rs.first();
-            produto = new Produto(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getString("descricao"),
-                    rs.getDouble("preco"),
-                    rs.getString("imagem"),
-                    null,
-                    null,
-                    null
-            );
-
-            produto.setRestauranteId(rs.getInt("restaurante_id"));
-            produto.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
-            produto.setCategoriaId(rs.getInt("categoria_id"));
-            produto.setCategoria(CategoriaDAO.getInstance().getCategoria(rs.getInt("categoria_id")));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closeResources(conn, st);
-        }
-        return produto;
-    }
-
     public ArrayList<Produto> listProdutosRestaurante(Restaurante restaurante) throws SQLException, ClassNotFoundException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
@@ -118,7 +88,8 @@ public class ProdutoDAO {
                 produto.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
                 produto.setCategoriaId(rs.getInt("categoria_id"));
                 produto.setCategoria(CategoriaDAO.getInstance().getCategoria(rs.getInt("categoria_id")));
-                Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+                Promocao promocao = (Promocao) MainFactory.create(Promocao.class.getPackage().getName() + "." + rs.getString("promocao"));
+
                 produto.setPromocao(promocao);
                 produtos.add(produto);
             }
@@ -155,7 +126,7 @@ public class ProdutoDAO {
                     produto.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
                     produto.setCategoriaId(rs.getInt("categoria_id"));
                     produto.setCategoria(CategoriaDAO.getInstance().getCategoria(rs.getInt("categoria_id")));
-                    Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+                    Promocao promocao = (Promocao) MainFactory.create(Promocao.class.getPackage().getName() + "." + rs.getString("promocao"));
                     produto.setPromocao(promocao);
                     produtos.add(produto);
                 }
@@ -190,7 +161,7 @@ public class ProdutoDAO {
             produto.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
             produto.setCategoriaId(rs.getInt("categoria_id"));
             produto.setCategoria(CategoriaDAO.getInstance().getCategoria(rs.getInt("categoria_id")));
-            Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+            Promocao promocao = (Promocao) MainFactory.create(Promocao.class.getPackage().getName() + "." + rs.getString("promocao"));
             produto.setPromocao(promocao);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -217,7 +188,7 @@ public class ProdutoDAO {
         }
     }
 
-    public Produto getProdutoRestaurante(int id,Restaurante restaurante) throws ClassNotFoundException, SQLException {
+    public Produto getProdutoRestaurante(int id, Restaurante restaurante) throws ClassNotFoundException, SQLException {
         Connection conn = DatabaseLocator.getInstance().getConnection();
         Statement st = conn.createStatement();
         Produto produto = null;
@@ -238,7 +209,7 @@ public class ProdutoDAO {
             produto.setRestaurante(RestauranteDAO.getInstance().getRestaurante(rs.getInt("restaurante_id")));
             produto.setCategoriaId(rs.getInt("categoria_id"));
             produto.setCategoria(CategoriaDAO.getInstance().getCategoria(rs.getInt("categoria_id")));
-            Promocao promocao = PromocaoFactory.create(rs.getString("promocao"));
+            Promocao promocao = (Promocao) MainFactory.create(Promocao.class.getPackage().getName() + "." + rs.getString("promocao"));
             produto.setPromocao(promocao);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -247,7 +218,7 @@ public class ProdutoDAO {
         }
         return produto;
     }
-    
+
     public void closeResources(Connection conn, Statement st) {
         try {
             if (st != null) {

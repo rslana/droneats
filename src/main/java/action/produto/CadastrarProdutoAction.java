@@ -2,6 +2,7 @@ package action.produto;
 
 import config.Config;
 import controller.Action;
+import controller.MainFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +23,6 @@ import model.Produto;
 import model.Proprietario;
 import model.promocao.Promocao;
 import model.Restaurante;
-import model.promocao.PromocaoFactory;
 import org.apache.commons.io.FilenameUtils;
 import persistence.CategoriaDAO;
 import persistence.ProdutoDAO;
@@ -74,8 +74,8 @@ public class CadastrarProdutoAction implements Action {
                     } else {
                         imagemUrl = path + File.separator + fileNameUpload;
                     }
-
-                    Promocao promocao = PromocaoFactory.create(promocaoTipo);
+                    
+                    Promocao promocao = (Promocao) MainFactory.create(Promocao.class.getPackage().getName() + "." + promocaoTipo);
                     Categoria categoria = CategoriaDAO.getInstance().getCategoria(categoriaId);
 
                     Produto produto = new Produto(nome, descricao, preco, imagemUrl, restaurante, promocao, categoria);
