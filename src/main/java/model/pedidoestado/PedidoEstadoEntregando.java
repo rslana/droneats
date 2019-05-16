@@ -41,6 +41,6 @@ public class PedidoEstadoEntregando implements PedidoEstado {
 
     @Override
     public String getEstadoMensagem() {
-        return "Seu pedido saiu para a entrega";
+        return "O pedido saiu para a entrega";
     }
 }

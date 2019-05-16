@@ -1,10 +1,6 @@
 package model;
 
 import model.promocao.Promocao;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import persistence.ProdutoDAO;
 
 /**
  *
@@ -25,7 +21,8 @@ public class Produto {
 
     private Promocao promocao;
 
-    public Produto(String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Promocao promocao, Categoria categoria) {
+    public Produto(String nome, String descricao, Double preco, String imagem, Restaurante restaurante,
+            Promocao promocao, Categoria categoria) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
@@ -35,7 +32,8 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante, Categoria categoria, Promocao promocao) {
+    public Produto(int id, String nome, String descricao, Double preco, String imagem, Restaurante restaurante,
+            Categoria categoria, Promocao promocao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -138,11 +136,11 @@ public class Produto {
     public void setPromocao(Promocao promocao) {
         this.promocao = promocao;
     }
-    
+
     public int obterDesconto() {
         return promocao.obterDesconto();
     }
-    
+
     public String obterPromocao() {
         return promocao.obterPromocao();
     }

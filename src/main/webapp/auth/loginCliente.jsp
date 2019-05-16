@@ -28,9 +28,10 @@
         <%@ include file = "../layout/mensagem.jsp" %> <br>
         <div class='corpo-form'>
             <form action="FrontController?route=usuario&action=LoginCliente" method="post">
+                <input type='hidden' name='urlRedirect' value="${urlRedirect}" />
                 <h2>Entrar como Cliente</h2>
                 <c:choose>
-                    <c:when test="${mensagem != null}">
+                    <c:when test=" ${mensagem !=null}">
                         <div class='msg-alert-negative'>
                             <span>
                                 <c:out value="${mensagem}" />

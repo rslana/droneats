@@ -1,6 +1,7 @@
 class Cesta {
   constructor(produtos = []) {
     this.produtos = produtos;
+    this.readOnly = false;
   }
 
   atualizarState() {
@@ -53,18 +54,9 @@ class Cesta {
     });
     return precoTotal;
   }
-}
 
-const inserirConteudo = (id, conteudo) => {
-  if (document.getElementById(id) !== null)
-    document.getElementById(id).innerHTML = conteudo;
-}
-
-const produtos = (localStorage.getItem("cesta")) ? JSON.parse(localStorage.getItem("cesta")) : [];
-const cesta = new Cesta(produtos);
-
-const template = (produto) => {
-  return `<div class='item-lista-cesta-compra'>
+  templateDefault = (produto) => {
+    return `<div class='item-lista-cesta-compra'>
     <p class="p-msg"><b>${produto.quantidade}x</b></p>
     <p class="p-msg">
       <span>${produto.nome}</span>
@@ -75,19 +67,49 @@ const template = (produto) => {
         class="far fa-trash-alt"></i></span>
     </p>
   </div>`;
+  }
+
+  templateReadOnly(produto) {
+    return `<div class='item-lista-cesta-compra'>
+    <p class="p-msg"><b>${produto.quantidade}x</b></p>
+    <p class="p-msg">
+      <span>${produto.nome}</span>
+    </p>
+    <p class="p-msg p-right">
+      <span><b>R$ ${converterPreco(parseFloat(produto.preco).toFixed(2))}</b></span>
+      <span></span>
+    </p>
+  </div>`;
+  }
 }
+
+const inserirConteudo = (id, conteudo) => {
+  if (document.getElementById(id) !== null)
+    document.getElementById(id).innerHTML = conteudo;
+}
+
+const produtos = (localStorage.getItem("cesta")) ? JSON.parse(localStorage.getItem("cesta")) : [];
+const cesta = new Cesta(produtos);
 
 const atualizarCesta = () => {
   let conteudo = "";
-
   cesta.produtos.forEach(produto => {
-    conteudo += template(produto);
+    if (!cesta.readOnly)
+      conteudo += cesta.templateDefault(produto);
+    else
+      conteudo += cesta.templateReadOnly(produto);
   });
 
   if (document.getElementById("cesta-vazia") !== null) {
     document.getElementById("cesta-vazia").style.display = (conteudo) ? "none" : "block";
     document.getElementById("restaurante-info-cesta-compra").style.display = (conteudo) ? "block" : "none";
-    document.getElementById("btnFinalizarPedido").disabled = (conteudo) ? false : true;
+    // document.getElementById("btnFinalizarPedido").disabled = (conteudo) ? false : true;
+
+    if (document.getElementsByClassName("telas-metodo-pagamento")[0] && !conteudo) {
+      const telas = document.getElementsByClassName("telas-metodo-pagamento")[0];
+      const botoes = Array.from(telas.getElementsByClassName('btn-1'));
+      botoes.forEach(btn => btn.disabled = true);
+    }
 
     inserirConteudo("cesta", conteudo);
     inserirConteudo("preco-total", converterPreco(cesta.calcularTotal().toFixed(2)));
@@ -243,4 +265,23 @@ const getPrimeiroNome = nome => {
     nome = nome[0].charAt(0).toUpperCase() + nome[0].toLowerCase().slice(1);
   }
   return nome;
+}
+
+const atualizarStep = () => {
+  const inputs = Array.from(document.getElementsByName('estadoPedido'));
+  const dots = Array.from(document.getElementsByClassName('dot'))
+  dots[0].innerHTML = `<i class="fas fa-check"></i>`;
+
+  const inputChecked = inputs.filter(input => input.checked)
+  console.log(inputChecked[0])
+  if (inputChecked[0].value === "Cancelado") {
+    document.getElementById('steps').style.display = "none";
+  } else {
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].checked)
+        dots[i + 1].innerHTML = `<i class="fas fa-check"></i>`;
+      else
+        break;
+    }
+  }
 }

@@ -33,7 +33,7 @@
                 <div class='col-md-6 col-md-offset-3 normalize-grid'>
                     <div class='detalhe-pedido'>
                         <span class="nome-restaurante-pedido">
-                            ${pedido.cliente.nome}
+                            <b>Solictado por </b> ${pedido.cliente.nome}
                         </span>
                         <hr>
                         <div class='item-lista-cesta-compra barra-estado-pedido'>
@@ -42,6 +42,18 @@
                                 <span>${pedido.estado.estadoMensagem}</span>
                             </p>
                             <p class="p-msg p-right" style="min-width:0px"></p>
+                        </div>
+                        <div class='steps' id="steps">
+                            <div class='step'>
+                                <div class='dot'></div>
+                            </div>
+                            <div class='step'>
+                                <div class='dot'></div>
+                            </div>
+                            <div class='step'>
+                                <div class='dot'></div>
+                                <div class='dot last-dot'></div>
+                            </div>
                         </div>
                         <c:choose>
                             <c:when test="${mensagem != null}">
@@ -163,6 +175,7 @@
         document.getElementById("btnEditarEstado").addEventListener("click", function (event) {
             event.preventDefault()
         });
+        atualizarStep();
     </script>
 </body>
 

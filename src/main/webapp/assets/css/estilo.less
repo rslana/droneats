@@ -52,6 +52,8 @@ a {
   letter-spacing: .6px;
   cursor: pointer;
   box-shadow: 0 0 10px @opacity-primary-1;
+  display: inline-block;
+  text-align: center;
 }
 
 .btn-1:hover {
@@ -220,6 +222,7 @@ a {
   box-shadow: 0 0 2px #366;
   text-decoration: none;
   align-content: center;
+  cursor: pointer;
 }
 
 .item-lista-restaurantes:hover {
@@ -247,6 +250,28 @@ a {
   padding: 10px;
   border-radius: 100px;
   color: #FFF;
+}
+
+.metodo-pagamento {
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+  border: solid 1px #FFF;
+}
+
+.telas-metodo-pagamento h3 {
+  text-align: left;
+}
+
+.telas-metodo-pagamento h4 {
+  padding: 60px 10px 50px 10px;
+  opacity: .4;
+  font-weight: 100;
+  font-size: 14pt;
+}
+
+.telas-metodo-pagamento .tela-metodo-pagamento:not(.metodo-ativo) {
+  color: red;
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -401,6 +426,16 @@ a {
 
 .form-cadastro {
   max-width: 500px;
+}
+
+.form-pagamento {
+  max-width: 100%;
+  box-shadow: 0 0 2px #666;
+  margin-top: -100px;
+}
+
+.form-pagamento h2 {
+  text-align: left;
 }
 
 .form-input-left {
@@ -903,6 +938,10 @@ a {
   max-width: 100% !important;
 }
 
+.input-hidden {
+  display: none;
+}
+
 // ##### RESPONSIVE
 
 @media (max-width: 768px) {
@@ -1005,4 +1044,50 @@ a {
   100% {
     border-bottom: 5px solid rgb(0, 97, 44);
   }
+}
+
+// Steps
+
+.steps {
+  width: 90%;
+  padding: 20px 0px 25px 0px;
+  // background-color: #EEE;
+  margin: auto;
+}
+
+.step {
+  width: 32.666%;
+  height: 2px;
+  background-color: rgb(0, 97, 44);
+  display: inline-block;
+  margin: 0px !important;
+  position: relative;
+}
+
+// .step-active {
+//   -webkit-animation: step_active 2s alternate infinite;
+//   /* Safari 4.0 - 8.0 */
+//   animation: step_active 2s alternate infinite;
+//   border-bottom: 5px solid rgb(0, 163, 81);
+// }
+
+.dot {
+  height: 26px;
+  width: 26px;
+  // background: rgb(0, 97, 44);
+  background: #FFF;
+  border: solid 2px rgb(0, 97, 44);
+  border-radius: 40px;
+  position: absolute;
+  top: calc(50% - 13px);
+  left: -14px;
+  padding: 3px 3px 3px 4px;
+  font-size: 13px;
+  color: rgb(0, 97, 44);
+}
+
+.last-dot {
+  left: inherit;
+  top: calc(50% - 13px);
+  right: -15px;
 }

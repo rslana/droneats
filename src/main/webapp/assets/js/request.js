@@ -5,19 +5,16 @@
 * @param {string} [method=post] the method to use on the form
 */
 const post = (path, params, method = "post") => {
-  // The rest of this code assumes you are not using a library.
-  // It can be made less wordy if you use one.
-  const form = document.createElement("form");
+  // const form = document.createElement("form");
+
+  const metodosPagamento = Array.from(document.getElementsByName('radio-metodo-pagamento'));
+  const metodo = metodosPagamento.filter(input => input.checked);
+  const form = document.getElementById(`form-${metodo[0].id}`);
+
   form.setAttribute("method", method);
   form.setAttribute("action", path);
 
   const restaurante = JSON.parse(localStorage.getItem('restaurante'));
-
-  // const json = JSON.stringify(restaurante);
-  // const blob = new Blob([json], {
-  //   type: 'application/json'
-  // });
-
   const produtos = JSON.parse(localStorage.getItem('cesta'));
 
   const pedido = {
@@ -30,17 +27,16 @@ const post = (path, params, method = "post") => {
   hiddenPedido.setAttribute("name", "pedido");
   hiddenPedido.setAttribute("value", JSON.stringify(pedido));
 
-  // form.append("document", blob);
   form.appendChild(hiddenPedido);
-
-  document.body.appendChild(form);
-  form.submit();
+  console.log(form)
+  submitWithLoading(document.getElementById(`btn-submit-${metodo[0].id}`), form.id)
+  // document.body.appendChild(form);
+  // form.submit();
 }
 
 const finalizarPedido = () => {
-  document.getElementById('btnFinalizarPedido').disabled = true;
-  document.getElementById('btnFinalizarPedido').innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
-
+  // document.getElementById('btnFinalizarPedido').disabled = true;
+  // document.getElementById('btnFinalizarPedido').innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
   post('FrontController?route=pedido&action=CadastrarPedido');
 }
 
@@ -49,10 +45,8 @@ const finalizarPedido = () => {
 * @param {string} btn the button object to disabled
 * @param {object} formId the form id that will be submitted
 */
-
 const submitWithLoading = (btn, formId) => {
   const form = document.getElementById(formId);
-
   btn.disabled = true;
   btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
 

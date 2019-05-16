@@ -1,11 +1,7 @@
 package model;
 
-import java.sql.SQLException;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import persistence.RestauranteDAO;
 
 /**
  *
@@ -31,7 +27,8 @@ public class Restaurante implements Observer {
     public Restaurante() {
     }
 
-    public Restaurante(int id, String cnpj, String descricao, String nome, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone, Proprietario proprietario) {
+    public Restaurante(int id, String cnpj, String descricao, String nome, String cidade, String estado, String bairro,
+            String rua, String numero, String cep, String telefone, Proprietario proprietario) {
         this.id = id;
         this.cnpj = cnpj;
         this.descricao = descricao;
@@ -46,7 +43,8 @@ public class Restaurante implements Observer {
         this.proprietario = proprietario;
     }
 
-    public Restaurante(int id, String cnpj, String descricao, String nome, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone, Proprietario proprietario,Observable pedido) {
+    public Restaurante(int id, String cnpj, String descricao, String nome, String cidade, String estado, String bairro,
+            String rua, String numero, String cep, String telefone, Proprietario proprietario, Observable pedido) {
         this.id = id;
         this.cnpj = cnpj;
         this.descricao = descricao;
@@ -61,8 +59,9 @@ public class Restaurante implements Observer {
         this.proprietario = proprietario;
         pedido.addObserver(this);
     }
-    
-    public Restaurante(String cnpj, String descricao, String nome, String cidade, String estado, String bairro, String rua, String numero, String cep, String telefone, Proprietario proprietario) {
+
+    public Restaurante(String cnpj, String descricao, String nome, String cidade, String estado, String bairro,
+            String rua, String numero, String cep, String telefone, Proprietario proprietario) {
         this.cnpj = cnpj;
         this.descricao = descricao;
         this.nome = nome;
@@ -187,10 +186,12 @@ public class Restaurante implements Observer {
             Pedido pedido = (Pedido) pedidoSubject;
             if (pedido.getEstado().getEstado().equals("Cancelado")) {
                 novoEstado = pedido.getEstado().getEstadoMensagem();
-                String msg = "Olá, " + getNome() + ", o cliente " + pedido.getCliente().getNome() + " alterou o estado do pedido " + pedido.getId() + " para " + novoEstado + ".";
+                String msg = "Olá, " + getNome() + ", o cliente " + pedido.getCliente().getNome()
+                        + " alterou o estado do pedido " + pedido.getId() + " para " + novoEstado + ".";
                 System.out.println(msg);
                 String assunto = "Pedido " + pedido.getId() + " - " + pedido.getCliente().getNome();
-                Email email = new Email(this.getProprietario().getEmail(), assunto, "<h2 style='text-align:center; padding: 50px 20px'>" + msg + "</h2>");
+                Email email = new Email(this.getProprietario().getEmail(), assunto,
+                        "<h2 style='text-align:center; padding: 50px 20px'>" + msg + "</h2>");
                 email.enviarEmail();
             }
         }

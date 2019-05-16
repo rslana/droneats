@@ -35,6 +35,7 @@ public class CadastrarPedidoAction implements Action {
         try {
             if (Cliente.isLoggedIn(session)) {
                 Cliente cliente = (Cliente) session.getAttribute("usuario");
+
                 String pedidoJS = request.getParameter("pedido");
                 JSONObject pedidoJSON = new JSONObject(pedidoJS);
                 int restauranteId = Integer.parseInt(pedidoJSON.getString("restaurante"));
@@ -55,31 +56,39 @@ public class CadastrarPedidoAction implements Action {
 
                     if (produto == null) {
                         request.setAttribute("error", "Ocorreu um erro. Não foi possível concluir seu pedido.");
-                        RequestDispatcher view = request.getRequestDispatcher("FrontController?route=restaurante&action=ExibirRestaurante&id="+restauranteId);
+                        RequestDispatcher view = request.getRequestDispatcher("FrontController?route=restaurante&action=ExibirRestaurante&id=" + restauranteId);
                         view.forward(request, response);
                     }
-
                     valorTotal += (quantidade * produto.calcularDesconto());
                     pedidoProduto = new PedidoProduto(null, produto, quantidade, produto.calcularDesconto());
                     produtos.add(pedidoProduto);
                 }
-                
+
                 Pedido pedido = new Pedido(valorTotal, cliente, restaurante);
                 PedidoDAO.getInstance().save(pedido);
                 pedido.setId(PedidoDAO.getInstance().getLastPedido().getId());
 
-                for(PedidoProduto pD : produtos) {
+                for (PedidoProduto pD : produtos) {
                     pD.setPedido(pedido);
                     PedidoProdutoDAO.getInstance().save(pD);
                 }
 
                 pedido.setProdutos(produtos);
-                
+
                 String msgEmail = "<h2 style='text-align:center; padding: 50px 20px'>Olá, " + cliente.getNome() + " </h2>";
                 msgEmail += "<h3 style='text-align:center;'>Você acabou de fazer um pedido no Droneats.</h3><br/>";
                 msgEmail += "<h2 style='text-align:center;'>" + pedido.getEstado().getEstadoMensagem() + "</h2>";
                 Email email = new Email(cliente.getEmail(), "Status do Pedido " + pedido.getId(), msgEmail);
                 email.enviarEmail();
+
+//                String metodoPagamento = request.getParameter("metodo-pagamento");
+//                
+//                String numeroCartaoCredito = request.getParameter("numero-cartao-credito");
+//                String nomeTitularCartaoCredito = request.getParameter("nome-titular-cartao-credito");
+//                
+//                System.out.println("Número: " + numeroCartaoCredito);
+//                System.out.println("Nome: " + nomeTitularCartaoCredito);
+//                System.out.println("Método: " + metodoPagamento);
 
                 request.setAttribute("mensagemSucesso", "Pedido realizado com sucesso!");
                 request.setAttribute("pedido", pedido);
@@ -88,6 +97,7 @@ public class CadastrarPedidoAction implements Action {
                 view.forward(request, response);
             } else {
                 request.setAttribute("mensagemErro", "Você precisa estar logado para fazer um pedido!");
+                request.setAttribute("urlRedirect", "restaurante/finalizarPedido.jsp");
                 RequestDispatcher view = request.getRequestDispatcher("/auth/loginCliente.jsp");
                 view.forward(request, response);
             }

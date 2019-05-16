@@ -42,7 +42,7 @@ public class PedidoEstadoPreparando implements PedidoEstado {
 
     @Override
     public String getEstadoMensagem() {
-        return "Seu pedido está sendo preparado";
+        return "O pedido está sendo preparado";
     }
 
 }

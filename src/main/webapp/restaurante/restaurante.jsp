@@ -23,7 +23,7 @@
 
 <!-- Pegar ID e NOME do restaurante -->
 
-<body onload="setRestaurante('${restaurante.id}','${restaurante.nome}')">
+<body onload="setRestaurante(`${restaurante.id}`,`${restaurante.nome}`)">
     <%@ include file = "../layout/menu.jsp" %>
     <div class='corpo-restaurante'>
         <div class='titulo-restaurante'>
@@ -157,8 +157,11 @@
                     </p>
                 </div>
             </div>
-            <button class="btn-1 btn-filanizar-pedido" id="btnFinalizarPedido" onclick="finalizarPedido()">Finalizar
-                Pedido</button>
+            <!-- <button class="btn-1 btn-filanizar-pedido" id="btnFinalizarPedido" onclick="finalizarPedido()">Finalizar
+                Pedido</button> -->
+
+            <a href="restaurante/finalizarPedido.jsp" class="btn-1 btn-filanizar-pedido"
+                id="btnFinalizarPedido">Escolher Método de Pagamento</a>
         </form>
     </div>
     <div class='mensagem-troca-restaurante' id="mensagem-troca-restaurante" style="display: none">
@@ -173,9 +176,9 @@
     </div>
     <script src="assets/js/state.js"></script>
     <script>
-        document.getElementById("btnFinalizarPedido").addEventListener("click", function (event) {
-            event.preventDefault()
-        });
+        // document.getElementById("btnFinalizarPedido").addEventListener("click", function (event) {
+        //     event.preventDefault()
+        // });
         apagarMensagem('mensagemErro');
     </script>
 </body>

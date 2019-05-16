@@ -20,9 +20,10 @@ import persistence.ClienteDAO;
 public class LoginClienteAction implements Action {
 
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response,HttpSession session) throws IOException {
+    public void execute(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws IOException {
         String email = request.getParameter("email");
         String senha = request.getParameter("senha");
+        String urlRedirect = request.getParameter("urlRedirect");
 
         if (email.equals("") || senha.equals("")) {
             response.sendRedirect("index.jsp");
@@ -32,7 +33,11 @@ public class LoginClienteAction implements Action {
                 if (cliente != null) {
                     session.setAttribute("usuario", cliente);
                     session.setAttribute("permissao", cliente.getClass().getSimpleName());
-                    response.sendRedirect("index.jsp");
+                    if (urlRedirect != null) {
+                        response.sendRedirect(urlRedirect);
+                    } else {
+                        response.sendRedirect("index.jsp");
+                    }
                 } else {
                     request.setAttribute("mensagemErro", "Email ou senha inválido");
                     RequestDispatcher view = request.getRequestDispatcher("/auth/loginCliente.jsp");
